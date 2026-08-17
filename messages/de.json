@@ -72,6 +72,7 @@
     "plans": "Pläne",
     "venues": "Locations",
     "enquiries": "Anfragen",
+    "options": "Optionen",
     "members": "Mitglieder"
   },
   "project": {
@@ -396,5 +397,77 @@
     "deletionBody": "Das Löschen eines Gastes, eines Haushalts oder des gesamten Projekts entfernt die entsprechenden Daten dauerhaft — das Löschen eines Projekts entfernt jeden darin enthaltenen Gästedatensatz, ohne dass danach etwas verbleibt.",
     "contactHeading": "Fragen",
     "contactBody": "Bei Fragen zu den in Ihrem Projekt verarbeiteten Daten wenden Sie sich an das Paar, das es erstellt hat — es kontrolliert die gespeicherten Daten und kann sie jederzeit löschen."
+  },
+  "options": {
+    "heading": "Optionen",
+    "createCta": "Option erstellen",
+    "empty": "Noch keine Optionen — erstellen Sie eine aus einem Gästeplan und einer Location.",
+    "create": {
+      "title": "Option erstellen",
+      "planLabel": "Gästeplan",
+      "venueLabel": "Location",
+      "nameLabel": "Name (optional)",
+      "namePlaceholder": "z. B. August-Wochenende",
+      "submit": "Option erstellen",
+      "genericError": "Etwas ist schiefgelaufen — bitte erneut versuchen.",
+      "needsPlanAndVenue": "Sie benötigen mindestens einen Gästeplan und eine Location, bevor Sie eine Option erstellen können."
+    },
+    "detail": {
+      "mixedCurrencyWarning": "Diese Kostenregeln verwenden mehr als eine Währung — die Summe unten addiert nur die reinen Zahlen und ist daher möglicherweise nicht direkt aussagekräftig.",
+      "perGuest": "pro Gast",
+      "perAdult": "pro Erwachsenem",
+      "biggestUnknownIntro": "Die größte Unbekannte in dieser Option ist",
+      "biggestUnknownCta": "In der Anfrage nachfragen",
+      "applyTemplate": "Typische Kosten für diesen Location-Typ anwenden",
+      "eventsHeading": "Ereignisse",
+      "primaryBadge": "primär",
+      "addEvent": "Ereignis hinzufügen",
+      "eventTypeLabels": {
+        "welcome_dinner": "Welcome Dinner",
+        "wedding_day": "Hochzeitstag",
+        "farewell_brunch": "Abschieds-Brunch",
+        "other": "Sonstiges"
+      },
+      "attendanceFullPlan": "Alle im Plan",
+      "attendancePercentage": "% des Plans",
+      "attendanceFixedCount": "Feste Anzahl",
+      "adultsPlaceholder": "Erwachsene",
+      "childrenPlaceholder": "Kinder",
+      "nightsPlaceholder": "Nächte",
+      "roomsPlaceholder": "Zimmer",
+      "hoursPlaceholder": "Stunden",
+      "costLinesHeading": "Kostenaufstellung",
+      "noRules": "Noch keine Kostenpositionen — wenden Sie eine Vorlage an oder fügen Sie unten eine hinzu.",
+      "basisLabels": {
+        "fixed": "Fest",
+        "per_adult": "Pro Erwachsenem",
+        "per_guest": "Pro Gast",
+        "per_child": "Pro Kind",
+        "per_room": "Pro Zimmer",
+        "per_room_night": "Pro Zimmernacht",
+        "per_person_night": "Pro Personennacht",
+        "per_hour": "Pro Stunde",
+        "percent_of_subtotal": "% der Zwischensumme"
+      },
+      "confidenceLabels": {
+        "guess": "Vermutung",
+        "researched": "Recherchiert",
+        "confirmed": "Bestätigt",
+        "contracted": "Vertraglich"
+      },
+      "unevaluableReasons": {
+        "needs_rooms": "Benötigt eine Zimmeranzahl für dieses Ereignis",
+        "needs_nights": "Benötigt eine Nächte-Schätzung für dieses Ereignis",
+        "needs_rooms_and_nights": "Benötigt Zimmer und Nächte für dieses Ereignis",
+        "needs_hours": "Benötigt eine Stunden-Schätzung für dieses Ereignis"
+      },
+      "ruleLabelPlaceholder": "z. B. Catering",
+      "ratePlaceholder": "Satz",
+      "wholeOption": "Ganze Option",
+      "ownerOption": "Nur diese Option",
+      "ownerVenue": "Diese Location (alle Optionen)",
+      "ownerGuestPlan": "Dieser Gästeplan (alle Optionen)",
+      "addRule": "Kostenposition hinzufügen"
+    }
   }
 }

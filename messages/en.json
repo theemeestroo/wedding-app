@@ -72,6 +72,7 @@
     "plans": "Plans",
     "venues": "Venues",
     "enquiries": "Enquiries",
+    "options": "Options",
     "members": "Members"
   },
   "project": {
@@ -396,5 +397,77 @@
     "deletionBody": "Deleting a guest, a household, or the whole project permanently removes the corresponding data — deleting a project removes every guest record in it, with nothing retained afterward.",
     "contactHeading": "Questions",
     "contactBody": "If you have questions about data handled in your project, contact the couple who created it — they control what's stored and can delete it at any time."
+  },
+  "options": {
+    "heading": "Options",
+    "createCta": "Create option",
+    "empty": "No options yet — create one from a guest plan and a venue.",
+    "create": {
+      "title": "Create an option",
+      "planLabel": "Guest plan",
+      "venueLabel": "Venue",
+      "nameLabel": "Name (optional)",
+      "namePlaceholder": "e.g. August weekend",
+      "submit": "Create option",
+      "genericError": "Something went wrong — try again.",
+      "needsPlanAndVenue": "You need at least one guest plan and one venue before creating an option."
+    },
+    "detail": {
+      "mixedCurrencyWarning": "These cost rules use more than one currency — the total below just adds the raw numbers together, so it may not be directly meaningful.",
+      "perGuest": "per guest",
+      "perAdult": "per adult",
+      "biggestUnknownIntro": "The biggest unknown in this option is",
+      "biggestUnknownCta": "Ask about it in the enquiry",
+      "applyTemplate": "Apply typical costs for this venue type",
+      "eventsHeading": "Events",
+      "primaryBadge": "primary",
+      "addEvent": "Add event",
+      "eventTypeLabels": {
+        "welcome_dinner": "Welcome dinner",
+        "wedding_day": "Wedding day",
+        "farewell_brunch": "Farewell brunch",
+        "other": "Other"
+      },
+      "attendanceFullPlan": "Everyone in the plan",
+      "attendancePercentage": "% of the plan",
+      "attendanceFixedCount": "Fixed number",
+      "adultsPlaceholder": "Adults",
+      "childrenPlaceholder": "Children",
+      "nightsPlaceholder": "Nights",
+      "roomsPlaceholder": "Rooms",
+      "hoursPlaceholder": "Hours",
+      "costLinesHeading": "Cost breakdown",
+      "noRules": "No cost lines yet — apply a template or add one below.",
+      "basisLabels": {
+        "fixed": "Fixed",
+        "per_adult": "Per adult",
+        "per_guest": "Per guest",
+        "per_child": "Per child",
+        "per_room": "Per room",
+        "per_room_night": "Per room-night",
+        "per_person_night": "Per person-night",
+        "per_hour": "Per hour",
+        "percent_of_subtotal": "% of subtotal"
+      },
+      "confidenceLabels": {
+        "guess": "Guess",
+        "researched": "Researched",
+        "confirmed": "Confirmed",
+        "contracted": "Contracted"
+      },
+      "unevaluableReasons": {
+        "needs_rooms": "Needs a room count on this event",
+        "needs_nights": "Needs a nights estimate on this event",
+        "needs_rooms_and_nights": "Needs rooms and nights on this event",
+        "needs_hours": "Needs an hours estimate on this event"
+      },
+      "ruleLabelPlaceholder": "e.g. Catering",
+      "ratePlaceholder": "Rate",
+      "wholeOption": "Whole option",
+      "ownerOption": "This option only",
+      "ownerVenue": "This venue (all its options)",
+      "ownerGuestPlan": "This guest plan (all its options)",
+      "addRule": "Add cost line"
+    }
   }
 }

@@ -4,21 +4,14 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { interpolate } from '@/lib/locale'
+import { isHouseholdIncluded, sumHeadcount, type PlanHousehold, type PlanRules } from '@/lib/guest-plan'
 import type { Dictionary } from '@/lib/i18n'
 
-export interface PlanHousehold {
-  id: string
-  name: string
-  tier: string
-  groupLabel: string | null
-  guestCount: number
-}
+export type { PlanHousehold }
 
-export interface Plan {
+export interface Plan extends PlanRules {
   id: string
   name: string
-  includedTiers: string[]
-  includedGroups: string[]
 }
 
 export function PlanCard({
@@ -37,16 +30,12 @@ export function PlanCard({
   const supabase = createClient()
   const [expanded, setExpanded] = useState(false)
 
-  function baseIncluded(h: PlanHousehold): boolean {
-    return plan.includedTiers.includes(h.tier) || (h.groupLabel ? plan.includedGroups.includes(h.groupLabel) : false)
-  }
-
   function isIncluded(h: PlanHousehold): boolean {
-    return exceptions.has(h.id) ? exceptions.get(h.id)! : baseIncluded(h)
+    return isHouseholdIncluded(h, plan, exceptions)
   }
 
   const includedHouseholds = households.filter(isIncluded)
-  const guestCount = includedHouseholds.reduce((sum, h) => sum + h.guestCount, 0)
+  const { total: guestCount } = sumHeadcount(includedHouseholds)
 
   async function toggleException(h: PlanHousehold) {
     const current = isIncluded(h)

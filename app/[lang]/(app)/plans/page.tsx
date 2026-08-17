@@ -33,12 +33,14 @@ export default async function PlansPage({
   const householdIds = (households ?? []).map((h) => h.id)
   const { data: guests } = await supabase
     .from('guests')
-    .select('household_id')
+    .select('household_id, is_child')
     .in('household_id', householdIds.length > 0 ? householdIds : ['00000000-0000-0000-0000-000000000000'])
 
-  const guestCountByHousehold = new Map<string, number>()
+  const adultCountByHousehold = new Map<string, number>()
+  const childCountByHousehold = new Map<string, number>()
   for (const g of guests ?? []) {
-    guestCountByHousehold.set(g.household_id, (guestCountByHousehold.get(g.household_id) ?? 0) + 1)
+    const map = g.is_child ? childCountByHousehold : adultCountByHousehold
+    map.set(g.household_id, (map.get(g.household_id) ?? 0) + 1)
   }
 
   const planHouseholds: PlanHousehold[] = (households ?? []).map((h) => ({
@@ -46,7 +48,8 @@ export default async function PlansPage({
     name: h.name,
     tier: h.tier,
     groupLabel: h.group_label,
-    guestCount: guestCountByHousehold.get(h.id) ?? 0,
+    adultCount: adultCountByHousehold.get(h.id) ?? 0,
+    childCount: childCountByHousehold.get(h.id) ?? 0,
   }))
 
   const planIds = (plans ?? []).map((p) => p.id)

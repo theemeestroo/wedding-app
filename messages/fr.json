@@ -72,6 +72,7 @@
     "plans": "Scénarios",
     "venues": "Lieux",
     "enquiries": "Demandes",
+    "options": "Options",
     "members": "Membres"
   },
   "project": {
@@ -396,5 +397,77 @@
     "deletionBody": "La suppression d'un invité, d'un foyer ou du projet entier supprime définitivement les données correspondantes — la suppression d'un projet supprime chaque fiche d'invité qu'il contient, sans rien conserver ensuite.",
     "contactHeading": "Questions",
     "contactBody": "Pour toute question sur les données traitées dans votre projet, contactez le couple qui l'a créé — il contrôle ce qui est stocké et peut le supprimer à tout moment."
+  },
+  "options": {
+    "heading": "Options",
+    "createCta": "Créer une option",
+    "empty": "Aucune option pour l'instant — créez-en une à partir d'un scénario d'invités et d'un lieu.",
+    "create": {
+      "title": "Créer une option",
+      "planLabel": "Scénario d'invités",
+      "venueLabel": "Lieu",
+      "nameLabel": "Nom (facultatif)",
+      "namePlaceholder": "ex. Week-end d'août",
+      "submit": "Créer l'option",
+      "genericError": "Une erreur est survenue — veuillez réessayer.",
+      "needsPlanAndVenue": "Il vous faut au moins un scénario d'invités et un lieu avant de créer une option."
+    },
+    "detail": {
+      "mixedCurrencyWarning": "Ces règles de coût utilisent plusieurs devises — le total ci-dessous additionne simplement les chiffres bruts et peut donc ne pas être directement significatif.",
+      "perGuest": "par invité",
+      "perAdult": "par adulte",
+      "biggestUnknownIntro": "La plus grande inconnue de cette option est",
+      "biggestUnknownCta": "Demander dans la demande",
+      "applyTemplate": "Appliquer les coûts typiques pour ce type de lieu",
+      "eventsHeading": "Événements",
+      "primaryBadge": "principal",
+      "addEvent": "Ajouter un événement",
+      "eventTypeLabels": {
+        "welcome_dinner": "Dîner de bienvenue",
+        "wedding_day": "Jour du mariage",
+        "farewell_brunch": "Brunch de départ",
+        "other": "Autre"
+      },
+      "attendanceFullPlan": "Tout le monde dans le scénario",
+      "attendancePercentage": "% du scénario",
+      "attendanceFixedCount": "Nombre fixe",
+      "adultsPlaceholder": "Adultes",
+      "childrenPlaceholder": "Enfants",
+      "nightsPlaceholder": "Nuits",
+      "roomsPlaceholder": "Chambres",
+      "hoursPlaceholder": "Heures",
+      "costLinesHeading": "Détail des coûts",
+      "noRules": "Aucune ligne de coût pour l'instant — appliquez un modèle ou ajoutez-en une ci-dessous.",
+      "basisLabels": {
+        "fixed": "Fixe",
+        "per_adult": "Par adulte",
+        "per_guest": "Par invité",
+        "per_child": "Par enfant",
+        "per_room": "Par chambre",
+        "per_room_night": "Par chambre-nuit",
+        "per_person_night": "Par personne-nuit",
+        "per_hour": "Par heure",
+        "percent_of_subtotal": "% du sous-total"
+      },
+      "confidenceLabels": {
+        "guess": "Estimation",
+        "researched": "Recherché",
+        "confirmed": "Confirmé",
+        "contracted": "Contractuel"
+      },
+      "unevaluableReasons": {
+        "needs_rooms": "Nécessite un nombre de chambres pour cet événement",
+        "needs_nights": "Nécessite une estimation du nombre de nuits pour cet événement",
+        "needs_rooms_and_nights": "Nécessite le nombre de chambres et de nuits pour cet événement",
+        "needs_hours": "Nécessite une estimation du nombre d'heures pour cet événement"
+      },
+      "ruleLabelPlaceholder": "ex. Traiteur",
+      "ratePlaceholder": "Taux",
+      "wholeOption": "Option entière",
+      "ownerOption": "Cette option uniquement",
+      "ownerVenue": "Ce lieu (toutes ses options)",
+      "ownerGuestPlan": "Ce scénario d'invités (toutes ses options)",
+      "addRule": "Ajouter une ligne de coût"
+    }
   }
 }

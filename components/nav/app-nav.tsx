@@ -31,6 +31,9 @@ export function AppNav({ lang }: { lang: string }) {
             <Link href={`/${lang}/enquiries`} className="transition-colors hover:text-foreground">
               {d.enquiries}
             </Link>
+            <Link href={`/${lang}/options`} className="transition-colors hover:text-foreground">
+              {d.options}
+            </Link>
             <Link href={`/${lang}/settings/members`} className="transition-colors hover:text-foreground">
               {d.members}
             </Link>
