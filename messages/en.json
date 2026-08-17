@@ -6,6 +6,10 @@
     "saving": "Saving…",
     "delete": "Delete"
   },
+  "home": {
+    "signIn": "Sign in",
+    "getStarted": "Get started"
+  },
   "auth": {
     "login": {
       "title": "Welcome back",

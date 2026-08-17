@@ -6,6 +6,10 @@
     "saving": "Enregistrement…",
     "delete": "Supprimer"
   },
+  "home": {
+    "signIn": "Se connecter",
+    "getStarted": "Commencer"
+  },
   "auth": {
     "login": {
       "title": "Bon retour",

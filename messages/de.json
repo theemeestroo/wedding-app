@@ -6,6 +6,10 @@
     "saving": "Wird gespeichert…",
     "delete": "Löschen"
   },
+  "home": {
+    "signIn": "Anmelden",
+    "getStarted": "Loslegen"
+  },
   "auth": {
     "login": {
       "title": "Willkommen zurück",
