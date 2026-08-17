@@ -68,6 +68,8 @@
   },
   "nav": {
     "dashboard": "Tableau de bord",
+    "guests": "Invités",
+    "plans": "Scénarios",
     "venues": "Lieux",
     "enquiries": "Demandes",
     "members": "Membres"
@@ -110,7 +112,8 @@
       "copied": "Copié",
       "mailtoLink": "Envoyer par e-mail à la place",
       "mailtoSubject": "Rejoignez notre projet de mariage",
-      "inviteAnother": "Inviter quelqu'un d'autre"
+      "inviteAnother": "Inviter quelqu'un d'autre",
+      "projectSettingsLink": "Paramètres du projet"
     }
   },
   "invite": {
@@ -277,5 +280,121 @@
       "mailtoLink": "Envoyer par e-mail à la place",
       "mailtoSubject": "Demande concernant {{venue}}"
     }
+  },
+  "guests": {
+    "heading": "Invités",
+    "originSummary": "Vos invités viennent de {{regions}} région(s) dans {{countries}} pays",
+    "importCta": "Importer un CSV",
+    "empty": "Aucun invité pour l'instant — ajoutez un foyer ci-dessous ou importez un CSV.",
+    "tierLabel": "Niveau",
+    "notice": {
+      "text": "Vous ajoutez les coordonnées de personnes qui n'ont pas donné leur consentement individuellement — cela relève de l'intérêt légitime pour l'organisation du mariage, et ces données sont définitivement supprimées si vous supprimez ce projet.",
+      "learnMore": "En savoir plus"
+    },
+    "addHousehold": {
+      "heading": "Ajouter un foyer",
+      "firstNamePlaceholder": "Prénom",
+      "lastNamePlaceholder": "Nom",
+      "isChildLabel": "Enfant",
+      "cityPlaceholder": "Ville",
+      "countryPlaceholder": "Pays",
+      "groupPlaceholder": "Groupe (ex. famille de la mariée)",
+      "submit": "Ajouter le foyer",
+      "genericError": "Une erreur est survenue — veuillez réessayer."
+    },
+    "household": {
+      "confirmDelete": "Supprimer ce foyer et tous ses membres ?",
+      "childBadge": "Enfant",
+      "firstNamePlaceholder": "Prénom",
+      "lastNamePlaceholder": "Nom",
+      "addGuest": "Ajouter",
+      "unassignedCluster": "Non assigné",
+      "cancelEdit": "Annuler",
+      "editHousehold": "Modifier",
+      "deleteHousehold": "Supprimer le foyer"
+    },
+    "origins": {
+      "heading": "Régions d'origine",
+      "recompute": "Recalculer les origines",
+      "recomputing": "Calcul en cours…",
+      "unassignedHint": "{{count}} foyer(s) pas encore assigné(s) à une région — recalculez pour les regrouper.",
+      "empty": "Aucune région pour l'instant."
+    },
+    "export": {
+      "exportCsv": "Exporter en CSV",
+      "exportJson": "Exporter en JSON"
+    },
+    "import": {
+      "title": "Importer des invités",
+      "uploadHint": "Collez le texte CSV ci-dessous, ou choisissez un fichier.",
+      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,A",
+      "parseButton": "Continuer",
+      "emptyFileError": "Cela ne ressemble pas à un CSV avec une ligne d'en-tête et au moins une ligne de données.",
+      "mappingHint": "Associez chaque colonne à un champ d'invité.",
+      "fieldLabels": {
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "householdName": "Nom du foyer",
+        "city": "Ville",
+        "country": "Pays",
+        "tier": "Niveau",
+        "group": "Groupe",
+        "isChild": "Enfant (oui/non)",
+        "ignore": "Ignorer cette colonne"
+      },
+      "continueButton": "Continuer",
+      "firstNameRequiredError": "Associez une colonne au prénom pour continuer.",
+      "reviewHint": "Les lignes partageant le même nom de famille et la même ville ont été regroupées en un foyer — vérifiez avant d'importer.",
+      "noLocation": "Aucun lieu",
+      "childBadge": "enfant",
+      "confirmImport": "Importer",
+      "geocoding": "Recherche des lieux…",
+      "savingHouseholds": "Enregistrement des foyers…",
+      "importError": "Une erreur est survenue en cours de route — les foyers déjà importés sont conservés, réessayez pour le reste.",
+      "done": "Import terminé.",
+      "backToGuests": "Retour aux invités"
+    }
+  },
+  "plans": {
+    "heading": "Scénarios d'invités",
+    "empty": "Aucun scénario pour l'instant — créez-en un ci-dessous.",
+    "form": {
+      "heading": "Créer un scénario",
+      "namePlaceholder": "ex. Petit",
+      "groupsPlaceholder": "Inclure des groupes (séparés par des virgules, facultatif)",
+      "submit": "Créer le scénario"
+    },
+    "card": {
+      "headcount": "{{guests}} invités · {{households}} foyers",
+      "showDetails": "Afficher les foyers",
+      "hideDetails": "Masquer les foyers",
+      "includedLabel": "Inclus",
+      "confirmDelete": "Supprimer ce scénario ?"
+    }
+  },
+  "settings": {
+    "project": {
+      "heading": "Paramètres du projet",
+      "privacyLink": "Découvrez comment les données des invités sont traitées :",
+      "privacyLinkCta": "Avis de confidentialité"
+    },
+    "deleteProject": {
+      "heading": "Supprimer ce projet",
+      "warning": "Cela supprime définitivement le projet et tout son contenu — lieux, demandes, invités, documents. Cette action est irréversible. Saisissez le nom du projet pour confirmer.",
+      "deleting": "Suppression…",
+      "confirmButton": "Supprimer définitivement le projet"
+    }
+  },
+  "privacy": {
+    "title": "Avis de confidentialité",
+    "intro": "Cette page explique comment Wedding Decision Platform traite les données des invités — les personnes que vous invitez, pas seulement les titulaires du compte.",
+    "whatHeading": "Ce que nous stockons",
+    "whatBody": "Le nom, la ville et le pays de résidence, et si un invité est un enfant, pour toute personne que vous ajoutez en tant qu'invité ou membre d'un foyer — collectés pour que l'application puisse afficher les distances de trajet, la taille des groupes et les coûts des lieux sur l'ensemble de votre liste d'invités.",
+    "whyHeading": "Pourquoi cela est autorisé sans demander l'accord de chaque invité",
+    "whyBody": "Les invités ne créent pas de compte et ne donnent pas leur consentement individuellement. Nous nous appuyons sur l'intérêt légitime : vous organisez un mariage, ces données sont nécessaires à cette fin, et elles ne sont utilisées qu'au sein de votre projet — jamais vendues, jamais partagées automatiquement avec les lieux, ni utilisées à d'autres fins.",
+    "deletionHeading": "Suppression",
+    "deletionBody": "La suppression d'un invité, d'un foyer ou du projet entier supprime définitivement les données correspondantes — la suppression d'un projet supprime chaque fiche d'invité qu'il contient, sans rien conserver ensuite.",
+    "contactHeading": "Questions",
+    "contactBody": "Pour toute question sur les données traitées dans votre projet, contactez le couple qui l'a créé — il contrôle ce qui est stocké et peut le supprimer à tout moment."
   }
 }

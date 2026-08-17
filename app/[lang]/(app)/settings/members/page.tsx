@@ -1,5 +1,7 @@
+import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { getDictionary, hasLocale } from '@/lib/i18n'
+import { localizePath } from '@/lib/locale'
 import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject, getProjectMembers } from '@/lib/project'
 import { InviteForm } from '@/components/projects/invite-form'
@@ -73,6 +75,15 @@ export default async function MembersPage({
             </div>
           )}
         </section>
+      )}
+
+      {project.canManageMembers && (
+        <Link
+          href={localizePath(lang, '/settings/project')}
+          className="inline-block text-sm text-muted-foreground underline-offset-4 hover:underline"
+        >
+          {d.projectSettingsLink}
+        </Link>
       )}
     </div>
   )

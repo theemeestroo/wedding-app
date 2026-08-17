@@ -68,6 +68,8 @@
   },
   "nav": {
     "dashboard": "Dashboard",
+    "guests": "Guests",
+    "plans": "Plans",
     "venues": "Venues",
     "enquiries": "Enquiries",
     "members": "Members"
@@ -110,7 +112,8 @@
       "copied": "Copied",
       "mailtoLink": "Send by email instead",
       "mailtoSubject": "Join our wedding project",
-      "inviteAnother": "Invite someone else"
+      "inviteAnother": "Invite someone else",
+      "projectSettingsLink": "Project settings"
     }
   },
   "invite": {
@@ -277,5 +280,121 @@
       "mailtoLink": "Send by email instead",
       "mailtoSubject": "Enquiry about {{venue}}"
     }
+  },
+  "guests": {
+    "heading": "Guests",
+    "originSummary": "Your guests come from {{regions}} region(s) across {{countries}} countries",
+    "importCta": "Import CSV",
+    "empty": "No guests yet — add a household below or import a CSV.",
+    "tierLabel": "Tier",
+    "notice": {
+      "text": "You're adding contact details for people who haven't been asked to consent themselves — this is handled under legitimate interest for wedding planning purposes, and permanently deleted if you delete this project.",
+      "learnMore": "Learn more"
+    },
+    "addHousehold": {
+      "heading": "Add a household",
+      "firstNamePlaceholder": "First name",
+      "lastNamePlaceholder": "Last name",
+      "isChildLabel": "Child",
+      "cityPlaceholder": "City",
+      "countryPlaceholder": "Country",
+      "groupPlaceholder": "Group (e.g. bride's family)",
+      "submit": "Add household",
+      "genericError": "Something went wrong — try again."
+    },
+    "household": {
+      "confirmDelete": "Delete this household and everyone in it?",
+      "childBadge": "Child",
+      "firstNamePlaceholder": "First name",
+      "lastNamePlaceholder": "Last name",
+      "addGuest": "Add",
+      "unassignedCluster": "Unassigned",
+      "cancelEdit": "Cancel",
+      "editHousehold": "Edit",
+      "deleteHousehold": "Delete household"
+    },
+    "origins": {
+      "heading": "Origin clusters",
+      "recompute": "Recompute origins",
+      "recomputing": "Computing…",
+      "unassignedHint": "{{count}} household(s) not yet assigned to a cluster — recompute to group them.",
+      "empty": "No clusters yet."
+    },
+    "export": {
+      "exportCsv": "Export CSV",
+      "exportJson": "Export JSON"
+    },
+    "import": {
+      "title": "Import guests",
+      "uploadHint": "Paste CSV text below, or choose a file.",
+      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,A",
+      "parseButton": "Continue",
+      "emptyFileError": "That doesn't look like a CSV with a header row and at least one data row.",
+      "mappingHint": "Match each column to a guest field.",
+      "fieldLabels": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "householdName": "Household name",
+        "city": "City",
+        "country": "Country",
+        "tier": "Tier",
+        "group": "Group",
+        "isChild": "Child (yes/no)",
+        "ignore": "Ignore this column"
+      },
+      "continueButton": "Continue",
+      "firstNameRequiredError": "Map a column to First name to continue.",
+      "reviewHint": "Rows with the same surname and city were grouped into a household — review before importing.",
+      "noLocation": "No location",
+      "childBadge": "child",
+      "confirmImport": "Import",
+      "geocoding": "Looking up locations…",
+      "savingHouseholds": "Saving households…",
+      "importError": "Something went wrong partway through — already-imported households are safe, retry for the rest.",
+      "done": "Import complete.",
+      "backToGuests": "Back to guests"
+    }
+  },
+  "plans": {
+    "heading": "Guest plans",
+    "empty": "No plans yet — create one below.",
+    "form": {
+      "heading": "Create a plan",
+      "namePlaceholder": "e.g. Small",
+      "groupsPlaceholder": "Include groups (comma-separated, optional)",
+      "submit": "Create plan"
+    },
+    "card": {
+      "headcount": "{{guests}} guests · {{households}} households",
+      "showDetails": "Show households",
+      "hideDetails": "Hide households",
+      "includedLabel": "Included",
+      "confirmDelete": "Delete this plan?"
+    }
+  },
+  "settings": {
+    "project": {
+      "heading": "Project settings",
+      "privacyLink": "See how guest data is handled:",
+      "privacyLinkCta": "Privacy notice"
+    },
+    "deleteProject": {
+      "heading": "Delete this project",
+      "warning": "This permanently deletes the project and everything in it — venues, enquiries, guests, documents. This can't be undone. Type the project name to confirm.",
+      "deleting": "Deleting…",
+      "confirmButton": "Delete project permanently"
+    }
+  },
+  "privacy": {
+    "title": "Privacy notice",
+    "intro": "This page explains how the Wedding Decision Platform handles guest data — the people you're inviting, not just the account holders.",
+    "whatHeading": "What we store",
+    "whatBody": "Names, home city and country, and whether a guest is a child, for anyone you add as a guest or household member — collected so the app can show travel distance, group sizes and venue costs across your guest list.",
+    "whyHeading": "Why this is allowed without asking each guest",
+    "whyBody": "Guests don't create accounts or consent individually. We rely on legitimate interest: you're planning a wedding, this data is necessary for that, and it's used only inside your project — never sold, shared with venues automatically, or used for anything else.",
+    "deletionHeading": "Deletion",
+    "deletionBody": "Deleting a guest, a household, or the whole project permanently removes the corresponding data — deleting a project removes every guest record in it, with nothing retained afterward.",
+    "contactHeading": "Questions",
+    "contactBody": "If you have questions about data handled in your project, contact the couple who created it — they control what's stored and can delete it at any time."
   }
 }

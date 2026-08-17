@@ -1,0 +1,132 @@
+import Link from 'next/link'
+import { notFound, redirect } from 'next/navigation'
+import { getDictionary, hasLocale } from '@/lib/i18n'
+import { localizePath, interpolate } from '@/lib/locale'
+import { createClient } from '@/lib/supabase/server'
+import { getCurrentProject } from '@/lib/project'
+import { GdprNotice } from '@/components/guests/gdpr-notice'
+import { AddHouseholdForm } from '@/components/guests/add-household-form'
+import { HouseholdCard } from '@/components/guests/household-card'
+import { OriginClusterPanel } from '@/components/guests/origin-cluster-panel'
+import { ExportButtons, type ExportRow } from '@/components/guests/export-buttons'
+
+export const metadata = { title: 'Guests — Wedding Decision Platform' }
+
+export default async function GuestsPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>
+}) {
+  const { lang } = await params
+  if (!hasLocale(lang)) notFound()
+
+  const dict = await getDictionary(lang)
+  const d = dict.guests
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) redirect(`/${lang}/auth/login`)
+
+  const project = await getCurrentProject(supabase, user.id)
+  if (!project) redirect(`/${lang}/projects/new`)
+
+  const [{ data: households }, { data: clusters }] = await Promise.all([
+    supabase
+      .from('households')
+      .select('id, name, home_city, home_country, tier, group_label, origin_cluster_id')
+      .eq('project_id', project.id)
+      .order('created_at', { ascending: true }),
+    supabase.from('origin_clusters').select('id, label').eq('project_id', project.id),
+  ])
+
+  const householdIds = (households ?? []).map((h) => h.id)
+  const { data: guests } = await supabase
+    .from('guests')
+    .select('id, household_id, first_name, last_name, is_child')
+    .in('household_id', householdIds.length > 0 ? householdIds : ['00000000-0000-0000-0000-000000000000'])
+
+  const guestsByHousehold = new Map<string, typeof guests>()
+  for (const g of guests ?? []) {
+    const list = guestsByHousehold.get(g.household_id) ?? []
+    list.push(g)
+    guestsByHousehold.set(g.household_id, list)
+  }
+
+  const clusterOptions = (clusters ?? []).map((c) => ({ id: c.id, label: c.label }))
+  const clustersWithCounts = (clusters ?? []).map((c) => ({
+    id: c.id,
+    label: c.label,
+    householdCount: (households ?? []).filter((h) => h.origin_cluster_id === c.id).length,
+  }))
+  const unassignedCount = (households ?? []).filter((h) => !h.origin_cluster_id).length
+
+  const countries = new Set((households ?? []).map((h) => h.home_country).filter(Boolean))
+  const regionCount = clustersWithCounts.length
+
+  const exportRows: ExportRow[] = (households ?? []).flatMap((h) =>
+    (guestsByHousehold.get(h.id) ?? []).map((g) => ({
+      household: h.name,
+      firstName: g.first_name,
+      lastName: g.last_name ?? '',
+      isChild: g.is_child,
+      city: h.home_city ?? '',
+      country: h.home_country ?? '',
+      tier: h.tier,
+      group: h.group_label ?? '',
+    })),
+  )
+
+  return (
+    <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">{d.heading}</h1>
+          {(households?.length ?? 0) > 0 && (
+            <p className="text-sm text-muted-foreground">
+              {interpolate(d.originSummary, { regions: regionCount, countries: countries.size })}
+            </p>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <ExportButtons dict={dict} rows={exportRows} />
+          <Link
+            href={localizePath(lang, '/guests/import')}
+            className="rounded-lg border bg-background px-3 py-1.5 text-xs font-medium hover:bg-muted"
+          >
+            {d.importCta}
+          </Link>
+        </div>
+      </div>
+
+      <GdprNotice lang={lang} dict={dict} />
+
+      <AddHouseholdForm dict={dict} projectId={project.id} />
+
+      {clustersWithCounts.length > 0 && (
+        <OriginClusterPanel
+          dict={dict}
+          projectId={project.id}
+          clusters={clustersWithCounts}
+          unassignedCount={unassignedCount}
+        />
+      )}
+      {clustersWithCounts.length === 0 && unassignedCount > 0 && (
+        <OriginClusterPanel dict={dict} projectId={project.id} clusters={[]} unassignedCount={unassignedCount} />
+      )}
+
+      <div className="space-y-3">
+        {(households ?? []).map((h) => (
+          <HouseholdCard
+            key={h.id}
+            dict={dict}
+            household={h}
+            guests={guestsByHousehold.get(h.id) ?? []}
+            clusters={clusterOptions}
+          />
+        ))}
+        {(households?.length ?? 0) === 0 && <p className="text-sm text-muted-foreground">{d.empty}</p>}
+      </div>
+    </div>
+  )
+}

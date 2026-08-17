@@ -68,6 +68,8 @@
   },
   "nav": {
     "dashboard": "Übersicht",
+    "guests": "Gäste",
+    "plans": "Pläne",
     "venues": "Locations",
     "enquiries": "Anfragen",
     "members": "Mitglieder"
@@ -110,7 +112,8 @@
       "copied": "Kopiert",
       "mailtoLink": "Stattdessen per E-Mail senden",
       "mailtoSubject": "Tritt unserem Hochzeitsprojekt bei",
-      "inviteAnother": "Jemand anderen einladen"
+      "inviteAnother": "Jemand anderen einladen",
+      "projectSettingsLink": "Projekteinstellungen"
     }
   },
   "invite": {
@@ -277,5 +280,121 @@
       "mailtoLink": "Stattdessen per E-Mail senden",
       "mailtoSubject": "Anfrage zu {{venue}}"
     }
+  },
+  "guests": {
+    "heading": "Gäste",
+    "originSummary": "Ihre Gäste kommen aus {{regions}} Region(en) in {{countries}} Ländern",
+    "importCta": "CSV importieren",
+    "empty": "Noch keine Gäste — fügen Sie unten einen Haushalt hinzu oder importieren Sie eine CSV-Datei.",
+    "tierLabel": "Stufe",
+    "notice": {
+      "text": "Sie erfassen Kontaktdaten von Personen, die nicht selbst um Zustimmung gebeten wurden — dies erfolgt auf Basis eines berechtigten Interesses für die Hochzeitsplanung und wird bei Löschung dieses Projekts dauerhaft entfernt.",
+      "learnMore": "Mehr erfahren"
+    },
+    "addHousehold": {
+      "heading": "Haushalt hinzufügen",
+      "firstNamePlaceholder": "Vorname",
+      "lastNamePlaceholder": "Nachname",
+      "isChildLabel": "Kind",
+      "cityPlaceholder": "Stadt",
+      "countryPlaceholder": "Land",
+      "groupPlaceholder": "Gruppe (z. B. Familie der Braut)",
+      "submit": "Haushalt hinzufügen",
+      "genericError": "Etwas ist schiefgelaufen — bitte erneut versuchen."
+    },
+    "household": {
+      "confirmDelete": "Diesen Haushalt und alle darin löschen?",
+      "childBadge": "Kind",
+      "firstNamePlaceholder": "Vorname",
+      "lastNamePlaceholder": "Nachname",
+      "addGuest": "Hinzufügen",
+      "unassignedCluster": "Nicht zugewiesen",
+      "cancelEdit": "Abbrechen",
+      "editHousehold": "Bearbeiten",
+      "deleteHousehold": "Haushalt löschen"
+    },
+    "origins": {
+      "heading": "Herkunftscluster",
+      "recompute": "Herkunft neu berechnen",
+      "recomputing": "Wird berechnet…",
+      "unassignedHint": "{{count}} Haushalt(e) noch keinem Cluster zugewiesen — neu berechnen, um sie zu gruppieren.",
+      "empty": "Noch keine Cluster."
+    },
+    "export": {
+      "exportCsv": "CSV exportieren",
+      "exportJson": "JSON exportieren"
+    },
+    "import": {
+      "title": "Gäste importieren",
+      "uploadHint": "CSV-Text unten einfügen oder eine Datei auswählen.",
+      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,A",
+      "parseButton": "Weiter",
+      "emptyFileError": "Das sieht nicht nach einer CSV mit Kopfzeile und mindestens einer Datenzeile aus.",
+      "mappingHint": "Ordnen Sie jede Spalte einem Gästefeld zu.",
+      "fieldLabels": {
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "householdName": "Haushaltsname",
+        "city": "Stadt",
+        "country": "Land",
+        "tier": "Stufe",
+        "group": "Gruppe",
+        "isChild": "Kind (ja/nein)",
+        "ignore": "Diese Spalte ignorieren"
+      },
+      "continueButton": "Weiter",
+      "firstNameRequiredError": "Ordnen Sie eine Spalte dem Vornamen zu, um fortzufahren.",
+      "reviewHint": "Zeilen mit gleichem Nachnamen und Stadt wurden zu einem Haushalt gruppiert — bitte vor dem Import prüfen.",
+      "noLocation": "Kein Ort",
+      "childBadge": "Kind",
+      "confirmImport": "Importieren",
+      "geocoding": "Orte werden nachgeschlagen…",
+      "savingHouseholds": "Haushalte werden gespeichert…",
+      "importError": "Etwas ist auf halbem Weg schiefgelaufen — bereits importierte Haushalte sind sicher, für den Rest erneut versuchen.",
+      "done": "Import abgeschlossen.",
+      "backToGuests": "Zurück zu Gästen"
+    }
+  },
+  "plans": {
+    "heading": "Gästepläne",
+    "empty": "Noch keine Pläne — erstellen Sie unten einen.",
+    "form": {
+      "heading": "Plan erstellen",
+      "namePlaceholder": "z. B. Klein",
+      "groupsPlaceholder": "Gruppen einschließen (kommagetrennt, optional)",
+      "submit": "Plan erstellen"
+    },
+    "card": {
+      "headcount": "{{guests}} Gäste · {{households}} Haushalte",
+      "showDetails": "Haushalte anzeigen",
+      "hideDetails": "Haushalte ausblenden",
+      "includedLabel": "Eingeschlossen",
+      "confirmDelete": "Diesen Plan löschen?"
+    }
+  },
+  "settings": {
+    "project": {
+      "heading": "Projekteinstellungen",
+      "privacyLink": "Erfahren Sie, wie Gästedaten behandelt werden:",
+      "privacyLinkCta": "Datenschutzhinweis"
+    },
+    "deleteProject": {
+      "heading": "Dieses Projekt löschen",
+      "warning": "Dies löscht das Projekt und alles darin dauerhaft — Locations, Anfragen, Gäste, Dokumente. Dies kann nicht rückgängig gemacht werden. Geben Sie den Projektnamen zur Bestätigung ein.",
+      "deleting": "Wird gelöscht…",
+      "confirmButton": "Projekt dauerhaft löschen"
+    }
+  },
+  "privacy": {
+    "title": "Datenschutzhinweis",
+    "intro": "Diese Seite erklärt, wie die Wedding Decision Platform mit Gästedaten umgeht — also den Personen, die Sie einladen, nicht nur den Kontoinhabern.",
+    "whatHeading": "Was wir speichern",
+    "whatBody": "Namen, Wohnort und -land sowie ob ein Gast ein Kind ist, für jeden, den Sie als Gast oder Haushaltsmitglied hinzufügen — erfasst, damit die App Reisedistanzen, Gruppengrößen und Location-Kosten über Ihre gesamte Gästeliste anzeigen kann.",
+    "whyHeading": "Warum dies ohne individuelle Zustimmung jedes Gastes zulässig ist",
+    "whyBody": "Gäste erstellen keine Konten und stimmen nicht einzeln zu. Wir stützen uns auf berechtigtes Interesse: Sie planen eine Hochzeit, diese Daten sind dafür notwendig und werden ausschließlich innerhalb Ihres Projekts verwendet — niemals verkauft, automatisch an Locations weitergegeben oder anderweitig genutzt.",
+    "deletionHeading": "Löschung",
+    "deletionBody": "Das Löschen eines Gastes, eines Haushalts oder des gesamten Projekts entfernt die entsprechenden Daten dauerhaft — das Löschen eines Projekts entfernt jeden darin enthaltenen Gästedatensatz, ohne dass danach etwas verbleibt.",
+    "contactHeading": "Fragen",
+    "contactBody": "Bei Fragen zu den in Ihrem Projekt verarbeiteten Daten wenden Sie sich an das Paar, das es erstellt hat — es kontrolliert die gespeicherten Daten und kann sie jederzeit löschen."
   }
 }
