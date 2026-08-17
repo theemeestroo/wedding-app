@@ -9,7 +9,7 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { LOCALES, DEFAULT_LOCALE, hasLocale } from './lib/i18n'
 
 // Routes that require authentication (without locale prefix).
-const PROTECTED_PREFIXES = ['/dashboard', '/projects', '/settings', '/venues']
+const PROTECTED_PREFIXES = ['/dashboard', '/projects', '/settings', '/venues', '/enquiries']
 
 // Auth routes that authenticated users should be redirected away from.
 const AUTH_PREFIXES = ['/auth/login', '/auth/signup', '/auth/reset-password']

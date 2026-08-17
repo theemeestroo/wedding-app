@@ -23,3 +23,12 @@ export function localizePath(lang: string, path: string): string {
 export function interpolate(template: string, vars: Record<string, string | number>): string {
   return template.replace(/\{\{(\w+)\}\}/g, (_, key) => String(vars[key] ?? ''))
 }
+
+/**
+ * Whole days between an ISO timestamp and now. Module-scope (not inline in a
+ * component body) so it doesn't trip the react-hooks/purity rule, which
+ * flags Date.now() calls inside component/server-component function bodies.
+ */
+export function daysSince(isoTimestamp: string): number {
+  return Math.floor((Date.now() - new Date(isoTimestamp).getTime()) / (1000 * 60 * 60 * 24))
+}

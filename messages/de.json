@@ -69,6 +69,7 @@
   "nav": {
     "dashboard": "Übersicht",
     "venues": "Locations",
+    "enquiries": "Anfragen",
     "members": "Mitglieder"
   },
   "project": {
@@ -89,7 +90,11 @@
       "addVenueCta": "Location hinzufügen",
       "venuesHeading": "Locations",
       "venueCount": "{{count}} Location(s) gespeichert",
-      "viewVenues": "Alle Locations ansehen"
+      "viewVenues": "Alle Locations ansehen",
+      "needsAttentionHeading": "Erfordert Aufmerksamkeit",
+      "awaitingReplyCount": "{{count}} Location(s) warten auf Antwort",
+      "followUpsDueCount": "{{count}} Nachfassaktion(en) fällig",
+      "viewEnquiries": "Anfragen ansehen"
     },
     "members": {
       "heading": "Mitglieder",
@@ -169,7 +174,8 @@
       "statusLabel": "Status",
       "statusConsidering": "In Betracht",
       "statusShortlisted": "In der engeren Auswahl",
-      "statusRejected": "Abgelehnt"
+      "statusRejected": "Abgelehnt",
+      "openEnquiry": "Anfrage öffnen"
     },
     "sources": {
       "empty": "Noch keine Quellen — fügen Sie das Angebot hinzu, auf dem Sie diese Location gefunden haben.",
@@ -198,6 +204,78 @@
     },
     "notes": {
       "placeholder": "Alles Wissenswerte zu dieser Location…"
+    }
+  },
+  "enquiries": {
+    "statuses": {
+      "not_contacted": "Nicht kontaktiert",
+      "drafting": "Wird entworfen",
+      "sent": "Gesendet",
+      "awaiting_response": "Antwort ausstehend",
+      "replied": "Geantwortet",
+      "follow_up_required": "Nachfassen erforderlich",
+      "quote_received": "Angebot erhalten",
+      "viewing_booked": "Besichtigung gebucht",
+      "shortlisted": "In der engeren Auswahl",
+      "no_availability": "Keine Verfügbarkeit",
+      "rejected": "Abgelehnt",
+      "booked": "Gebucht"
+    },
+    "list": {
+      "needsAttentionHeading": "Erfordert Aufmerksamkeit",
+      "awaitingReplyFor": "wartet seit {{count}} Tag(en) auf Antwort",
+      "followUpDue": "Nachfassen fällig",
+      "followUpOn": "Nachfassen am {{date}}",
+      "filterAll": "Alle",
+      "empty": "Noch keine Anfragen — fügen Sie eine Location hinzu, um eine zu starten."
+    },
+    "detail": {
+      "heading": "Anfrage",
+      "statusLabel": "Status",
+      "followUpDateLabel": "Nachfass-Datum",
+      "nextActionLabel": "Nächster Schritt",
+      "nextActionPlaceholder": "z. B. Catering-Richtlinie nachfragen"
+    },
+    "timeline": {
+      "heading": "Verlauf",
+      "empty": "Noch keine Ereignisse erfasst.",
+      "notesPlaceholder": "Was ist passiert?",
+      "noDocument": "Kein Dokument",
+      "addEvent": "Ereignis hinzufügen",
+      "eventTypeLabels": {
+        "email": "E-Mail",
+        "call": "Anruf",
+        "whatsapp": "WhatsApp",
+        "viewing": "Besichtigung",
+        "quote": "Angebot",
+        "availability_result": "Verfügbarkeitsergebnis",
+        "note": "Notiz"
+      }
+    },
+    "quotes": {
+      "heading": "Angebote",
+      "empty": "Noch keine Angebote.",
+      "noAmount": "Betrag nicht erfasst",
+      "validUntilOn": "gültig bis {{date}}",
+      "amountPlaceholder": "Betrag",
+      "notesPlaceholder": "Was ist enthalten?",
+      "noDocument": "Kein Dokument",
+      "addQuote": "Angebot hinzufügen"
+    },
+    "message": {
+      "heading": "Nachrichtenentwurf",
+      "intro": "Hallo, wir planen unsere Hochzeit und interessieren uns für {{venue}}. Könnten Sie uns Folgendes mitteilen:",
+      "questions": {
+        "capacity": "Wie hoch ist die maximale Gästekapazität?",
+        "curfew": "Gibt es eine Lärmschutzregelung, und ab welcher Uhrzeit?",
+        "catering_policy": "Wie ist die Catering-Richtlinie — nur hausintern, oder können wir einen eigenen Caterer mitbringen?",
+        "coach_access": "Ist die Location mit einem Bus/Kleinbus für den Gästetransport erreichbar?"
+      },
+      "outro": "Vielen Dank — wir freuen uns auf Ihre Antwort.",
+      "copyMessage": "Nachricht kopieren",
+      "copied": "Kopiert",
+      "mailtoLink": "Stattdessen per E-Mail senden",
+      "mailtoSubject": "Anfrage zu {{venue}}"
     }
   }
 }

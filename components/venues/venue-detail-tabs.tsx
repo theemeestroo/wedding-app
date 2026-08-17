@@ -1,12 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import { localizePath } from '@/lib/locale'
 import type { Dictionary } from '@/lib/i18n'
 import { VenueOverviewTab, type VenueDetail } from './venue-overview-tab'
 import { VenueSourcesTab, type VenueSource } from './venue-sources-tab'
 import { VenueFactsTab, type VenueFact } from './venue-facts-tab'
 import { VenueDocumentsTab, type VenueDocument } from './venue-documents-tab'
 import { VenueNotesTab } from './venue-notes-tab'
+import { EnquiryStatusBadge, type EnquiryStatus } from '@/components/enquiries/enquiry-status-badge'
 
 interface VenueContact {
   id: string
@@ -16,9 +19,16 @@ interface VenueContact {
   role: string | null
 }
 
+interface VenueEnquirySummary {
+  id: string
+  status: EnquiryStatus
+  follow_up_date: string | null
+}
+
 type Tab = 'overview' | 'sources' | 'facts' | 'documents' | 'notes'
 
 export function VenueDetailTabs({
+  lang,
   dict,
   venue,
   sources,
@@ -26,6 +36,7 @@ export function VenueDetailTabs({
   contacts,
   documents,
   projectId,
+  enquiry,
 }: {
   lang: string
   dict: Dictionary
@@ -35,6 +46,7 @@ export function VenueDetailTabs({
   contacts: VenueContact[]
   documents: VenueDocument[]
   projectId: string
+  enquiry: VenueEnquirySummary | null
 }) {
   const d = dict.venues.tabs
   const [tab, setTab] = useState<Tab>('overview')
@@ -49,12 +61,23 @@ export function VenueDetailTabs({
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">{venue.name}</h1>
-        {contacts.length > 0 && (
-          <p className="text-sm text-muted-foreground">
-            {contacts.map((c) => c.name).filter(Boolean).join(', ')}
-          </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">{venue.name}</h1>
+          {contacts.length > 0 && (
+            <p className="text-sm text-muted-foreground">
+              {contacts.map((c) => c.name).filter(Boolean).join(', ')}
+            </p>
+          )}
+        </div>
+        {enquiry && (
+          <Link
+            href={localizePath(lang, `/enquiries/${enquiry.id}`)}
+            className="flex shrink-0 items-center gap-2 rounded-xl border bg-card px-3 py-2 text-sm transition-shadow hover:shadow-md"
+          >
+            <EnquiryStatusBadge dict={dict} status={enquiry.status} />
+            <span className="text-primary underline-offset-4">{dict.venues.overview.openEnquiry}</span>
+          </Link>
         )}
       </div>
 

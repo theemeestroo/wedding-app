@@ -69,6 +69,7 @@
   "nav": {
     "dashboard": "Tableau de bord",
     "venues": "Lieux",
+    "enquiries": "Demandes",
     "members": "Membres"
   },
   "project": {
@@ -89,7 +90,11 @@
       "addVenueCta": "Ajouter un lieu",
       "venuesHeading": "Lieux",
       "venueCount": "{{count}} lieu(x) enregistré(s)",
-      "viewVenues": "Voir tous les lieux"
+      "viewVenues": "Voir tous les lieux",
+      "needsAttentionHeading": "Nécessite votre attention",
+      "awaitingReplyCount": "{{count}} lieu(x) en attente de réponse",
+      "followUpsDueCount": "{{count}} relance(s) à faire",
+      "viewEnquiries": "Voir les demandes"
     },
     "members": {
       "heading": "Membres",
@@ -169,7 +174,8 @@
       "statusLabel": "Statut",
       "statusConsidering": "En considération",
       "statusShortlisted": "Présélectionné",
-      "statusRejected": "Rejeté"
+      "statusRejected": "Rejeté",
+      "openEnquiry": "Ouvrir la demande"
     },
     "sources": {
       "empty": "Aucune source pour l'instant — ajoutez l'annonce sur laquelle vous avez trouvé ce lieu.",
@@ -198,6 +204,78 @@
     },
     "notes": {
       "placeholder": "Tout ce qui vaut la peine d'être noté sur ce lieu…"
+    }
+  },
+  "enquiries": {
+    "statuses": {
+      "not_contacted": "Non contacté",
+      "drafting": "En cours de rédaction",
+      "sent": "Envoyé",
+      "awaiting_response": "En attente de réponse",
+      "replied": "Répondu",
+      "follow_up_required": "Relance nécessaire",
+      "quote_received": "Devis reçu",
+      "viewing_booked": "Visite réservée",
+      "shortlisted": "Présélectionné",
+      "no_availability": "Aucune disponibilité",
+      "rejected": "Rejeté",
+      "booked": "Réservé"
+    },
+    "list": {
+      "needsAttentionHeading": "Nécessite votre attention",
+      "awaitingReplyFor": "en attente de réponse depuis {{count}} jour(s)",
+      "followUpDue": "relance à faire",
+      "followUpOn": "relance le {{date}}",
+      "filterAll": "Toutes",
+      "empty": "Aucune demande pour l'instant — ajoutez un lieu pour en démarrer une."
+    },
+    "detail": {
+      "heading": "Demande",
+      "statusLabel": "Statut",
+      "followUpDateLabel": "Date de relance",
+      "nextActionLabel": "Prochaine étape",
+      "nextActionPlaceholder": "ex. Relancer pour la politique de restauration"
+    },
+    "timeline": {
+      "heading": "Historique",
+      "empty": "Aucun événement enregistré pour l'instant.",
+      "notesPlaceholder": "Que s'est-il passé ?",
+      "noDocument": "Aucun document",
+      "addEvent": "Ajouter un événement",
+      "eventTypeLabels": {
+        "email": "E-mail",
+        "call": "Appel",
+        "whatsapp": "WhatsApp",
+        "viewing": "Visite",
+        "quote": "Devis",
+        "availability_result": "Résultat de disponibilité",
+        "note": "Note"
+      }
+    },
+    "quotes": {
+      "heading": "Devis",
+      "empty": "Aucun devis pour l'instant.",
+      "noAmount": "Montant non renseigné",
+      "validUntilOn": "valable jusqu'au {{date}}",
+      "amountPlaceholder": "Montant",
+      "notesPlaceholder": "Qu'est-ce qui est inclus ?",
+      "noDocument": "Aucun document",
+      "addQuote": "Ajouter un devis"
+    },
+    "message": {
+      "heading": "Brouillon de message",
+      "intro": "Bonjour, nous organisons notre mariage et sommes intéressés par {{venue}}. Pourriez-vous nous indiquer :",
+      "questions": {
+        "capacity": "Quelle est la capacité d'accueil maximale ?",
+        "curfew": "Y a-t-il un couvre-feu sonore, et à quelle heure ?",
+        "catering_policy": "Quelle est la politique de restauration — traiteur interne uniquement, ou pouvons-nous faire appel à notre propre traiteur ?",
+        "coach_access": "Le lieu est-il accessible en autocar/minibus pour le transport des invités ?"
+      },
+      "outro": "Merci — nous attendons votre réponse avec impatience.",
+      "copyMessage": "Copier le message",
+      "copied": "Copié",
+      "mailtoLink": "Envoyer par e-mail à la place",
+      "mailtoSubject": "Demande concernant {{venue}}"
     }
   }
 }

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { getDictionary, hasLocale } from '@/lib/i18n'
-import { localizePath, interpolate } from '@/lib/locale'
+import { localizePath, interpolate, daysSince } from '@/lib/locale'
 import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject, getProjectMembers } from '@/lib/project'
 
@@ -29,6 +29,35 @@ export default async function DashboardPage({
     .from('venues')
     .select('id', { count: 'exact', head: true })
     .eq('project_id', project.id)
+
+  const { data: venueIdRows } = await supabase.from('venues').select('id').eq('project_id', project.id)
+  const venueIds = (venueIdRows ?? []).map((v) => v.id)
+
+  const { data: enquiryRows } = await supabase
+    .from('enquiries')
+    .select('id, status, follow_up_date')
+    .in('venue_id', venueIds.length > 0 ? venueIds : ['00000000-0000-0000-0000-000000000000'])
+
+  const enquiryIds = (enquiryRows ?? []).map((e) => e.id)
+  const { data: eventRows } = await supabase
+    .from('enquiry_events')
+    .select('enquiry_id, occurred_at')
+    .in('enquiry_id', enquiryIds.length > 0 ? enquiryIds : ['00000000-0000-0000-0000-000000000000'])
+    .order('occurred_at', { ascending: false })
+
+  const lastEventByEnquiry = new Map<string, string>()
+  for (const ev of eventRows ?? []) {
+    if (!lastEventByEnquiry.has(ev.enquiry_id)) lastEventByEnquiry.set(ev.enquiry_id, ev.occurred_at)
+  }
+
+  const today = new Date().toISOString().slice(0, 10)
+  const awaitingReplyCount = (enquiryRows ?? []).filter((e) => {
+    if (e.status !== 'sent' && e.status !== 'awaiting_response') return false
+    const lastEvent = lastEventByEnquiry.get(e.id)
+    if (!lastEvent) return false
+    return daysSince(lastEvent) >= 5
+  }).length
+  const followUpsDueCount = (enquiryRows ?? []).filter((e) => e.follow_up_date && e.follow_up_date <= today).length
 
   return (
     <div className="space-y-8">
@@ -58,6 +87,25 @@ export default async function DashboardPage({
           {d.inviteCta}
         </Link>
       </section>
+
+      {(awaitingReplyCount > 0 || followUpsDueCount > 0) && (
+        <section className="rounded-2xl border bg-card p-6">
+          <h2 className="mb-2 text-sm font-medium uppercase tracking-wide text-muted-foreground">
+            {d.needsAttentionHeading}
+          </h2>
+          <p className="text-sm">
+            {awaitingReplyCount > 0 && interpolate(d.awaitingReplyCount, { count: awaitingReplyCount })}
+            {awaitingReplyCount > 0 && followUpsDueCount > 0 && ' · '}
+            {followUpsDueCount > 0 && interpolate(d.followUpsDueCount, { count: followUpsDueCount })}
+          </p>
+          <Link
+            href={localizePath(lang, '/enquiries')}
+            className="mt-4 inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {d.viewEnquiries}
+          </Link>
+        </section>
+      )}
 
       {venueCount && venueCount > 0 ? (
         <section className="rounded-2xl border bg-card p-6">

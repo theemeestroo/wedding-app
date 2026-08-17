@@ -69,6 +69,7 @@
   "nav": {
     "dashboard": "Dashboard",
     "venues": "Venues",
+    "enquiries": "Enquiries",
     "members": "Members"
   },
   "project": {
@@ -89,7 +90,11 @@
       "addVenueCta": "Add a venue",
       "venuesHeading": "Venues",
       "venueCount": "{{count}} venue(s) saved",
-      "viewVenues": "View all venues"
+      "viewVenues": "View all venues",
+      "needsAttentionHeading": "Needs attention",
+      "awaitingReplyCount": "{{count}} venue(s) awaiting reply",
+      "followUpsDueCount": "{{count}} follow-up(s) due",
+      "viewEnquiries": "View enquiries"
     },
     "members": {
       "heading": "Members",
@@ -169,7 +174,8 @@
       "statusLabel": "Status",
       "statusConsidering": "Considering",
       "statusShortlisted": "Shortlisted",
-      "statusRejected": "Rejected"
+      "statusRejected": "Rejected",
+      "openEnquiry": "Open enquiry"
     },
     "sources": {
       "empty": "No sources yet — add the listing you found this venue on.",
@@ -198,6 +204,78 @@
     },
     "notes": {
       "placeholder": "Anything worth remembering about this venue…"
+    }
+  },
+  "enquiries": {
+    "statuses": {
+      "not_contacted": "Not contacted",
+      "drafting": "Drafting",
+      "sent": "Sent",
+      "awaiting_response": "Awaiting response",
+      "replied": "Replied",
+      "follow_up_required": "Follow-up required",
+      "quote_received": "Quote received",
+      "viewing_booked": "Viewing booked",
+      "shortlisted": "Shortlisted",
+      "no_availability": "No availability",
+      "rejected": "Rejected",
+      "booked": "Booked"
+    },
+    "list": {
+      "needsAttentionHeading": "Needs attention",
+      "awaitingReplyFor": "awaiting reply for {{count}} day(s)",
+      "followUpDue": "follow-up due",
+      "followUpOn": "follow-up {{date}}",
+      "filterAll": "All",
+      "empty": "No enquiries yet — add a venue to start one."
+    },
+    "detail": {
+      "heading": "Enquiry",
+      "statusLabel": "Status",
+      "followUpDateLabel": "Follow-up date",
+      "nextActionLabel": "Next action",
+      "nextActionPlaceholder": "e.g. Chase for catering policy"
+    },
+    "timeline": {
+      "heading": "Timeline",
+      "empty": "No events logged yet.",
+      "notesPlaceholder": "What happened?",
+      "noDocument": "No document",
+      "addEvent": "Add event",
+      "eventTypeLabels": {
+        "email": "Email",
+        "call": "Call",
+        "whatsapp": "WhatsApp",
+        "viewing": "Viewing",
+        "quote": "Quote",
+        "availability_result": "Availability result",
+        "note": "Note"
+      }
+    },
+    "quotes": {
+      "heading": "Quotes",
+      "empty": "No quotes yet.",
+      "noAmount": "Amount not recorded",
+      "validUntilOn": "valid until {{date}}",
+      "amountPlaceholder": "Amount",
+      "notesPlaceholder": "What's included?",
+      "noDocument": "No document",
+      "addQuote": "Add quote"
+    },
+    "message": {
+      "heading": "Draft message",
+      "intro": "Hi, we're planning our wedding and are interested in {{venue}}. Could you let us know:",
+      "questions": {
+        "capacity": "What is the maximum guest capacity?",
+        "curfew": "Is there a noise curfew, and what time?",
+        "catering_policy": "What is the catering policy — in-house only, or can we bring our own caterer?",
+        "coach_access": "Is the venue accessible by coach/minibus for guest transport?"
+      },
+      "outro": "Thank you — looking forward to hearing from you.",
+      "copyMessage": "Copy message",
+      "copied": "Copied",
+      "mailtoLink": "Send by email instead",
+      "mailtoSubject": "Enquiry about {{venue}}"
     }
   }
 }
