@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import type { Dictionary } from '@/lib/i18n'
 
@@ -15,7 +14,6 @@ export function SignupForm({
   /** Where to land after confirming — defaults to the dashboard. Used by flows like accept-invite. */
   next?: string
 }) {
-  const router = useRouter()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

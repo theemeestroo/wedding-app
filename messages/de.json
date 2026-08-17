@@ -1,7 +1,10 @@
 {
   "common": {
     "or": "oder",
-    "loading": "Lädt…"
+    "loading": "Lädt…",
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "delete": "Löschen"
   },
   "auth": {
     "login": {
@@ -79,7 +82,10 @@
       "membersHeading": "Mitglieder",
       "inviteCta": "Partner einladen",
       "noVenuesYet": "Noch keine Locations — fügen Sie die erste hinzu, die Sie in Betracht ziehen.",
-      "addVenueCta": "Location hinzufügen"
+      "addVenueCta": "Location hinzufügen",
+      "venuesHeading": "Locations",
+      "venueCount": "{{count}} Location(s) gespeichert",
+      "viewVenues": "Alle Locations ansehen"
     },
     "members": {
       "heading": "Mitglieder",
@@ -112,6 +118,82 @@
         "expired": "Diese Einladung ist abgelaufen.",
         "already_accepted": "Diese Einladung wurde bereits angenommen."
       }
+    }
+  },
+  "venues": {
+    "board": {
+      "empty": "Noch keine Locations — fügen Sie die erste hinzu, die Sie in Betracht ziehen.",
+      "addVenue": "Location hinzufügen",
+      "filterAll": "Alle"
+    },
+    "add": {
+      "title": "Location hinzufügen",
+      "urlLabel": "Link zum Angebot (optional)",
+      "urlPlaceholder": "https://…",
+      "fetchDetails": "Details abrufen",
+      "fetching": "Wird abgerufen…",
+      "ogFailed": "Details konnten nicht abgerufen werden — Sie können dies manuell ausfüllen.",
+      "nameLabel": "Name der Location",
+      "namePlaceholder": "Villa Bellavista",
+      "cityLabel": "Stadt",
+      "countryLabel": "Land",
+      "archetypeLabel": "Typ",
+      "archetypeNone": "Noch unklar",
+      "archetypeBareVilla": "Villa ohne Catering",
+      "archetypeAllInclusive": "All-inclusive-Hochzeitslocation",
+      "archetypeHotel": "Hochzeit im Hotel",
+      "saving": "Wird gespeichert…",
+      "submit": "Location hinzufügen",
+      "genericError": "Etwas ist schiefgelaufen — bitte erneut versuchen."
+    },
+    "tabs": {
+      "overview": "Übersicht",
+      "sources": "Quellen",
+      "facts": "Fakten",
+      "documents": "Dokumente",
+      "notes": "Notizen"
+    },
+    "overview": {
+      "nameLabel": "Name der Location",
+      "cityLabel": "Stadt",
+      "countryLabel": "Land",
+      "archetypeLabel": "Typ",
+      "archetypeNone": "Noch unklar",
+      "archetypeBareVilla": "Villa ohne Catering",
+      "archetypeAllInclusive": "All-inclusive-Hochzeitslocation",
+      "archetypeHotel": "Hochzeit im Hotel",
+      "statusLabel": "Status",
+      "statusConsidering": "In Betracht",
+      "statusShortlisted": "In der engeren Auswahl",
+      "statusRejected": "Abgelehnt"
+    },
+    "sources": {
+      "empty": "Noch keine Quellen — fügen Sie das Angebot hinzu, auf dem Sie diese Location gefunden haben.",
+      "openOriginal": "Original öffnen",
+      "urlPlaceholder": "https://…",
+      "pricePlaceholder": "Angezeigter Preis",
+      "fetching": "Wird abgerufen…",
+      "addSource": "Quelle hinzufügen"
+    },
+    "facts": {
+      "empty": "Noch keine Fakten erfasst.",
+      "keyPlaceholder": "z. B. Kapazität",
+      "valuePlaceholder": "z. B. 80 Gäste",
+      "addFact": "Fakt hinzufügen",
+      "confidenceLabels": {
+        "guess": "Vermutung",
+        "researched": "Recherchiert",
+        "confirmed": "Bestätigt",
+        "contracted": "Vertraglich"
+      }
+    },
+    "documents": {
+      "empty": "Noch keine Dokumente.",
+      "upload": "Dokument hochladen",
+      "uploading": "Wird hochgeladen…"
+    },
+    "notes": {
+      "placeholder": "Alles Wissenswerte zu dieser Location…"
     }
   }
 }

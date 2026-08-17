@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { getDictionary, hasLocale } from '@/lib/i18n'
-import { localizePath } from '@/lib/locale'
+import { localizePath, interpolate } from '@/lib/locale'
 import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject, getProjectMembers } from '@/lib/project'
 
@@ -25,6 +25,10 @@ export default async function DashboardPage({
   if (!project) redirect(`/${lang}/projects/new`)
 
   const members = await getProjectMembers(supabase, project.id)
+  const { count: venueCount } = await supabase
+    .from('venues')
+    .select('id', { count: 'exact', head: true })
+    .eq('project_id', project.id)
 
   return (
     <div className="space-y-8">
@@ -55,15 +59,30 @@ export default async function DashboardPage({
         </Link>
       </section>
 
-      <section className="rounded-2xl border border-dashed bg-card p-6 text-center">
-        <p className="mb-3 text-sm text-muted-foreground">{d.noVenuesYet}</p>
-        <Link
-          href={localizePath(lang, '/venues')}
-          className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
-        >
-          {d.addVenueCta}
-        </Link>
-      </section>
+      {venueCount && venueCount > 0 ? (
+        <section className="rounded-2xl border bg-card p-6">
+          <h2 className="mb-4 text-sm font-medium uppercase tracking-wide text-muted-foreground">
+            {d.venuesHeading}
+          </h2>
+          <p className="text-sm">{interpolate(d.venueCount, { count: venueCount })}</p>
+          <Link
+            href={localizePath(lang, '/venues')}
+            className="mt-4 inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {d.viewVenues}
+          </Link>
+        </section>
+      ) : (
+        <section className="rounded-2xl border border-dashed bg-card p-6 text-center">
+          <p className="mb-3 text-sm text-muted-foreground">{d.noVenuesYet}</p>
+          <Link
+            href={localizePath(lang, '/venues/new')}
+            className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+          >
+            {d.addVenueCta}
+          </Link>
+        </section>
+      )}
     </div>
   )
 }

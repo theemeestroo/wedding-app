@@ -1,7 +1,10 @@
 {
   "common": {
     "or": "or",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "save": "Save",
+    "saving": "Saving…",
+    "delete": "Delete"
   },
   "auth": {
     "login": {
@@ -79,7 +82,10 @@
       "membersHeading": "Members",
       "inviteCta": "Invite your partner",
       "noVenuesYet": "No venues yet — add the first one you're considering.",
-      "addVenueCta": "Add a venue"
+      "addVenueCta": "Add a venue",
+      "venuesHeading": "Venues",
+      "venueCount": "{{count}} venue(s) saved",
+      "viewVenues": "View all venues"
     },
     "members": {
       "heading": "Members",
@@ -112,6 +118,82 @@
         "expired": "This invitation has expired.",
         "already_accepted": "This invitation has already been accepted."
       }
+    }
+  },
+  "venues": {
+    "board": {
+      "empty": "No venues yet — add the first one you're considering.",
+      "addVenue": "Add a venue",
+      "filterAll": "All"
+    },
+    "add": {
+      "title": "Add a venue",
+      "urlLabel": "Listing URL (optional)",
+      "urlPlaceholder": "https://…",
+      "fetchDetails": "Fetch details",
+      "fetching": "Fetching…",
+      "ogFailed": "Couldn't fetch details from that link — you can still fill this in manually.",
+      "nameLabel": "Venue name",
+      "namePlaceholder": "Villa Bellavista",
+      "cityLabel": "City",
+      "countryLabel": "Country",
+      "archetypeLabel": "Type",
+      "archetypeNone": "Not sure yet",
+      "archetypeBareVilla": "Bare villa, external catering",
+      "archetypeAllInclusive": "All-inclusive wedding venue",
+      "archetypeHotel": "Hotel wedding",
+      "saving": "Saving…",
+      "submit": "Add venue",
+      "genericError": "Something went wrong — try again."
+    },
+    "tabs": {
+      "overview": "Overview",
+      "sources": "Sources",
+      "facts": "Facts",
+      "documents": "Documents",
+      "notes": "Notes"
+    },
+    "overview": {
+      "nameLabel": "Venue name",
+      "cityLabel": "City",
+      "countryLabel": "Country",
+      "archetypeLabel": "Type",
+      "archetypeNone": "Not sure yet",
+      "archetypeBareVilla": "Bare villa, external catering",
+      "archetypeAllInclusive": "All-inclusive wedding venue",
+      "archetypeHotel": "Hotel wedding",
+      "statusLabel": "Status",
+      "statusConsidering": "Considering",
+      "statusShortlisted": "Shortlisted",
+      "statusRejected": "Rejected"
+    },
+    "sources": {
+      "empty": "No sources yet — add the listing you found this venue on.",
+      "openOriginal": "Open original",
+      "urlPlaceholder": "https://…",
+      "pricePlaceholder": "Price shown",
+      "fetching": "Fetching…",
+      "addSource": "Add source"
+    },
+    "facts": {
+      "empty": "No facts recorded yet.",
+      "keyPlaceholder": "e.g. capacity",
+      "valuePlaceholder": "e.g. 80 guests",
+      "addFact": "Add fact",
+      "confidenceLabels": {
+        "guess": "Guess",
+        "researched": "Researched",
+        "confirmed": "Confirmed",
+        "contracted": "Contracted"
+      }
+    },
+    "documents": {
+      "empty": "No documents yet.",
+      "upload": "Upload a document",
+      "uploading": "Uploading…"
+    },
+    "notes": {
+      "placeholder": "Anything worth remembering about this venue…"
     }
   }
 }

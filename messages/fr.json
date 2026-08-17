@@ -1,7 +1,10 @@
 {
   "common": {
     "or": "ou",
-    "loading": "Chargement…"
+    "loading": "Chargement…",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "delete": "Supprimer"
   },
   "auth": {
     "login": {
@@ -79,7 +82,10 @@
       "membersHeading": "Membres",
       "inviteCta": "Inviter votre partenaire",
       "noVenuesYet": "Aucun lieu pour l'instant — ajoutez le premier que vous envisagez.",
-      "addVenueCta": "Ajouter un lieu"
+      "addVenueCta": "Ajouter un lieu",
+      "venuesHeading": "Lieux",
+      "venueCount": "{{count}} lieu(x) enregistré(s)",
+      "viewVenues": "Voir tous les lieux"
     },
     "members": {
       "heading": "Membres",
@@ -112,6 +118,82 @@
         "expired": "Cette invitation a expiré.",
         "already_accepted": "Cette invitation a déjà été acceptée."
       }
+    }
+  },
+  "venues": {
+    "board": {
+      "empty": "Aucun lieu pour l'instant — ajoutez le premier que vous envisagez.",
+      "addVenue": "Ajouter un lieu",
+      "filterAll": "Tous"
+    },
+    "add": {
+      "title": "Ajouter un lieu",
+      "urlLabel": "Lien de l'annonce (facultatif)",
+      "urlPlaceholder": "https://…",
+      "fetchDetails": "Récupérer les détails",
+      "fetching": "Récupération…",
+      "ogFailed": "Impossible de récupérer les détails depuis ce lien — vous pouvez les saisir manuellement.",
+      "nameLabel": "Nom du lieu",
+      "namePlaceholder": "Villa Bellavista",
+      "cityLabel": "Ville",
+      "countryLabel": "Pays",
+      "archetypeLabel": "Type",
+      "archetypeNone": "Pas encore sûr",
+      "archetypeBareVilla": "Villa seule, traiteur externe",
+      "archetypeAllInclusive": "Lieu de mariage tout compris",
+      "archetypeHotel": "Mariage à l'hôtel",
+      "saving": "Enregistrement…",
+      "submit": "Ajouter le lieu",
+      "genericError": "Une erreur est survenue — veuillez réessayer."
+    },
+    "tabs": {
+      "overview": "Aperçu",
+      "sources": "Sources",
+      "facts": "Informations",
+      "documents": "Documents",
+      "notes": "Notes"
+    },
+    "overview": {
+      "nameLabel": "Nom du lieu",
+      "cityLabel": "Ville",
+      "countryLabel": "Pays",
+      "archetypeLabel": "Type",
+      "archetypeNone": "Pas encore sûr",
+      "archetypeBareVilla": "Villa seule, traiteur externe",
+      "archetypeAllInclusive": "Lieu de mariage tout compris",
+      "archetypeHotel": "Mariage à l'hôtel",
+      "statusLabel": "Statut",
+      "statusConsidering": "En considération",
+      "statusShortlisted": "Présélectionné",
+      "statusRejected": "Rejeté"
+    },
+    "sources": {
+      "empty": "Aucune source pour l'instant — ajoutez l'annonce sur laquelle vous avez trouvé ce lieu.",
+      "openOriginal": "Ouvrir l'original",
+      "urlPlaceholder": "https://…",
+      "pricePlaceholder": "Prix affiché",
+      "fetching": "Récupération…",
+      "addSource": "Ajouter une source"
+    },
+    "facts": {
+      "empty": "Aucune information enregistrée pour l'instant.",
+      "keyPlaceholder": "ex. capacité",
+      "valuePlaceholder": "ex. 80 invités",
+      "addFact": "Ajouter une information",
+      "confidenceLabels": {
+        "guess": "Estimation",
+        "researched": "Recherché",
+        "confirmed": "Confirmé",
+        "contracted": "Contractuel"
+      }
+    },
+    "documents": {
+      "empty": "Aucun document pour l'instant.",
+      "upload": "Téléverser un document",
+      "uploading": "Téléversement…"
+    },
+    "notes": {
+      "placeholder": "Tout ce qui vaut la peine d'être noté sur ce lieu…"
     }
   }
 }

@@ -6,18 +6,20 @@ Translates [wedding-decision-platform-prd-v0 4.md](wedding-decision-platform-prd
 
 ## 0. Where the repo already is
 
-The scaffold (see `AGENTS.md`) shipped generic infrastructure only — no wedding domain model yet:
+Phase 0 and Phase 1 are built and verified against the live Supabase project (RLS isolation, the invite/accept loop, and venue CRUD + storage all confirmed end-to-end — see the git history for `supabase/migrations/20260817120000_phase0_foundation.sql` and `20260817140000_phase1_venue_board.sql`). `AGENTS.md`'s "Current State" section is the source of truth for what's built; this section stays as a record of the starting point.
 
-| Done | Not done |
+The scaffold that Phase 0 started from shipped generic infrastructure only — no wedding domain model yet:
+
+| Done at scaffold time | Not done at scaffold time |
 |---|---|
 | Supabase auth (login/signup/magic-link/reset/OAuth) | Project creation, invite-your-partner |
-| `[lang]` locale routing (`en`/`de`/`fr`) via `proxy.ts` | RLS on any wedding table (none exist yet) |
+| `[lang]` locale routing (`en`/`de`/`fr`) via `proxy.ts` | RLS on any wedding table (none existed yet) |
 | `lib/supabase/{client,server,admin}.ts`, schema-scoped to `wedding` | Currency setup |
 | `wedding` Postgres schema created + granted | App shell, navigation, empty states |
-| `handle_new_user()` tags this app's signups (`app: 'wedding'`) — no Letly rows created | **`wedding` schema not yet exposed in API** (dashboard → Project Settings → API → Exposed schemas) — nothing below works until this is toggled on |
-| — | **No `supabase/` folder in this repo** — migrations for `wedding.*` tables still need a home here, not in the Letly repo |
+| `handle_new_user()` tags this app's signups (`app: 'wedding'`) — no Letly rows created | `wedding` schema not yet exposed in API — now confirmed on |
+| — | No `supabase/` folder in this repo — now exists, linked to the same project as Letly |
 
-That gap is exactly PRD Phase 0 minus auth. **First real task, before any table exists:** `supabase init` in this repo, `supabase link` to the same project Letly uses (same Supabase project, `wedding` schema — see `letly/supabase-schema-split-plan.md`), and toggle the schema exposure on. From then on, this repo owns every migration that touches `wedding.*`, per that doc's own rule: *a migration in one app's repo must never touch another app's schema.*
+That gap was PRD Phase 0 minus auth, and it's now closed.
 
 ---
 
@@ -96,13 +98,13 @@ Four modeling decisions from PRD §7 that are expensive to retrofit — get them
 
 Each phase follows the PRD's own exit criteria (§16) — a real couple could use the product after each one. Don't start a phase's UI before its migration + RLS policy exist (vertical slices, per the PRD's own sequencing note in §16).
 
-### Phase 0 — Foundation (in progress)
-**Scaffold has**: auth. **Still needed**: `supabase/` folder + link (see §0 above) · `wedding.projects` + `wedding.project_members` + invite-your-partner flow · RLS policy pattern (§2) · currency setup (reuse Letly's `display_currency` pattern from `public.profiles`, scoped per-project instead) · app shell replacing the placeholder dashboard at `app/[lang]/(app)/dashboard/page.tsx` · empty states for a project with nothing in it yet.
-**Exit**: two people on two devices see the same empty project.
+### Phase 0 — Foundation ✅ built
+`wedding.projects`, `wedding.project_members` (accepted members only), `wedding.project_invitations` (pending, separate table — not a status column on `project_members`, unlike this doc's earlier sketch in §2). RLS bootstrap solved with two `security definer` RPCs, `wedding.create_project()` and `wedding.accept_project_invitation()` — see the comment block at the top of `supabase/migrations/20260817120000_phase0_foundation.sql` for why a plain RLS policy can't authorize a project's first member row. Partner invites are copy-a-link (`/auth/accept-invite?token=`), not app-sent email — Letly's Resend integration exists in code but was never actually configured, so this avoids a real infra dependency for no PRD-required reason; matches the PRD's own §12 reasoning against app-sent mail. App shell at `app/[lang]/(app)/layout.tsx` routes members-without-a-project into `app/[lang]/projects/new/` (deliberately outside the `(app)` group — that layout redirects there, so nesting it inside would loop).
+**Exit — met**: verified live against the Supabase project — a second user accepting an invite sees the same project and members list; a non-member is confirmed blocked by RLS, not just by the UI not linking there.
 
-### Phase 1 — Venue Board
-`wedding.venues`, `wedding.venue_sources` (multiple sources per venue, "open original" link), `wedding.venue_contacts`. Add-by-URL using server-side Open Graph fetch (no scraping — Airbnb/Booking.com block and prohibit it). Board view with filters, venue detail page (Overview / Sources / Facts / Documents / Notes tabs).
-**Exit**: replaces the couple's bookmarks + shared Notes file.
+### Phase 1 — Venue Board ✅ built
+`wedding.venues`, `wedding.venue_sources`, `wedding.venue_contacts`, `wedding.venue_facts`, `wedding.venue_documents` + a private `wedding-documents` Storage bucket (path `{project_id}/{venue_id}/{filename}`, RLS via `storage.foldername(name)`). Add-by-URL via `app/api/venues/og/route.ts` (server-side fetch + targeted regex on `og:*` meta tags, no HTML-parsing dependency needed for three tags; basic SSRF guard rejects private/loopback hostnames and non-http(s) schemes). Board with a lightweight `considering`/`shortlisted`/`rejected` status filter (separate from the richer Enquiry pipeline Phase 2 adds), venue detail page with Overview / Sources / Facts / Documents / Notes tabs.
+**Exit — met**: verified live — RLS blocks a non-member from venues, facts, and the storage bucket alike; a real listing URL (tested against Wikipedia) correctly pre-fills title/image via OG capture.
 **Why first** (PRD's own framing): lowest effort, highest immediate payoff — earns the right to ask for the guest list next.
 
 ### Phase 2 — Enquiry CRM
