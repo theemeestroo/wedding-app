@@ -4,6 +4,11 @@
 
 See [wedding-decision-platform-prd-v0 4.md](wedding-decision-platform-prd-v0%204.md) for the full PRD. In short: a collaborative platform that helps couples compare wedding options (guest list → travel feasibility → venue → cost) before committing to one — not a post-decision planning tool.
 
+## Key Documents
+
+- **[wedding-decision-platform-prd-v0 4.md](wedding-decision-platform-prd-v0%204.md)** — product requirements: vision, data model, cost/logistics engines, priorities
+- **[implementation-plan.md](implementation-plan.md)** — engineering phases against this repo: what's built, what's next, key architecture decisions
+
 ## Architecture Rules
 
 - **Shared Supabase project, not a shared app**: this app uses the same Supabase project as Letly (`letly/`, a separate repo), isolated by Postgres schema (`NEXT_PUBLIC_APP_SCHEMA=wedding`). `auth.users` is the one thing genuinely shared — everything else (tables, RLS, workspace/membership model) belongs to this app alone. See `letly/supabase-schema-split-plan.md` in the Letly repo for the full rationale.
