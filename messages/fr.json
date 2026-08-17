@@ -58,5 +58,60 @@
       "loadingUpdate": "Mise à jour…",
       "submitUpdate": "Mettre à jour le mot de passe"
     }
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "venues": "Lieux",
+    "members": "Membres"
+  },
+  "project": {
+    "create": {
+      "title": "Créer votre projet",
+      "subtitle": "Un espace partagé pour planifier avec votre partenaire",
+      "nameLabel": "Nom du projet",
+      "namePlaceholder": "Mariage de Jane & Alex",
+      "currencyLabel": "Devise",
+      "loading": "Création…",
+      "submit": "Créer le projet"
+    },
+    "dashboard": {
+      "currencyLabel": "Devise",
+      "membersHeading": "Membres",
+      "inviteCta": "Inviter votre partenaire",
+      "noVenuesYet": "Aucun lieu pour l'instant — ajoutez le premier que vous envisagez.",
+      "addVenueCta": "Ajouter un lieu"
+    },
+    "members": {
+      "heading": "Membres",
+      "inviteHeading": "Inviter quelqu'un",
+      "pendingHeading": "Invitations en attente",
+      "emailPlaceholder": "partenaire@exemple.com",
+      "rolePartner": "Partenaire",
+      "roleViewer": "Observateur",
+      "inviting": "Invitation en cours…",
+      "inviteSubmit": "Inviter",
+      "linkGenerated": "Invitation créée — partagez ce lien :",
+      "copyLink": "Copier le lien",
+      "copied": "Copié",
+      "mailtoLink": "Envoyer par e-mail à la place",
+      "mailtoSubject": "Rejoignez notre projet de mariage",
+      "inviteAnother": "Inviter quelqu'un d'autre"
+    }
+  },
+  "invite": {
+    "accept": {
+      "title": "Vous avez été invité(e)",
+      "invitedTo": "Vous avez été invité(e) à rejoindre {{project}} en tant que {{role}}.",
+      "signUpToAccept": "S'inscrire pour accepter",
+      "logInToAccept": "Vous avez déjà un compte ? Se connecter",
+      "emailMismatch": "Cette invitation a été envoyée à {{inviteEmail}}, mais vous êtes connecté(e) en tant que {{currentEmail}}.",
+      "acceptButton": "Accepter l'invitation",
+      "backToLogin": "Retour à la connexion",
+      "invalid": {
+        "not_found": "Ce lien d'invitation n'est pas valide.",
+        "expired": "Cette invitation a expiré.",
+        "already_accepted": "Cette invitation a déjà été acceptée."
+      }
+    }
   }
 }

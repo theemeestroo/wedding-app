@@ -12,10 +12,13 @@ export function LoginForm({
   searchParams,
   lang,
   dict,
+  next,
 }: {
   searchParams: Promise<{ error?: string }>
   lang: string
   dict: Dictionary
+  /** Where to land after auth — defaults to the dashboard. Used by flows like accept-invite. */
+  next?: string
 }) {
   const router = useRouter()
   const [mode, setMode] = useState<Mode>('password')
@@ -27,6 +30,7 @@ export function LoginForm({
 
   const d = dict.auth.login
   const supabase = createClient()
+  const destination = next || `/${lang}/dashboard`
 
   async function handlePasswordSignIn(e: React.FormEvent) {
     e.preventDefault()
@@ -37,7 +41,7 @@ export function LoginForm({
     if (error) {
       setError(error.message)
     } else {
-      router.push(`/${lang}/dashboard`)
+      router.push(destination)
       router.refresh()
     }
   }
@@ -49,7 +53,7 @@ export function LoginForm({
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(destination)}`,
       },
     })
     setLoading(false)
@@ -65,7 +69,7 @@ export function LoginForm({
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(destination)}`,
       },
     })
   }

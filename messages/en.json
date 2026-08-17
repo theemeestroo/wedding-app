@@ -58,5 +58,60 @@
       "loadingUpdate": "Updating…",
       "submitUpdate": "Update password"
     }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "venues": "Venues",
+    "members": "Members"
+  },
+  "project": {
+    "create": {
+      "title": "Create your project",
+      "subtitle": "A shared space for you and your partner to plan in",
+      "nameLabel": "Project name",
+      "namePlaceholder": "Jane & Alex's Wedding",
+      "currencyLabel": "Currency",
+      "loading": "Creating…",
+      "submit": "Create project"
+    },
+    "dashboard": {
+      "currencyLabel": "Currency",
+      "membersHeading": "Members",
+      "inviteCta": "Invite your partner",
+      "noVenuesYet": "No venues yet — add the first one you're considering.",
+      "addVenueCta": "Add a venue"
+    },
+    "members": {
+      "heading": "Members",
+      "inviteHeading": "Invite someone",
+      "pendingHeading": "Pending invitations",
+      "emailPlaceholder": "partner@example.com",
+      "rolePartner": "Partner",
+      "roleViewer": "Viewer",
+      "inviting": "Inviting…",
+      "inviteSubmit": "Invite",
+      "linkGenerated": "Invitation created — share this link:",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "mailtoLink": "Send by email instead",
+      "mailtoSubject": "Join our wedding project",
+      "inviteAnother": "Invite someone else"
+    }
+  },
+  "invite": {
+    "accept": {
+      "title": "You've been invited",
+      "invitedTo": "You've been invited to join {{project}} as a {{role}}.",
+      "signUpToAccept": "Sign up to accept",
+      "logInToAccept": "Already have an account? Log in",
+      "emailMismatch": "This invitation was sent to {{inviteEmail}}, but you're logged in as {{currentEmail}}.",
+      "acceptButton": "Accept invitation",
+      "backToLogin": "Back to login",
+      "invalid": {
+        "not_found": "This invitation link isn't valid.",
+        "expired": "This invitation has expired.",
+        "already_accepted": "This invitation has already been accepted."
+      }
+    }
   }
 }

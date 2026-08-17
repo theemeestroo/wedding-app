@@ -10,12 +10,19 @@ export const metadata = { title: 'Sign in — Wedding Decision Platform' }
 export default async function LoginPage({
   params,
   searchParams,
-}: { params: Promise<{ lang: string }>; searchParams: Promise<{ error?: string }> }) {
+}: {
+  params: Promise<{ lang: string }>
+  searchParams: Promise<{ error?: string; next?: string }>
+}) {
   const { lang } = await params
   if (!hasLocale(lang)) notFound()
 
   const dict = await getDictionary(lang)
   const d = dict.auth.login
+  const { next } = await searchParams
+  const signupHref = next
+    ? `${localizePath(lang, '/auth/signup')}?next=${encodeURIComponent(next)}`
+    : localizePath(lang, '/auth/signup')
 
   return (
     <div className="space-y-6">
@@ -24,12 +31,12 @@ export default async function LoginPage({
         <p className="text-sm text-muted-foreground">{d.subtitle}</p>
       </div>
 
-      <LoginForm searchParams={searchParams} lang={lang} dict={dict} />
+      <LoginForm searchParams={searchParams} lang={lang} dict={dict} next={next} />
 
       <p className="text-center text-sm text-muted-foreground">
         {d.noAccount}{' '}
         <Link
-          href={localizePath(lang, '/auth/signup')}
+          href={signupHref}
           className="font-medium text-primary underline-offset-4 hover:underline"
         >
           {d.signUp}

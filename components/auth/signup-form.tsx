@@ -8,9 +8,12 @@ import type { Dictionary } from '@/lib/i18n'
 export function SignupForm({
   lang,
   dict,
+  next,
 }: {
   lang: string
   dict: Dictionary
+  /** Where to land after confirming — defaults to the dashboard. Used by flows like accept-invite. */
+  next?: string
 }) {
   const router = useRouter()
   const [fullName, setFullName] = useState('')
@@ -22,6 +25,7 @@ export function SignupForm({
 
   const d = dict.auth.signup
   const supabase = createClient()
+  const destination = next || `/${lang}/dashboard`
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault()
@@ -41,7 +45,7 @@ export function SignupForm({
         // wedding signup, not a Letly one — see the Letly repo's
         // supabase/migrations/20260817090000_wedding_app_provisioning.sql.
         data: { full_name: fullName, app: 'wedding' },
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(destination)}`,
       },
     })
     setLoading(false)
@@ -58,7 +62,7 @@ export function SignupForm({
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(destination)}`,
       },
     })
   }

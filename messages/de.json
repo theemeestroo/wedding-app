@@ -58,5 +58,60 @@
       "loadingUpdate": "Wird aktualisiert…",
       "submitUpdate": "Passwort aktualisieren"
     }
+  },
+  "nav": {
+    "dashboard": "Übersicht",
+    "venues": "Locations",
+    "members": "Mitglieder"
+  },
+  "project": {
+    "create": {
+      "title": "Projekt erstellen",
+      "subtitle": "Ein gemeinsamer Ort für Sie und Ihren Partner zur Planung",
+      "nameLabel": "Projektname",
+      "namePlaceholder": "Hochzeit von Jane & Alex",
+      "currencyLabel": "Währung",
+      "loading": "Wird erstellt…",
+      "submit": "Projekt erstellen"
+    },
+    "dashboard": {
+      "currencyLabel": "Währung",
+      "membersHeading": "Mitglieder",
+      "inviteCta": "Partner einladen",
+      "noVenuesYet": "Noch keine Locations — fügen Sie die erste hinzu, die Sie in Betracht ziehen.",
+      "addVenueCta": "Location hinzufügen"
+    },
+    "members": {
+      "heading": "Mitglieder",
+      "inviteHeading": "Jemanden einladen",
+      "pendingHeading": "Ausstehende Einladungen",
+      "emailPlaceholder": "partner@beispiel.de",
+      "rolePartner": "Partner",
+      "roleViewer": "Betrachter",
+      "inviting": "Wird eingeladen…",
+      "inviteSubmit": "Einladen",
+      "linkGenerated": "Einladung erstellt — diesen Link teilen:",
+      "copyLink": "Link kopieren",
+      "copied": "Kopiert",
+      "mailtoLink": "Stattdessen per E-Mail senden",
+      "mailtoSubject": "Tritt unserem Hochzeitsprojekt bei",
+      "inviteAnother": "Jemand anderen einladen"
+    }
+  },
+  "invite": {
+    "accept": {
+      "title": "Sie wurden eingeladen",
+      "invitedTo": "Sie wurden eingeladen, {{project}} als {{role}} beizutreten.",
+      "signUpToAccept": "Zum Akzeptieren registrieren",
+      "logInToAccept": "Bereits ein Konto? Anmelden",
+      "emailMismatch": "Diese Einladung wurde an {{inviteEmail}} gesendet, Sie sind aber als {{currentEmail}} angemeldet.",
+      "acceptButton": "Einladung annehmen",
+      "backToLogin": "Zurück zur Anmeldung",
+      "invalid": {
+        "not_found": "Dieser Einladungslink ist ungültig.",
+        "expired": "Diese Einladung ist abgelaufen.",
+        "already_accepted": "Diese Einladung wurde bereits angenommen."
+      }
+    }
   }
 }
