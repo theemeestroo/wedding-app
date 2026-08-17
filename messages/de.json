@@ -1,0 +1,62 @@
+{
+  "common": {
+    "or": "oder",
+    "loading": "Lädt…"
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen zurück",
+      "subtitle": "Melden Sie sich bei Ihrem Konto an",
+      "tabPassword": "Passwort",
+      "tabMagic": "Magic Link",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "sie@beispiel.de",
+      "passwordLabel": "Passwort",
+      "forgotPassword": "Passwort vergessen?",
+      "passwordPlaceholder": "••••••••",
+      "loadingPassword": "Bitte warten…",
+      "loadingMagic": "Bitte warten…",
+      "submitPassword": "Anmelden",
+      "submitMagic": "Magic Link senden",
+      "magicLinkSent": "Bitte prüfen Sie Ihre E-Mails — wir haben Ihnen einen Anmeldelink gesendet.",
+      "continueWithApple": "Mit Apple fortfahren",
+      "continueWithGoogle": "Mit Google fortfahren",
+      "noAccount": "Noch kein Konto?",
+      "signUp": "Registrieren"
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "subtitle": "Beginnen Sie mit der Planung Ihrer Hochzeit",
+      "fullNameLabel": "Vollständiger Name",
+      "fullNamePlaceholder": "Jane Schmidt",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "sie@beispiel.de",
+      "passwordLabel": "Passwort",
+      "passwordPlaceholder": "Mind. 8 Zeichen",
+      "passwordError": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+      "loading": "Konto wird erstellt…",
+      "submit": "Konto erstellen",
+      "confirmationSent": "Bitte prüfen Sie Ihre E-Mails — wir haben Ihnen einen Bestätigungslink gesendet.",
+      "continueWithApple": "Mit Apple fortfahren",
+      "continueWithGoogle": "Mit Google fortfahren",
+      "hasAccount": "Bereits ein Konto?",
+      "signIn": "Anmelden"
+    },
+    "reset": {
+      "title": "Passwort zurücksetzen",
+      "subtitle": "Wir helfen Ihnen, wieder Zugriff zu erhalten",
+      "backToSignIn": "Zurück zur Anmeldung",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "sie@beispiel.de",
+      "loadingRequest": "Wird gesendet…",
+      "submitRequest": "Link zum Zurücksetzen senden",
+      "resetLinkSent": "Bitte prüfen Sie Ihre E-Mails — wir haben Ihnen einen Link zum Zurücksetzen gesendet.",
+      "newPasswordPrompt": "Geben Sie unten Ihr neues Passwort ein.",
+      "newPasswordLabel": "Neues Passwort",
+      "newPasswordPlaceholder": "Mind. 8 Zeichen",
+      "passwordError": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+      "loadingUpdate": "Wird aktualisiert…",
+      "submitUpdate": "Passwort aktualisieren"
+    }
+  }
+}

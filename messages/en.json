@@ -1,0 +1,62 @@
+{
+  "common": {
+    "or": "or",
+    "loading": "Loading…"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "tabPassword": "Password",
+      "tabMagic": "Magic link",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot password?",
+      "passwordPlaceholder": "••••••••",
+      "loadingPassword": "Please wait…",
+      "loadingMagic": "Please wait…",
+      "submitPassword": "Sign in",
+      "submitMagic": "Send magic link",
+      "magicLinkSent": "Check your email — we sent you a sign-in link.",
+      "continueWithApple": "Continue with Apple",
+      "continueWithGoogle": "Continue with Google",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Start planning your wedding",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Jane Smith",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Min. 8 characters",
+      "passwordError": "Password must be at least 8 characters.",
+      "loading": "Creating account…",
+      "submit": "Create account",
+      "confirmationSent": "Check your email — we sent you a confirmation link to activate your account.",
+      "continueWithApple": "Continue with Apple",
+      "continueWithGoogle": "Continue with Google",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in"
+    },
+    "reset": {
+      "title": "Reset your password",
+      "subtitle": "We'll help you get back in",
+      "backToSignIn": "Back to sign in",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "loadingRequest": "Sending…",
+      "submitRequest": "Send reset link",
+      "resetLinkSent": "Check your email — we sent you a password reset link.",
+      "newPasswordPrompt": "Enter your new password below.",
+      "newPasswordLabel": "New password",
+      "newPasswordPlaceholder": "Min. 8 characters",
+      "passwordError": "Password must be at least 8 characters.",
+      "loadingUpdate": "Updating…",
+      "submitUpdate": "Update password"
+    }
+  }
+}

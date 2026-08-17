@@ -1,0 +1,62 @@
+{
+  "common": {
+    "or": "ou",
+    "loading": "Chargement…"
+  },
+  "auth": {
+    "login": {
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous à votre compte",
+      "tabPassword": "Mot de passe",
+      "tabMagic": "Lien magique",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "passwordPlaceholder": "••••••••",
+      "loadingPassword": "Veuillez patienter…",
+      "loadingMagic": "Veuillez patienter…",
+      "submitPassword": "Se connecter",
+      "submitMagic": "Envoyer le lien magique",
+      "magicLinkSent": "Vérifiez vos e-mails — nous vous avons envoyé un lien de connexion.",
+      "continueWithApple": "Continuer avec Apple",
+      "continueWithGoogle": "Continuer avec Google",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "signUp": "S'inscrire"
+    },
+    "signup": {
+      "title": "Créer votre compte",
+      "subtitle": "Commencez à organiser votre mariage",
+      "fullNameLabel": "Nom complet",
+      "fullNamePlaceholder": "Jeanne Dupont",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "8 caractères min.",
+      "passwordError": "Le mot de passe doit contenir au moins 8 caractères.",
+      "loading": "Création du compte…",
+      "submit": "Créer un compte",
+      "confirmationSent": "Vérifiez vos e-mails — nous vous avons envoyé un lien de confirmation pour activer votre compte.",
+      "continueWithApple": "Continuer avec Apple",
+      "continueWithGoogle": "Continuer avec Google",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "signIn": "Se connecter"
+    },
+    "reset": {
+      "title": "Réinitialiser votre mot de passe",
+      "subtitle": "Nous allons vous aider à récupérer l'accès",
+      "backToSignIn": "Retour à la connexion",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "loadingRequest": "Envoi en cours…",
+      "submitRequest": "Envoyer le lien de réinitialisation",
+      "resetLinkSent": "Vérifiez vos e-mails — nous vous avons envoyé un lien de réinitialisation.",
+      "newPasswordPrompt": "Saisissez votre nouveau mot de passe ci-dessous.",
+      "newPasswordLabel": "Nouveau mot de passe",
+      "newPasswordPlaceholder": "8 caractères min.",
+      "passwordError": "Le mot de passe doit contenir au moins 8 caractères.",
+      "loadingUpdate": "Mise à jour…",
+      "submitUpdate": "Mettre à jour le mot de passe"
+    }
+  }
+}
