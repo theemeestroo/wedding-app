@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation'
 import { getDictionary, hasLocale } from '@/lib/i18n'
 import { createClient } from '@/lib/supabase/server'
-import { getCurrentProject } from '@/lib/project'
+import { getCurrentProject, getProjectMembers } from '@/lib/project'
 import { computeIncludedHouseholds, sumHeadcount, type PlanHousehold } from '@/lib/guest-plan'
 import { OptionDetail } from '@/components/options/option-detail'
 
@@ -31,22 +31,25 @@ export default async function OptionDetailPage({
 
   if (!option) notFound()
 
-  const [{ data: plan }, { data: venue }, { data: enquiry }, { data: events }] = await Promise.all([
+  const [{ data: plan }, { data: venue }, { data: enquiry }, { data: events }, { data: clusters }, { data: ratings }, { data: decision }] = await Promise.all([
     supabase.from('guest_plans').select('id, name, included_tiers, included_groups').eq('id', option.guest_plan_id).single(),
-    supabase.from('venues').select('id, name, archetype').eq('id', option.venue_id).single(),
+    supabase.from('venues').select('id, name, archetype, location_city, location_country, latitude, longitude').eq('id', option.venue_id).single(),
     supabase.from('enquiries').select('id').eq('venue_id', option.venue_id).maybeSingle(),
     supabase
       .from('option_events')
       .select('id, event_type, label, event_date, attendance_mode, attendance_percentage, attendance_adults, attendance_children, nights, rooms, hours, is_primary')
       .eq('option_id', id)
       .order('is_primary', { ascending: false }),
+    supabase.from('origin_clusters').select('id, label, centroid_lat, centroid_lng').eq('project_id', project.id),
+    supabase.from('ratings').select('id, profile_id, rating, note').eq('option_id', id),
+    supabase.from('decisions').select('option_id, rationale, decided_at').eq('project_id', project.id).maybeSingle(),
   ])
 
   if (!plan || !venue) notFound()
 
   const { data: households } = await supabase
     .from('households')
-    .select('id, name, tier, group_label')
+    .select('id, name, tier, group_label, origin_cluster_id')
     .eq('project_id', project.id)
 
   const householdIds = (households ?? []).map((h) => h.id)
@@ -89,18 +92,46 @@ export default async function OptionDetailPage({
     .select('id, label, basis, rate, currency, min_guests, max_guests, confidence, event_type, venue_id, guest_plan_id, option_id')
     .or(`venue_id.eq.${option.venue_id},guest_plan_id.eq.${option.guest_plan_id},option_id.eq.${id}`)
 
+  const clusterByHousehold = new Map((households ?? []).map((h) => [h.id, h.origin_cluster_id]))
+  const householdClusterInputs = includedHouseholds.map((h) => ({
+    householdId: h.id,
+    clusterId: clusterByHousehold.get(h.id) ?? null,
+    guestCount: h.adultCount + h.childCount,
+  }))
+
+  const members = await getProjectMembers(supabase, project.id)
+  const memberNames = new Map(
+    members.map((m) => [m.profile?.id, m.profile?.full_name || m.profile?.email || '']),
+  )
+
   return (
     <OptionDetail
       lang={lang}
       dict={dict}
       option={{ id: option.id, name: option.name }}
       plan={{ id: plan.id, name: plan.name }}
-      venue={{ id: venue.id, name: venue.name, archetype: venue.archetype }}
+      venue={{
+        id: venue.id,
+        name: venue.name,
+        archetype: venue.archetype,
+        locationCity: venue.location_city,
+        locationCountry: venue.location_country,
+        latitude: venue.latitude,
+        longitude: venue.longitude,
+      }}
       enquiryId={enquiry?.id ?? null}
       events={events ?? []}
       rules={rules ?? []}
       headcount={headcount}
       currency={project.currency}
+      projectId={project.id}
+      clusters={(clusters ?? []).map((c) => ({ id: c.id, label: c.label, lat: c.centroid_lat, lng: c.centroid_lng }))}
+      householdClusters={householdClusterInputs}
+      ratings={ratings ?? []}
+      memberNames={Object.fromEntries(memberNames)}
+      currentUserId={user.id}
+      decision={decision ?? null}
+      canDecide={project.canManageMembers}
     />
   )
 }

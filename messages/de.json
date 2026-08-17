@@ -73,6 +73,7 @@
     "venues": "Locations",
     "enquiries": "Anfragen",
     "options": "Optionen",
+    "compare": "Vergleichen",
     "members": "Mitglieder"
   },
   "project": {
@@ -467,7 +468,65 @@
       "ownerOption": "Nur diese Option",
       "ownerVenue": "Diese Location (alle Optionen)",
       "ownerGuestPlan": "Dieser Gästeplan (alle Optionen)",
-      "addRule": "Kostenposition hinzufügen"
+      "addRule": "Kostenposition hinzufügen",
+      "logisticsHeading": "Logistik",
+      "logisticsNoLocation": "Fügen Sie dieser Location eine Stadt und ein Land hinzu, um die Reiselogistik zu sehen.",
+      "logisticsNoCoords": "Für diese Location wurden noch keine Reisedaten berechnet.",
+      "computeTravelData": "Reisedaten berechnen",
+      "geocodeError": "Dieser Ort konnte nicht gefunden werden — überprüfen Sie Stadt und Land der Location.",
+      "logisticsNoClusters": "Noch keine Herkunftscluster für Gäste — fügen Sie Haushaltsorte auf der Seite „Gäste“ hinzu.",
+      "totalGuestHours": "Gesamte Gaststunden",
+      "difficultyBandLabels": {
+        "easy": "Einfach",
+        "moderate": "Mäßig",
+        "hard": "Schwierig",
+        "blocked": "Blockiert"
+      },
+      "logisticsNoCentroid": "Keine Standortdaten",
+      "unclusteredGuests": "Gäste ohne Herkunftscluster",
+      "ratingsHeading": "Bewertungen",
+      "ratingLabels": {
+        "love": "Liebe es",
+        "like": "Mag ich",
+        "neutral": "Neutral",
+        "dislike": "Nichts für uns"
+      },
+      "ratingNotePlaceholder": "Was ist Ihnen bei dieser Option am wichtigsten? (optional)",
+      "saveRating": "Bewertung speichern",
+      "updateRating": "Bewertung aktualisieren",
+      "noOtherRatingsYet": "Noch niemand sonst hat diese Option bewertet.",
+      "rateToRevealOthers": "Bewerten Sie diese Option, um die Bewertungen der anderen zu sehen.",
+      "unknownMember": "Ein Projektmitglied",
+      "decidedBadge": "Dies ist die entschiedene Option.",
+      "decidedElsewhere": "Für dieses Projekt wurde bereits eine Entscheidung für eine andere Option festgehalten.",
+      "decisionHeading": "Entscheidung",
+      "rationalePlaceholder": "Warum diese Option? (optional)",
+      "recordDecision": "Diese Entscheidung festhalten"
     }
+  },
+  "compare": {
+    "heading": "Vergleichen",
+    "empty": "Noch keine Optionen — erstellen Sie mindestens zwei Optionen, um sie zu vergleichen.",
+    "needTwo": "Wählen Sie unten mindestens zwei Optionen aus, um sie zu vergleichen.",
+    "pickHeading": "Zu vergleichende Optionen",
+    "table": {
+      "venue": "Location",
+      "guestPlan": "Gästeplan",
+      "totalCost": "Gesamtkosten",
+      "perGuest": "Pro Gast",
+      "guestCount": "Gäste",
+      "guestHours": "Gesamte Gaststunden",
+      "difficulty": "Reiseschwierigkeit",
+      "yourRating": "Ihre Bewertung",
+      "teamRatings": "Bewertungen des Teams"
+    },
+    "notRated": "Nicht bewertet",
+    "noCoordsYet": "Reisedaten noch nicht berechnet",
+    "decidedTag": "Entschieden",
+    "viewOption": "Details ansehen",
+    "mixedCurrencyFootnote": "* Verwendet mehrere Währungen — die Summe ist möglicherweise nicht direkt aussagekräftig.",
+    "breakEvenHeading": "Kosten nach Gästeanzahl",
+    "breakEvenExplainer": "Bei fest gehaltenen Kostenregeln jeder Location wird hier eine synthetische Gästeanzahl durchlaufen, um zu zeigen, wie die Gesamtkosten skalieren — nützlich, um die Gästezahl zu finden, ab der eine Option günstiger wird als eine andere.",
+    "breakEvenGuestsAxis": "Gäste"
   }
 }

@@ -73,6 +73,7 @@
     "venues": "Lieux",
     "enquiries": "Demandes",
     "options": "Options",
+    "compare": "Comparer",
     "members": "Membres"
   },
   "project": {
@@ -467,7 +468,65 @@
       "ownerOption": "Cette option uniquement",
       "ownerVenue": "Ce lieu (toutes ses options)",
       "ownerGuestPlan": "Ce scénario d'invités (toutes ses options)",
-      "addRule": "Ajouter une ligne de coût"
+      "addRule": "Ajouter une ligne de coût",
+      "logisticsHeading": "Logistique",
+      "logisticsNoLocation": "Ajoutez une ville et un pays à ce lieu pour voir la logistique de déplacement.",
+      "logisticsNoCoords": "Les données de déplacement n'ont pas encore été calculées pour ce lieu.",
+      "computeTravelData": "Calculer les données de déplacement",
+      "geocodeError": "Ce lieu est introuvable — vérifiez la ville et le pays du lieu.",
+      "logisticsNoClusters": "Aucun groupe d'origine des invités pour l'instant — ajoutez les lieux des foyers sur la page Invités.",
+      "totalGuestHours": "Total des heures-invité",
+      "difficultyBandLabels": {
+        "easy": "Facile",
+        "moderate": "Modéré",
+        "hard": "Difficile",
+        "blocked": "Bloqué"
+      },
+      "logisticsNoCentroid": "Aucune donnée de localisation",
+      "unclusteredGuests": "Invités sans groupe d'origine",
+      "ratingsHeading": "Évaluations",
+      "ratingLabels": {
+        "love": "On adore",
+        "like": "On aime",
+        "neutral": "Neutre",
+        "dislike": "Pas pour nous"
+      },
+      "ratingNotePlaceholder": "Qu'est-ce qui compte le plus pour vous dans cette option ? (facultatif)",
+      "saveRating": "Enregistrer l'évaluation",
+      "updateRating": "Mettre à jour l'évaluation",
+      "noOtherRatingsYet": "Personne d'autre n'a encore évalué cette option.",
+      "rateToRevealOthers": "Évaluez cette option pour voir les évaluations des autres.",
+      "unknownMember": "Un membre du projet",
+      "decidedBadge": "C'est l'option retenue.",
+      "decidedElsewhere": "Ce projet a déjà enregistré une décision pour une autre option.",
+      "decisionHeading": "Décision",
+      "rationalePlaceholder": "Pourquoi cette option ? (facultatif)",
+      "recordDecision": "Enregistrer cette décision"
     }
+  },
+  "compare": {
+    "heading": "Comparer",
+    "empty": "Aucune option pour l'instant — créez au moins deux options pour les comparer.",
+    "needTwo": "Sélectionnez au moins deux options ci-dessous pour les comparer.",
+    "pickHeading": "Options à comparer",
+    "table": {
+      "venue": "Lieu",
+      "guestPlan": "Scénario d'invités",
+      "totalCost": "Coût total",
+      "perGuest": "Par invité",
+      "guestCount": "Invités",
+      "guestHours": "Total des heures-invité",
+      "difficulty": "Difficulté de déplacement",
+      "yourRating": "Votre évaluation",
+      "teamRatings": "Évaluations de l'équipe"
+    },
+    "notRated": "Non évalué",
+    "noCoordsYet": "Données de déplacement pas encore calculées",
+    "decidedTag": "Retenu",
+    "viewOption": "Voir les détails",
+    "mixedCurrencyFootnote": "* Utilise plusieurs devises — le total peut ne pas être directement significatif.",
+    "breakEvenHeading": "Coût selon le nombre d'invités",
+    "breakEvenExplainer": "En maintenant fixes les règles de coût de chaque lieu, ce graphique fait varier un nombre d'invités synthétique pour montrer l'évolution du coût total — utile pour trouver le nombre d'invités à partir duquel une option devient moins chère qu'une autre.",
+    "breakEvenGuestsAxis": "Invités"
   }
 }

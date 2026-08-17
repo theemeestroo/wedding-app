@@ -73,6 +73,7 @@
     "venues": "Venues",
     "enquiries": "Enquiries",
     "options": "Options",
+    "compare": "Compare",
     "members": "Members"
   },
   "project": {
@@ -467,7 +468,65 @@
       "ownerOption": "This option only",
       "ownerVenue": "This venue (all its options)",
       "ownerGuestPlan": "This guest plan (all its options)",
-      "addRule": "Add cost line"
+      "addRule": "Add cost line",
+      "logisticsHeading": "Logistics",
+      "logisticsNoLocation": "Add a city and country to this venue to see travel logistics.",
+      "logisticsNoCoords": "Travel data hasn't been computed for this venue yet.",
+      "computeTravelData": "Compute travel data",
+      "geocodeError": "Couldn't find that location — check the venue's city and country.",
+      "logisticsNoClusters": "No guest origin clusters yet — add household locations on the Guests page.",
+      "totalGuestHours": "Total guest-hours",
+      "difficultyBandLabels": {
+        "easy": "Easy",
+        "moderate": "Moderate",
+        "hard": "Hard",
+        "blocked": "Blocked"
+      },
+      "logisticsNoCentroid": "No location data",
+      "unclusteredGuests": "Guests without an origin cluster",
+      "ratingsHeading": "Ratings",
+      "ratingLabels": {
+        "love": "Love it",
+        "like": "Like it",
+        "neutral": "Neutral",
+        "dislike": "Not for us"
+      },
+      "ratingNotePlaceholder": "What matters most to you about this option? (optional)",
+      "saveRating": "Save rating",
+      "updateRating": "Update rating",
+      "noOtherRatingsYet": "No one else has rated this option yet.",
+      "rateToRevealOthers": "Rate this option to see everyone else's ratings.",
+      "unknownMember": "A project member",
+      "decidedBadge": "This is the decided option.",
+      "decidedElsewhere": "This project has already recorded a decision for a different option.",
+      "decisionHeading": "Decision",
+      "rationalePlaceholder": "Why this option? (optional)",
+      "recordDecision": "Record this decision"
     }
+  },
+  "compare": {
+    "heading": "Compare",
+    "empty": "No options yet — create at least two options to compare them.",
+    "needTwo": "Select at least two options below to compare them.",
+    "pickHeading": "Options to compare",
+    "table": {
+      "venue": "Venue",
+      "guestPlan": "Guest plan",
+      "totalCost": "Total cost",
+      "perGuest": "Per guest",
+      "guestCount": "Guests",
+      "guestHours": "Total guest-hours",
+      "difficulty": "Travel difficulty",
+      "yourRating": "Your rating",
+      "teamRatings": "Team ratings"
+    },
+    "notRated": "Not rated",
+    "noCoordsYet": "Travel data not computed yet",
+    "decidedTag": "Decided",
+    "viewOption": "View details",
+    "mixedCurrencyFootnote": "* Uses more than one currency — total may not be directly meaningful.",
+    "breakEvenHeading": "Cost by guest count",
+    "breakEvenExplainer": "Holding each venue's cost rules fixed, this sweeps a synthetic guest count to show how total cost scales — useful for finding the headcount where one option becomes cheaper than another.",
+    "breakEvenGuestsAxis": "Guests"
   }
 }
