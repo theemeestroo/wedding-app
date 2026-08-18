@@ -62,10 +62,17 @@ export default async function GuestsPage({
   }
 
   const clusterOptions = (clusters ?? []).map((c) => ({ id: c.id, label: c.label }))
+  const guestCountByCluster = new Map<string, number>()
+  for (const h of households ?? []) {
+    if (!h.origin_cluster_id) continue
+    const current = guestCountByCluster.get(h.origin_cluster_id) ?? 0
+    guestCountByCluster.set(h.origin_cluster_id, current + (guestsByHousehold.get(h.id)?.length ?? 0))
+  }
   const clustersWithCounts = (clusters ?? []).map((c) => ({
     id: c.id,
     label: c.label,
     householdCount: (households ?? []).filter((h) => h.origin_cluster_id === c.id).length,
+    guestCount: guestCountByCluster.get(c.id) ?? 0,
   }))
   const unassignedCount = (households ?? []).filter((h) => !h.origin_cluster_id).length
 

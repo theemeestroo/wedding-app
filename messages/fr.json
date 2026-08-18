@@ -396,6 +396,7 @@
       "recompute": "Recalculer les origines",
       "recomputing": "Calcul en cours…",
       "unassignedHint": "{{count}} foyer(s) pas encore assigné(s) à une région — recalculez pour les regrouper.",
+      "countSummary": "{{households}} foyer(s) · {{guests}} invité(s)",
       "empty": "Aucune région pour l'instant."
     },
     "export": {

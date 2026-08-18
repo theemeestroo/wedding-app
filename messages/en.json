@@ -396,6 +396,7 @@
       "recompute": "Recompute origins",
       "recomputing": "Computing…",
       "unassignedHint": "{{count}} household(s) not yet assigned to a cluster — recompute to group them.",
+      "countSummary": "{{households}} household(s) · {{guests}} guest(s)",
       "empty": "No clusters yet."
     },
     "export": {

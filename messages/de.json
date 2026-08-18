@@ -396,6 +396,7 @@
       "recompute": "Herkunft neu berechnen",
       "recomputing": "Wird berechnet…",
       "unassignedHint": "{{count}} Haushalt(e) noch keinem Cluster zugewiesen — neu berechnen, um sie zu gruppieren.",
+      "countSummary": "{{households}} Haushalt(e) · {{guests}} Gast/Gäste",
       "empty": "Noch keine Cluster."
     },
     "export": {

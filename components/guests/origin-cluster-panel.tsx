@@ -10,6 +10,7 @@ export interface OriginCluster {
   id: string
   label: string
   householdCount: number
+  guestCount: number
 }
 
 export function OriginClusterPanel({
@@ -88,7 +89,9 @@ export function OriginClusterPanel({
                 {c.label}
               </button>
             )}
-            <span className="text-xs text-muted-foreground">{c.householdCount}</span>
+            <span className="shrink-0 text-xs text-muted-foreground">
+              {interpolate(d.countSummary, { households: c.householdCount, guests: c.guestCount })}
+            </span>
           </li>
         ))}
         {clusters.length === 0 && <p className="text-sm text-muted-foreground">{d.empty}</p>}
