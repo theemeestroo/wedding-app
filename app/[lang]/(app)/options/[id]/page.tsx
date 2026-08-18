@@ -43,7 +43,7 @@ export default async function OptionDetailPage({
     { data: arrivalProfiles },
     { data: allocations },
   ] = await Promise.all([
-    supabase.from('guest_plans').select('id, name, included_tiers, included_groups').eq('id', option.guest_plan_id).single(),
+    supabase.from('guest_plans').select('id, name, included_tier_ids, included_groups').eq('id', option.guest_plan_id).single(),
     supabase.from('venues').select('id, name, archetype, location_city, location_country, latitude, longitude').eq('id', option.venue_id).single(),
     supabase.from('enquiries').select('id').eq('venue_id', option.venue_id).maybeSingle(),
     supabase
@@ -66,7 +66,7 @@ export default async function OptionDetailPage({
 
   const { data: households } = await supabase
     .from('households')
-    .select('id, name, tier, group_label, origin_cluster_id')
+    .select('id, name, tier_id, group_label, origin_cluster_id')
     .eq('project_id', project.id)
 
   const householdIds = (households ?? []).map((h) => h.id)
@@ -85,7 +85,7 @@ export default async function OptionDetailPage({
   const planHouseholds: PlanHousehold[] = (households ?? []).map((h) => ({
     id: h.id,
     name: h.name,
-    tier: h.tier,
+    tierId: h.tier_id,
     groupLabel: h.group_label,
     adultCount: adultCountByHousehold.get(h.id) ?? 0,
     childCount: childCountByHousehold.get(h.id) ?? 0,
@@ -99,7 +99,7 @@ export default async function OptionDetailPage({
   const exceptions = new Map((exceptionRows ?? []).map((e) => [e.household_id, e.include]))
   const includedHouseholds = computeIncludedHouseholds(
     planHouseholds,
-    { includedTiers: plan.included_tiers, includedGroups: plan.included_groups },
+    { includedTierIds: plan.included_tier_ids, includedGroups: plan.included_groups },
     exceptions,
   )
   const headcount = sumHeadcount(includedHouseholds)

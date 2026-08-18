@@ -363,6 +363,8 @@
     "importCta": "CSV importieren",
     "empty": "Noch keine Gäste — fügen Sie unten einen Haushalt hinzu oder importieren Sie eine CSV-Datei.",
     "tierLabel": "Stufe",
+    "tierLegend": "Stufen: {{list}}",
+    "manageTiersLink": "Stufen verwalten",
     "notice": {
       "text": "Sie erfassen Kontaktdaten von Personen, die nicht selbst um Zustimmung gebeten wurden — dies erfolgt auf Basis eines berechtigten Interesses für die Hochzeitsplanung und wird bei Löschung dieses Projekts dauerhaft entfernt.",
       "learnMore": "Mehr erfahren"
@@ -403,7 +405,7 @@
     "import": {
       "title": "Gäste importieren",
       "uploadHint": "CSV-Text unten einfügen oder eine Datei auswählen.",
-      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,A",
+      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,Must invite",
       "parseButton": "Weiter",
       "emptyFileError": "Das sieht nicht nach einer CSV mit Kopfzeile und mindestens einer Datenzeile aus.",
       "mappingHint": "Ordnen Sie jede Spalte einem Gästefeld zu.",
@@ -453,6 +455,17 @@
       "heading": "Projekteinstellungen",
       "privacyLink": "Erfahren Sie, wie Gästedaten behandelt werden:",
       "privacyLinkCta": "Datenschutzhinweis"
+    },
+    "tiers": {
+      "heading": "Stufen verwalten",
+      "addPlaceholder": "Name der neuen Stufe",
+      "add": "Stufe hinzufügen",
+      "delete": "Löschen",
+      "confirmDelete": "Diese Stufe löschen? Haushalte, die sie verwenden, werden stufenlos.",
+      "moveUp": "Nach oben verschieben",
+      "moveDown": "Nach unten verschieben",
+      "empty": "Noch keine Stufen — fügen Sie unten eine hinzu.",
+      "noTierOption": "Keine Stufe"
     },
     "deleteProject": {
       "heading": "Dieses Projekt löschen",

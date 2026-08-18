@@ -8,14 +8,14 @@
 export interface PlanHousehold {
   id: string
   name: string
-  tier: string
+  tierId: string | null
   groupLabel: string | null
   adultCount: number
   childCount: number
 }
 
 export interface PlanRules {
-  includedTiers: string[]
+  includedTierIds: string[]
   includedGroups: string[]
 }
 
@@ -26,7 +26,7 @@ export function isHouseholdIncluded(
 ): boolean {
   if (exceptions.has(household.id)) return exceptions.get(household.id)!
   return (
-    plan.includedTiers.includes(household.tier) ||
+    (household.tierId ? plan.includedTierIds.includes(household.tierId) : false) ||
     (household.groupLabel ? plan.includedGroups.includes(household.groupLabel) : false)
   )
 }

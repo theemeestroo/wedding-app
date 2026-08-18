@@ -4,15 +4,18 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import type { Dictionary } from '@/lib/i18n'
-
-const TIERS = ['A', 'B', 'C', 'D'] as const
+import type { TierOption } from '@/components/guests/household-card'
 
 export function AddHouseholdForm({
   dict,
   projectId,
+  tiers,
+  existingGroups,
 }: {
   dict: Dictionary
   projectId: string
+  tiers: TierOption[]
+  existingGroups: string[]
 }) {
   const router = useRouter()
   const d = dict.guests.addHousehold
@@ -23,7 +26,7 @@ export function AddHouseholdForm({
   const [isChild, setIsChild] = useState(false)
   const [city, setCity] = useState('')
   const [country, setCountry] = useState('')
-  const [tier, setTier] = useState<(typeof TIERS)[number]>('B')
+  const [tierId, setTierId] = useState(tiers[0]?.id ?? '')
   const [groupLabel, setGroupLabel] = useState('')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -59,7 +62,7 @@ export function AddHouseholdForm({
         home_country: country || null,
         latitude,
         longitude,
-        tier,
+        tier_id: tierId || null,
         group_label: groupLabel || null,
       })
       .select('id')
@@ -139,13 +142,14 @@ export function AddHouseholdForm({
       </div>
       <div className="grid grid-cols-2 gap-2">
         <select
-          value={tier}
-          onChange={(e) => setTier(e.target.value as (typeof TIERS)[number])}
+          value={tierId}
+          onChange={(e) => setTierId(e.target.value)}
           className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
         >
-          {TIERS.map((t) => (
-            <option key={t} value={t}>
-              {dict.guests.tierLabel} {t}
+          <option value="">{dict.settings.tiers.noTierOption}</option>
+          {tiers.map((t) => (
+            <option key={t.id} value={t.id}>
+              {t.label}
             </option>
           ))}
         </select>
@@ -154,8 +158,14 @@ export function AddHouseholdForm({
           value={groupLabel}
           onChange={(e) => setGroupLabel(e.target.value)}
           placeholder={d.groupPlaceholder}
+          list="group-labels-new"
           className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
         />
+        <datalist id="group-labels-new">
+          {existingGroups.map((g) => (
+            <option key={g} value={g} />
+          ))}
+        </datalist>
       </div>
 
       {error && <p role="alert" className="text-sm text-destructive">{error}</p>}

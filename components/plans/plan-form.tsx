@@ -4,25 +4,32 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import type { Dictionary } from '@/lib/i18n'
+import type { TierOption } from '@/components/guests/household-card'
 
-const TIERS = ['A', 'B', 'C', 'D'] as const
-
-export function PlanForm({ dict, projectId }: { dict: Dictionary; projectId: string }) {
+export function PlanForm({
+  dict,
+  projectId,
+  tiers: tierOptions,
+}: {
+  dict: Dictionary
+  projectId: string
+  tiers: TierOption[]
+}) {
   const router = useRouter()
   const d = dict.plans.form
   const supabase = createClient()
 
   const [name, setName] = useState('')
-  const [tiers, setTiers] = useState<Set<string>>(new Set(['A', 'B']))
+  const [tierIds, setTierIds] = useState<Set<string>>(() => new Set(tierOptions.slice(0, 2).map((t) => t.id)))
   const [groups, setGroups] = useState('')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  function toggleTier(t: string) {
-    setTiers((prev) => {
+  function toggleTier(id: string) {
+    setTierIds((prev) => {
       const next = new Set(prev)
-      if (next.has(t)) next.delete(t)
-      else next.add(t)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
       return next
     })
   }
@@ -35,7 +42,7 @@ export function PlanForm({ dict, projectId }: { dict: Dictionary; projectId: str
     const { error } = await supabase.from('guest_plans').insert({
       project_id: projectId,
       name,
-      included_tiers: Array.from(tiers),
+      included_tier_ids: Array.from(tierIds),
       included_groups: groups
         .split(',')
         .map((g) => g.trim())
@@ -64,10 +71,10 @@ export function PlanForm({ dict, projectId }: { dict: Dictionary; projectId: str
         className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
       />
       <div className="flex flex-wrap gap-3">
-        {TIERS.map((t) => (
-          <label key={t} className="flex items-center gap-1.5 text-sm">
-            <input type="checkbox" checked={tiers.has(t)} onChange={() => toggleTier(t)} />
-            {dict.guests.tierLabel} {t}
+        {tierOptions.map((t) => (
+          <label key={t.id} className="flex items-center gap-1.5 text-sm">
+            <input type="checkbox" checked={tierIds.has(t.id)} onChange={() => toggleTier(t.id)} />
+            {t.label}
           </label>
         ))}
       </div>

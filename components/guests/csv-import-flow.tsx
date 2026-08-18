@@ -6,6 +6,7 @@ import { parseCSV } from '@/lib/csv'
 import { createClient } from '@/lib/supabase/client'
 import { localizePath } from '@/lib/locale'
 import type { Dictionary } from '@/lib/i18n'
+import type { TierOption } from '@/components/guests/household-card'
 
 type FieldKey = 'firstName' | 'lastName' | 'householdName' | 'city' | 'country' | 'tier' | 'group' | 'isChild' | 'ignore'
 
@@ -26,7 +27,7 @@ interface SuggestedHousehold {
   name: string
   city: string
   country: string
-  tier: string
+  tierId: string
   group: string
   members: { firstName: string; lastName: string; isChild: boolean }[]
 }
@@ -37,14 +38,27 @@ function normalize(s: string): string {
   return s.trim().toLowerCase()
 }
 
+// A CSV's own "tier" column can't know this project's custom tier labels, so
+// match the cell text against them case-insensitively and fall back to
+// whichever tier is listed first — the user corrects mismatches per-row in
+// the review step below.
+function matchTierId(cell: string, tiers: TierOption[]): string {
+  const normalized = normalize(cell)
+  const match = normalized && tiers.find((t) => normalize(t.label) === normalized)
+  if (match) return match.id
+  return tiers.find((t) => t.sortOrder === 0)?.id ?? tiers[0]?.id ?? ''
+}
+
 export function CsvImportFlow({
   lang,
   dict,
   projectId,
+  tiers,
 }: {
   lang: string
   dict: Dictionary
   projectId: string
+  tiers: TierOption[]
 }) {
   const router = useRouter()
   const d = dict.guests.import
@@ -106,7 +120,7 @@ export function CsvImportFlow({
       const lastName = lastNameCol >= 0 ? (row[lastNameCol]?.trim() ?? '') : ''
       const city = cityCol >= 0 ? (row[cityCol]?.trim() ?? '') : ''
       const country = countryCol >= 0 ? (row[countryCol]?.trim() ?? '') : ''
-      const tier = tierCol >= 0 ? (row[tierCol]?.trim().toUpperCase() ?? '') : ''
+      const tierCell = tierCol >= 0 ? (row[tierCol]?.trim() ?? '') : ''
       const group = groupCol >= 0 ? (row[groupCol]?.trim() ?? '') : ''
       const isChild = childCol >= 0 ? /^(y|yes|true|1)$/i.test(row[childCol]?.trim() ?? '') : false
       const householdName = householdNameCol >= 0 ? (row[householdNameCol]?.trim() ?? '') : ''
@@ -121,7 +135,7 @@ export function CsvImportFlow({
           name: householdName || (lastName ? `${lastName} household` : firstName),
           city,
           country,
-          tier: ['A', 'B', 'C', 'D'].includes(tier) ? tier : 'B',
+          tierId: matchTierId(tierCell, tiers),
           group,
           members: [{ firstName, lastName, isChild }],
         })
@@ -179,7 +193,7 @@ export function CsvImportFlow({
           home_country: h.country || null,
           latitude: coord?.latitude ?? null,
           longitude: coord?.longitude ?? null,
-          tier: h.tier,
+          tier_id: h.tierId || null,
           group_label: h.group || null,
         })
         .select('id')
@@ -292,13 +306,14 @@ export function CsvImportFlow({
                   className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
                 <select
-                  value={h.tier}
-                  onChange={(e) => updateHousehold(h.key, { tier: e.target.value })}
+                  value={h.tierId}
+                  onChange={(e) => updateHousehold(h.key, { tierId: e.target.value })}
                   className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 >
-                  {['A', 'B', 'C', 'D'].map((t) => (
-                    <option key={t} value={t}>
-                      {dict.guests.tierLabel} {t}
+                  <option value="">{dict.settings.tiers.noTierOption}</option>
+                  {tiers.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.label}
                     </option>
                   ))}
                 </select>

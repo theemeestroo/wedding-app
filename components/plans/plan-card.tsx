@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { interpolate } from '@/lib/locale'
 import { isHouseholdIncluded, sumHeadcount, type PlanHousehold, type PlanRules } from '@/lib/guest-plan'
 import type { Dictionary } from '@/lib/i18n'
+import type { TierOption } from '@/components/guests/household-card'
 
 export type { PlanHousehold }
 
@@ -19,11 +20,13 @@ export function PlanCard({
   plan,
   households,
   exceptions,
+  tiers,
 }: {
   dict: Dictionary
   plan: Plan
   households: PlanHousehold[]
   exceptions: Map<string, boolean>
+  tiers: TierOption[]
 }) {
   const router = useRouter()
   const d = dict.plans.card
@@ -79,21 +82,25 @@ export function PlanCard({
 
       {expanded && (
         <ul className="mt-3 space-y-1.5 border-t pt-3">
-          {households.map((h) => (
-            <li key={h.id} className="flex items-center justify-between text-sm">
-              <span>
-                {h.name}
-                <span className="ml-2 text-xs text-muted-foreground">
-                  {dict.guests.tierLabel} {h.tier}
-                  {h.groupLabel ? ` · ${h.groupLabel}` : ''}
+          {households.map((h) => {
+            const tierLabel = tiers.find((t) => t.id === h.tierId)?.label
+            return (
+              <li key={h.id} className="flex items-center justify-between text-sm">
+                <span>
+                  {h.name}
+                  {(tierLabel || h.groupLabel) && (
+                    <span className="ml-2 text-xs text-muted-foreground">
+                      {[tierLabel, h.groupLabel].filter(Boolean).join(' · ')}
+                    </span>
+                  )}
                 </span>
-              </span>
-              <label className="flex items-center gap-1.5 text-xs">
-                <input type="checkbox" checked={isIncluded(h)} onChange={() => toggleException(h)} />
-                {d.includedLabel}
-              </label>
-            </li>
-          ))}
+                <label className="flex items-center gap-1.5 text-xs">
+                  <input type="checkbox" checked={isIncluded(h)} onChange={() => toggleException(h)} />
+                  {d.includedLabel}
+                </label>
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>

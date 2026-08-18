@@ -31,14 +31,22 @@ export default async function GuestsPage({
   const project = await getCurrentProject(supabase, user.id)
   if (!project) redirect(`/${lang}/projects/new`)
 
-  const [{ data: households }, { data: clusters }] = await Promise.all([
+  const [{ data: households }, { data: clusters }, { data: tierDefinitions }] = await Promise.all([
     supabase
       .from('households')
-      .select('id, name, home_city, home_country, tier, group_label, origin_cluster_id')
+      .select('id, name, home_city, home_country, tier_id, group_label, origin_cluster_id')
       .eq('project_id', project.id)
       .order('created_at', { ascending: true }),
     supabase.from('origin_clusters').select('id, label').eq('project_id', project.id),
+    supabase
+      .from('tier_definitions')
+      .select('id, label, sort_order')
+      .eq('project_id', project.id)
+      .order('sort_order', { ascending: true }),
   ])
+
+  const tiers = (tierDefinitions ?? []).map((t) => ({ id: t.id, label: t.label, sortOrder: t.sort_order }))
+  const tierLabelById = new Map(tiers.map((t) => [t.id, t.label]))
 
   const householdIds = (households ?? []).map((h) => h.id)
   const { data: guests } = await supabase
@@ -63,6 +71,7 @@ export default async function GuestsPage({
 
   const countries = new Set((households ?? []).map((h) => h.home_country).filter(Boolean))
   const regionCount = clustersWithCounts.length
+  const existingGroups = Array.from(new Set((households ?? []).map((h) => h.group_label).filter(Boolean))) as string[]
 
   const exportRows: ExportRow[] = (households ?? []).flatMap((h) =>
     (guestsByHousehold.get(h.id) ?? []).map((g) => ({
@@ -72,7 +81,7 @@ export default async function GuestsPage({
       isChild: g.is_child,
       city: h.home_city ?? '',
       country: h.home_country ?? '',
-      tier: h.tier,
+      tier: (h.tier_id && tierLabelById.get(h.tier_id)) || '',
       group: h.group_label ?? '',
     })),
   )
@@ -99,9 +108,18 @@ export default async function GuestsPage({
         </div>
       </div>
 
+      {tiers.length > 0 && (
+        <p className="text-xs text-muted-foreground">
+          {interpolate(d.tierLegend, { list: tiers.map((t) => t.label).join(' → ') })}{' '}
+          <Link href={localizePath(lang, '/settings/tiers')} className="text-primary underline-offset-4 hover:underline">
+            {d.manageTiersLink}
+          </Link>
+        </p>
+      )}
+
       <GdprNotice lang={lang} dict={dict} />
 
-      <AddHouseholdForm dict={dict} projectId={project.id} />
+      <AddHouseholdForm dict={dict} projectId={project.id} tiers={tiers} existingGroups={existingGroups} />
 
       {clustersWithCounts.length > 0 && (
         <OriginClusterPanel
@@ -123,6 +141,8 @@ export default async function GuestsPage({
             household={h}
             guests={guestsByHousehold.get(h.id) ?? []}
             clusters={clusterOptions}
+            tiers={tiers}
+            existingGroups={existingGroups}
           />
         ))}
         {(households?.length ?? 0) === 0 && <p className="text-sm text-muted-foreground">{d.empty}</p>}

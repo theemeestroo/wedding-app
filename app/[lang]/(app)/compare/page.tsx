@@ -34,7 +34,7 @@ export default async function ComparePage({
   const { data: options } = await supabase
     .from('options')
     .select(
-      'id, name, guest_plan_id, venue_id, guest_plans(id, name, included_tiers, included_groups), venues(id, name, archetype, latitude, longitude)',
+      'id, name, guest_plan_id, venue_id, guest_plans(id, name, included_tier_ids, included_groups), venues(id, name, archetype, latitude, longitude)',
     )
     .eq('project_id', project.id)
     .order('created_at', { ascending: true })
@@ -61,7 +61,7 @@ export default async function ComparePage({
     { data: ratings },
     { data: decision },
   ] = await Promise.all([
-    supabase.from('households').select('id, name, tier, group_label, origin_cluster_id').eq('project_id', project.id),
+    supabase.from('households').select('id, name, tier_id, group_label, origin_cluster_id').eq('project_id', project.id),
     supabase.from('guest_plan_exceptions').select('guest_plan_id, household_id, include').in('guest_plan_id', guestPlanIds),
     supabase
       .from('cost_rules')
@@ -92,7 +92,7 @@ export default async function ComparePage({
   const planHouseholds: PlanHousehold[] = (households ?? []).map((h) => ({
     id: h.id,
     name: h.name,
-    tier: h.tier,
+    tierId: h.tier_id,
     groupLabel: h.group_label,
     adultCount: adultCountByHousehold.get(h.id) ?? 0,
     childCount: childCountByHousehold.get(h.id) ?? 0,
@@ -121,7 +121,7 @@ export default async function ComparePage({
 
     const exceptions = exceptionsByPlan.get(o.guest_plan_id) ?? new Map()
     const includedHouseholds = plan
-      ? computeIncludedHouseholds(planHouseholds, { includedTiers: plan.included_tiers, includedGroups: plan.included_groups }, exceptions)
+      ? computeIncludedHouseholds(planHouseholds, { includedTierIds: plan.included_tier_ids, includedGroups: plan.included_groups }, exceptions)
       : []
     const headcount = sumHeadcount(includedHouseholds)
 

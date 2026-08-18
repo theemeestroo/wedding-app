@@ -363,6 +363,8 @@
     "importCta": "Importer un CSV",
     "empty": "Aucun invité pour l'instant — ajoutez un foyer ci-dessous ou importez un CSV.",
     "tierLabel": "Niveau",
+    "tierLegend": "Niveaux : {{list}}",
+    "manageTiersLink": "Gérer les niveaux",
     "notice": {
       "text": "Vous ajoutez les coordonnées de personnes qui n'ont pas donné leur consentement individuellement — cela relève de l'intérêt légitime pour l'organisation du mariage, et ces données sont définitivement supprimées si vous supprimez ce projet.",
       "learnMore": "En savoir plus"
@@ -403,7 +405,7 @@
     "import": {
       "title": "Importer des invités",
       "uploadHint": "Collez le texte CSV ci-dessous, ou choisissez un fichier.",
-      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,A",
+      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,Must invite",
       "parseButton": "Continuer",
       "emptyFileError": "Cela ne ressemble pas à un CSV avec une ligne d'en-tête et au moins une ligne de données.",
       "mappingHint": "Associez chaque colonne à un champ d'invité.",
@@ -453,6 +455,17 @@
       "heading": "Paramètres du projet",
       "privacyLink": "Découvrez comment les données des invités sont traitées :",
       "privacyLinkCta": "Avis de confidentialité"
+    },
+    "tiers": {
+      "heading": "Gérer les niveaux",
+      "addPlaceholder": "Nom du nouveau niveau",
+      "add": "Ajouter un niveau",
+      "delete": "Supprimer",
+      "confirmDelete": "Supprimer ce niveau ? Les foyers qui l'utilisent n'auront plus de niveau.",
+      "moveUp": "Monter",
+      "moveDown": "Descendre",
+      "empty": "Aucun niveau pour l'instant — ajoutez-en un ci-dessous.",
+      "noTierOption": "Aucun niveau"
     },
     "deleteProject": {
       "heading": "Supprimer ce projet",

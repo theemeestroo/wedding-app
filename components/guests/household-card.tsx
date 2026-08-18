@@ -5,15 +5,20 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import type { Dictionary } from '@/lib/i18n'
 
-const TIERS = ['A', 'B', 'C', 'D'] as const
+// Graduated visual weight by tier position — the first-defined tier reads
+// heaviest, the last lightest — so the list telegraphs priority at a glance,
+// not just on hover. Works for any number of user-defined tiers, not a fixed
+// four, by bucketing relative sort position across the same 4 intensity steps.
+const TIER_BADGE_STEPS = [
+  'border-primary bg-primary text-primary-foreground',
+  'border-primary/50 bg-primary/15 text-primary',
+  'border-primary/30 bg-primary/5 text-primary/80',
+  'border-border bg-muted text-muted-foreground',
+]
 
-// Graduated visual weight by tier — A reads heaviest (closest circle), D
-// lightest — so the list telegraphs priority at a glance, not just on hover.
-const TIER_STYLES: Record<(typeof TIERS)[number], string> = {
-  A: 'border-primary bg-primary text-primary-foreground',
-  B: 'border-primary/50 bg-primary/15 text-primary',
-  C: 'border-primary/30 bg-primary/5 text-primary/80',
-  D: 'border-border bg-muted text-muted-foreground',
+function tierBadgeStyle(sortOrder: number, tierCount: number) {
+  const step = Math.round((sortOrder / Math.max(tierCount - 1, 1)) * (TIER_BADGE_STEPS.length - 1))
+  return TIER_BADGE_STEPS[Math.min(step, TIER_BADGE_STEPS.length - 1)]
 }
 
 export interface HouseholdGuest {
@@ -28,7 +33,7 @@ export interface Household {
   name: string
   home_city: string | null
   home_country: string | null
-  tier: (typeof TIERS)[number]
+  tier_id: string | null
   group_label: string | null
   origin_cluster_id: string | null
 }
@@ -38,16 +43,26 @@ export interface ClusterOption {
   label: string
 }
 
+export interface TierOption {
+  id: string
+  label: string
+  sortOrder: number
+}
+
 export function HouseholdCard({
   dict,
   household,
   guests,
   clusters,
+  tiers,
+  existingGroups,
 }: {
   dict: Dictionary
   household: Household
   guests: HouseholdGuest[]
   clusters: ClusterOption[]
+  tiers: TierOption[]
+  existingGroups: string[]
 }) {
   const router = useRouter()
   const d = dict.guests.household
@@ -56,7 +71,7 @@ export function HouseholdCard({
   const [editing, setEditing] = useState(false)
   const [city, setCity] = useState(household.home_city ?? '')
   const [country, setCountry] = useState(household.home_country ?? '')
-  const [tier, setTier] = useState(household.tier)
+  const [tierId, setTierId] = useState(household.tier_id ?? '')
   const [groupLabel, setGroupLabel] = useState(household.group_label ?? '')
   const [saving, setSaving] = useState(false)
 
@@ -90,7 +105,7 @@ export function HouseholdCard({
       .update({
         home_city: city || null,
         home_country: country || null,
-        tier,
+        tier_id: tierId || null,
         group_label: groupLabel || null,
         ...(cityChanged ? { latitude, longitude } : {}),
       })
@@ -135,18 +150,23 @@ export function HouseholdCard({
     router.refresh()
   }
 
+  const tier = tiers.find((t) => t.id === household.tier_id) ?? null
+
   return (
     <div className="rounded-2xl border bg-card p-6">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3.5">
-          <span
-            title={`${dict.guests.tierLabel} ${household.tier}`}
-            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border font-heading text-sm italic ${TIER_STYLES[household.tier]}`}
-          >
-            {household.tier}
-          </span>
           <div>
-            <h3 className="font-heading text-lg italic tracking-tight">{household.name}</h3>
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="font-heading text-lg italic tracking-tight">{household.name}</h3>
+              {tier && (
+                <span
+                  className={`shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide ${tierBadgeStyle(tier.sortOrder, tiers.length)}`}
+                >
+                  {tier.label}
+                </span>
+              )}
+            </div>
             <p className="text-sm text-muted-foreground">
               {[household.home_city, household.home_country].filter(Boolean).join(', ')}
             </p>
@@ -248,13 +268,14 @@ export function HouseholdCard({
           </div>
           <div className="grid grid-cols-2 gap-2">
             <select
-              value={tier}
-              onChange={(e) => setTier(e.target.value as (typeof TIERS)[number])}
+              value={tierId}
+              onChange={(e) => setTierId(e.target.value)}
               className="rounded-lg border bg-background px-2 py-1.5 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
             >
-              {TIERS.map((t) => (
-                <option key={t} value={t}>
-                  {dict.guests.tierLabel} {t}
+              <option value="">{dict.settings.tiers.noTierOption}</option>
+              {tiers.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.label}
                 </option>
               ))}
             </select>
@@ -263,8 +284,14 @@ export function HouseholdCard({
               value={groupLabel}
               onChange={(e) => setGroupLabel(e.target.value)}
               placeholder={dict.guests.addHousehold.groupPlaceholder}
+              list={`group-labels-${household.id}`}
               className="rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
             />
+            <datalist id={`group-labels-${household.id}`}>
+              {existingGroups.map((g) => (
+                <option key={g} value={g} />
+              ))}
+            </datalist>
           </div>
           <button
             type="submit"

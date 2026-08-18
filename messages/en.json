@@ -363,6 +363,8 @@
     "importCta": "Import CSV",
     "empty": "No guests yet — add a household below or import a CSV.",
     "tierLabel": "Tier",
+    "tierLegend": "Tiers: {{list}}",
+    "manageTiersLink": "Manage tiers",
     "notice": {
       "text": "You're adding contact details for people who haven't been asked to consent themselves — this is handled under legitimate interest for wedding planning purposes, and permanently deleted if you delete this project.",
       "learnMore": "Learn more"
@@ -403,7 +405,7 @@
     "import": {
       "title": "Import guests",
       "uploadHint": "Paste CSV text below, or choose a file.",
-      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,A",
+      "pastePlaceholder": "first_name,last_name,city,country,tier\nJane,Smith,Manchester,GB,Must invite",
       "parseButton": "Continue",
       "emptyFileError": "That doesn't look like a CSV with a header row and at least one data row.",
       "mappingHint": "Match each column to a guest field.",
@@ -453,6 +455,17 @@
       "heading": "Project settings",
       "privacyLink": "See how guest data is handled:",
       "privacyLinkCta": "Privacy notice"
+    },
+    "tiers": {
+      "heading": "Manage tiers",
+      "addPlaceholder": "New tier name",
+      "add": "Add tier",
+      "delete": "Delete",
+      "confirmDelete": "Delete this tier? Households using it become untiered.",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "empty": "No tiers yet — add one below.",
+      "noTierOption": "No tier"
     },
     "deleteProject": {
       "heading": "Delete this project",

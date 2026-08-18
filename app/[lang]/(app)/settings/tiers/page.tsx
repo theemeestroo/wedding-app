@@ -2,11 +2,11 @@ import { notFound, redirect } from 'next/navigation'
 import { getDictionary, hasLocale } from '@/lib/i18n'
 import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
-import { CsvImportFlow } from '@/components/guests/csv-import-flow'
+import { TierManager } from '@/components/settings/tier-manager'
 
-export const metadata = { title: 'Import guests — Aisle' }
+export const metadata = { title: 'Manage tiers — Aisle' }
 
-export default async function ImportGuestsPage({
+export default async function TiersSettingsPage({
   params,
 }: {
   params: Promise<{ lang: string }>
@@ -32,9 +32,9 @@ export default async function ImportGuestsPage({
   const tiers = (tierDefinitions ?? []).map((t) => ({ id: t.id, label: t.label, sortOrder: t.sort_order }))
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
-      <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.guests.import.title}</h1>
-      <CsvImportFlow lang={lang} dict={dict} projectId={project.id} tiers={tiers} />
+    <div className="space-y-8">
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.settings.tiers.heading}</h1>
+      <TierManager dict={dict} projectId={project.id} tiers={tiers} />
     </div>
   )
 }

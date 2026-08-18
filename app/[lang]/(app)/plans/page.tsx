@@ -25,10 +25,17 @@ export default async function PlansPage({
   const project = await getCurrentProject(supabase, user.id)
   if (!project) redirect(`/${lang}/projects/new`)
 
-  const [{ data: plans }, { data: households }] = await Promise.all([
-    supabase.from('guest_plans').select('id, name, included_tiers, included_groups').eq('project_id', project.id),
-    supabase.from('households').select('id, name, tier, group_label').eq('project_id', project.id),
+  const [{ data: plans }, { data: households }, { data: tierDefinitions }] = await Promise.all([
+    supabase.from('guest_plans').select('id, name, included_tier_ids, included_groups').eq('project_id', project.id),
+    supabase.from('households').select('id, name, tier_id, group_label').eq('project_id', project.id),
+    supabase
+      .from('tier_definitions')
+      .select('id, label, sort_order')
+      .eq('project_id', project.id)
+      .order('sort_order', { ascending: true }),
   ])
+
+  const tiers = (tierDefinitions ?? []).map((t) => ({ id: t.id, label: t.label, sortOrder: t.sort_order }))
 
   const householdIds = (households ?? []).map((h) => h.id)
   const { data: guests } = await supabase
@@ -46,7 +53,7 @@ export default async function PlansPage({
   const planHouseholds: PlanHousehold[] = (households ?? []).map((h) => ({
     id: h.id,
     name: h.name,
-    tier: h.tier,
+    tierId: h.tier_id,
     groupLabel: h.group_label,
     adultCount: adultCountByHousehold.get(h.id) ?? 0,
     childCount: childCountByHousehold.get(h.id) ?? 0,
@@ -69,16 +76,17 @@ export default async function PlansPage({
     <div className="space-y-6">
       <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.plans.heading}</h1>
 
-      <PlanForm dict={dict} projectId={project.id} />
+      <PlanForm dict={dict} projectId={project.id} tiers={tiers} />
 
       <div className="space-y-3">
         {(plans ?? []).map((p) => (
           <PlanCard
             key={p.id}
             dict={dict}
-            plan={{ id: p.id, name: p.name, includedTiers: p.included_tiers, includedGroups: p.included_groups }}
+            plan={{ id: p.id, name: p.name, includedTierIds: p.included_tier_ids, includedGroups: p.included_groups }}
             households={planHouseholds}
             exceptions={exceptionsByPlan.get(p.id) ?? new Map()}
+            tiers={tiers}
           />
         ))}
         {(plans?.length ?? 0) === 0 && <p className="text-sm text-muted-foreground">{dict.plans.empty}</p>}
