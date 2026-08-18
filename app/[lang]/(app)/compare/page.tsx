@@ -7,7 +7,7 @@ import { computeOptionCosts, type CostRuleInput, type OptionEventInput } from '@
 import { computeOptionLogistics, type HouseholdClusterInput, type ClusterCoordsInput } from '@/lib/journey-engine'
 import { CompareBoard } from '@/components/compare/compare-board'
 
-export const metadata = { title: 'Compare — Wedding Decision Platform' }
+export const metadata = { title: 'Compare — Aisle' }
 
 // Synthetic guest-count sweep for the break-even chart (PRD §13) — the
 // current plan's adult:child ratio is preserved at each point.
@@ -42,7 +42,7 @@ export default async function ComparePage({
   if (!options || options.length === 0) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold tracking-tight">{dict.compare.heading}</h1>
+        <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.compare.heading}</h1>
         <p className="text-sm text-muted-foreground">{dict.compare.empty}</p>
       </div>
     )
@@ -193,6 +193,8 @@ export default async function ComparePage({
       ratings: optionRatings,
       isDecided: decision?.option_id === o.id,
       breakEven,
+      venueCoords,
+      householdClusterInputs,
     }
   })
 
@@ -203,6 +205,7 @@ export default async function ComparePage({
       currency={project.currency}
       options={comparisons}
       breakEvenGuestCounts={BREAK_EVEN_GUEST_COUNTS}
+      clusterCoords={clusterCoords}
     />
   )
 }

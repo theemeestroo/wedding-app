@@ -5,7 +5,7 @@ import { useServerInsertedHTML } from 'next/navigation'
 const themeInitScript = `
   try {
     const t = localStorage.getItem('wedding-theme')
-    if (t !== 'light') {
+    if (t === 'dark') {
       document.documentElement.classList.add('dark')
     }
   } catch {}

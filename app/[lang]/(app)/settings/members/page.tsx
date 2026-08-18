@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject, getProjectMembers } from '@/lib/project'
 import { InviteForm } from '@/components/projects/invite-form'
 
-export const metadata = { title: 'Members — Wedding Decision Platform' }
+export const metadata = { title: 'Members — Aisle' }
 
 export default async function MembersPage({
   params,
@@ -39,7 +39,7 @@ export default async function MembersPage({
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold tracking-tight">{d.heading}</h1>
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{d.heading}</h1>
 
       <section className="rounded-2xl border bg-card p-6">
         <ul className="space-y-2">

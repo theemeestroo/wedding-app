@@ -5,7 +5,7 @@ import { getCurrentProject } from '@/lib/project'
 import { PlanForm } from '@/components/plans/plan-form'
 import { PlanCard, type PlanHousehold } from '@/components/plans/plan-card'
 
-export const metadata = { title: 'Guest plans — Wedding Decision Platform' }
+export const metadata = { title: 'Guest plans — Aisle' }
 
 export default async function PlansPage({
   params,
@@ -67,7 +67,7 @@ export default async function PlansPage({
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold tracking-tight">{dict.plans.heading}</h1>
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.plans.heading}</h1>
 
       <PlanForm dict={dict} projectId={project.id} />
 

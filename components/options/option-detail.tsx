@@ -4,16 +4,26 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import { localizePath } from '@/lib/locale'
+import { localizePath, interpolate } from '@/lib/locale'
 import { computeOptionCosts, type CostBasis, type Confidence, type EventType, type CostRuleInput, type OptionEventInput } from '@/lib/cost-engine'
 import { ARCHETYPE_TEMPLATES, type Archetype } from '@/lib/archetype-templates'
 import { computeOptionLogistics, type DifficultyBand, type HouseholdClusterInput, type ClusterCoordsInput } from '@/lib/journey-engine'
+import { computeAttendanceForecast } from '@/lib/attendance-engine'
+import {
+  computeAccommodationCost,
+  computeTransferEstimate,
+  type ArrivalWindow,
+  type AllocationInput,
+  type ArrivalProfileInput,
+  type AccommodationInput,
+} from '@/lib/accommodation-engine'
 import type { Headcount } from '@/lib/guest-plan'
 import type { Dictionary } from '@/lib/i18n'
 
 const RATINGS = ['love', 'like', 'neutral', 'dislike'] as const
 type RatingValue = (typeof RATINGS)[number]
 const DIFFICULTY_BANDS: DifficultyBand[] = ['easy', 'moderate', 'hard', 'blocked']
+const ARRIVAL_WINDOWS: ArrivalWindow[] = ['morning', 'afternoon', 'evening', 'night']
 
 const BASES: CostBasis[] = [
   'fixed', 'per_adult', 'per_guest', 'per_child', 'per_room',
@@ -65,6 +75,30 @@ interface DecisionRow {
   decided_at: string
 }
 
+interface AccommodationRow {
+  id: string
+  name: string
+  nightly_rate: number | null
+  currency: string | null
+}
+
+interface ArrivalProfileRow {
+  id: string
+  household_id: string
+  arrival_date: string | null
+  arrival_window: ArrivalWindow | null
+  departure_date: string | null
+  departure_window: ArrivalWindow | null
+  visa_notes: string | null
+}
+
+interface AllocationRow {
+  id: string
+  household_id: string
+  accommodation_id: string
+  rooms_assigned: number
+}
+
 function fmt(n: number, currency: string) {
   return new Intl.NumberFormat(undefined, { style: 'currency', currency, maximumFractionDigits: 0 }).format(n)
 }
@@ -87,6 +121,10 @@ export function OptionDetail({
   projectId,
   clusters,
   householdClusters,
+  households,
+  accommodations,
+  arrivalProfiles,
+  allocations,
   ratings,
   memberNames,
   currentUserId,
@@ -114,6 +152,10 @@ export function OptionDetail({
   projectId: string
   clusters: ClusterCoordsInput[]
   householdClusters: HouseholdClusterInput[]
+  households: { id: string; name: string }[]
+  accommodations: AccommodationRow[]
+  arrivalProfiles: ArrivalProfileRow[]
+  allocations: AllocationRow[]
   ratings: RatingRow[]
   memberNames: Record<string, string>
   currentUserId: string
@@ -242,6 +284,7 @@ export function OptionDetail({
     ? { lat: venue.latitude, lng: venue.longitude }
     : null
   const logistics = computeOptionLogistics(householdClusters, clusters, venueCoords)
+  const attendanceForecast = computeAttendanceForecast(logistics.clusters)
   const [geocoding, setGeocoding] = useState(false)
   const [geocodeError, setGeocodeError] = useState(false)
 
@@ -264,6 +307,115 @@ export function OptionDetail({
       setGeocodeError(true)
     }
     setGeocoding(false)
+  }
+
+  // --- Accommodation & transfers -------------------------------------------
+  const arrivalProfileByHousehold = new Map(arrivalProfiles.map((p) => [p.household_id, p]))
+  const allocationByHousehold = new Map(allocations.map((a) => [a.household_id, a]))
+  const [estimating, setEstimating] = useState(false)
+  const [estimateResult, setEstimateResult] = useState<{
+    accommodationTotal: number
+    transferTotal: number
+    defaultedNightsCount: number
+    unscheduledGuestCount: number
+  } | null>(null)
+
+  async function handleUpdateArrivalProfile(
+    householdId: string,
+    patch: Partial<Pick<ArrivalProfileRow, 'arrival_date' | 'arrival_window' | 'departure_date' | 'departure_window' | 'visa_notes'>>,
+  ) {
+    await supabase
+      .from('arrival_profiles')
+      .upsert({ option_id: option.id, household_id: householdId, ...patch }, { onConflict: 'option_id,household_id' })
+    router.refresh()
+  }
+
+  async function handleUpdateAllocation(householdId: string, accommodationId: string) {
+    if (!accommodationId) {
+      await supabase.from('allocations').delete().eq('option_id', option.id).eq('household_id', householdId)
+    } else {
+      const existingRooms = allocationByHousehold.get(householdId)?.rooms_assigned ?? 1
+      await supabase
+        .from('allocations')
+        .upsert(
+          { option_id: option.id, household_id: householdId, accommodation_id: accommodationId, rooms_assigned: existingRooms },
+          { onConflict: 'option_id,household_id' },
+        )
+    }
+    router.refresh()
+  }
+
+  async function handleUpdateRoomsAssigned(householdId: string, rooms: number) {
+    await supabase
+      .from('allocations')
+      .update({ rooms_assigned: rooms })
+      .eq('option_id', option.id)
+      .eq('household_id', householdId)
+    router.refresh()
+  }
+
+  async function handleEstimateCosts() {
+    setEstimating(true)
+
+    const allocationInputs: AllocationInput[] = allocations.map((a) => ({
+      householdId: a.household_id,
+      accommodationId: a.accommodation_id,
+      roomsAssigned: a.rooms_assigned,
+    }))
+    const arrivalProfileInputs: ArrivalProfileInput[] = arrivalProfiles.map((p) => ({
+      householdId: p.household_id,
+      arrivalDate: p.arrival_date,
+      arrivalWindow: p.arrival_window,
+      departureDate: p.departure_date,
+      departureWindow: p.departure_window,
+    }))
+    const accommodationInputs: AccommodationInput[] = accommodations.map((a) => ({
+      id: a.id,
+      nightlyRate: a.nightly_rate,
+      currency: a.currency,
+    }))
+
+    const accommodationResult = computeAccommodationCost(allocationInputs, arrivalProfileInputs, accommodationInputs)
+    const transferResult = computeTransferEstimate(householdClusters, arrivalProfileInputs)
+
+    await supabase.from('cost_rules').delete().eq('option_id', option.id).eq('label', d.accommodationCostLabel)
+    await supabase.from('cost_rules').delete().eq('option_id', option.id).eq('label', d.transferCostLabel)
+
+    const newRules = []
+    if (accommodationResult.total > 0) {
+      newRules.push({
+        option_id: option.id,
+        label: d.accommodationCostLabel,
+        basis: 'fixed' as const,
+        rate: accommodationResult.total,
+        currency: accommodationResult.currency ?? currency,
+        confidence: 'guess' as const,
+        provenance: { source: 'accommodation_engine' },
+      })
+    }
+    if (transferResult.total > 0) {
+      newRules.push({
+        option_id: option.id,
+        label: d.transferCostLabel,
+        basis: 'fixed' as const,
+        rate: transferResult.total,
+        currency,
+        confidence: 'guess' as const,
+        provenance: { source: 'accommodation_engine' },
+      })
+    }
+    if (newRules.length > 0) {
+      await supabase.from('cost_rules').insert(newRules)
+    }
+
+    setEstimateResult({
+      accommodationTotal: accommodationResult.total,
+      transferTotal: transferResult.total,
+      defaultedNightsCount: accommodationResult.defaultedHouseholdCount,
+      unscheduledGuestCount: transferResult.unscheduledGuestCount,
+    })
+    setEstimating(false)
+    router.refresh()
   }
 
   // --- Ratings ------------------------------------------------------------
@@ -304,7 +456,7 @@ export function OptionDetail({
     <div className="space-y-8">
       <div>
         <p className="text-sm text-muted-foreground">{plan.name} × {venue.name}</p>
-        <h1 className="text-2xl font-bold tracking-tight">{option.name || `${plan.name} — ${venue.name}`}</h1>
+        <h1 className="font-heading text-2xl font-semibold tracking-tight">{option.name || `${plan.name} — ${venue.name}`}</h1>
       </div>
 
       {summary.mixedCurrency && (
@@ -426,6 +578,153 @@ export function OptionDetail({
             {logistics.unclusteredGuestCount > 0 && (
               <p className="text-xs text-muted-foreground">
                 {d.unclusteredGuests}: {logistics.unclusteredGuestCount}
+              </p>
+            )}
+
+            <div className="rounded-lg bg-muted/30 p-3">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{d.attendanceForecastHeading}</p>
+              <p className="mt-1 text-sm tabular-nums">
+                {Math.round(attendanceForecast.invitedTotal)} → ~{Math.round(attendanceForecast.expectedTotal)}{' '}
+                ({Math.round(attendanceForecast.expectedRate * 100)}%)
+              </p>
+              <p className="mt-1 text-[11px] text-muted-foreground">{d.attendanceForecastCaveat}</p>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">{d.accommodationHeading}</h2>
+
+        {accommodations.length === 0 ? (
+          <p className="text-sm text-muted-foreground">{d.noAccommodations}</p>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border bg-card">
+            <table className="w-full text-sm" aria-label={d.accommodationHeading}>
+              <thead>
+                <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+                  <th scope="col" className="px-4 py-2 font-medium">{d.householdColumn}</th>
+                  <th scope="col" className="px-4 py-2 font-medium">{d.arrivalColumn}</th>
+                  <th scope="col" className="px-4 py-2 font-medium">{d.departureColumn}</th>
+                  <th scope="col" className="px-4 py-2 font-medium">{d.accommodationColumn}</th>
+                  <th scope="col" className="px-4 py-2 font-medium">{d.roomsAssignedPlaceholder}</th>
+                  <th scope="col" className="px-4 py-2 font-medium">{d.visaNotesColumn}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {households.map((h) => {
+                  const profile = arrivalProfileByHousehold.get(h.id)
+                  const allocation = allocationByHousehold.get(h.id)
+                  return (
+                    <tr key={h.id} className="border-b last:border-0">
+                      <td className="px-4 py-2 font-medium">{h.name}</td>
+                      <td className="px-4 py-2">
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="date"
+                            defaultValue={profile?.arrival_date ?? ''}
+                            onBlur={(e) => handleUpdateArrivalProfile(h.id, { arrival_date: e.target.value || null })}
+                            className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                          />
+                          <select
+                            defaultValue={profile?.arrival_window ?? ''}
+                            onChange={(e) =>
+                              handleUpdateArrivalProfile(h.id, { arrival_window: (e.target.value || null) as ArrivalWindow | null })
+                            }
+                            className="rounded-lg border bg-background px-1.5 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                          >
+                            <option value="">{d.windowUnset}</option>
+                            {ARRIVAL_WINDOWS.map((w) => (
+                              <option key={w} value={w}>{d.windowLabels[w]}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </td>
+                      <td className="px-4 py-2">
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="date"
+                            defaultValue={profile?.departure_date ?? ''}
+                            onBlur={(e) => handleUpdateArrivalProfile(h.id, { departure_date: e.target.value || null })}
+                            className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                          />
+                          <select
+                            defaultValue={profile?.departure_window ?? ''}
+                            onChange={(e) =>
+                              handleUpdateArrivalProfile(h.id, { departure_window: (e.target.value || null) as ArrivalWindow | null })
+                            }
+                            className="rounded-lg border bg-background px-1.5 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                          >
+                            <option value="">{d.windowUnset}</option>
+                            {ARRIVAL_WINDOWS.map((w) => (
+                              <option key={w} value={w}>{d.windowLabels[w]}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </td>
+                      <td className="px-4 py-2">
+                        <select
+                          defaultValue={allocation?.accommodation_id ?? ''}
+                          onChange={(e) => handleUpdateAllocation(h.id, e.target.value)}
+                          className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                        >
+                          <option value="">{d.noAccommodationSelected}</option>
+                          {accommodations.map((a) => (
+                            <option key={a.id} value={a.id}>{a.name}</option>
+                          ))}
+                        </select>
+                      </td>
+                      <td className="px-4 py-2">
+                        <input
+                          type="number"
+                          min={0}
+                          step="0.5"
+                          disabled={!allocation}
+                          defaultValue={allocation?.rooms_assigned ?? ''}
+                          onBlur={(e) => e.target.value && handleUpdateRoomsAssigned(h.id, Number(e.target.value))}
+                          className="w-16 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-40"
+                        />
+                      </td>
+                      <td className="px-4 py-2">
+                        <input
+                          type="text"
+                          defaultValue={profile?.visa_notes ?? ''}
+                          onBlur={(e) => handleUpdateArrivalProfile(h.id, { visa_notes: e.target.value || null })}
+                          placeholder={d.visaNotesPlaceholder}
+                          className="w-40 rounded-lg border bg-background px-2 py-1 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+                        />
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        <button
+          onClick={handleEstimateCosts}
+          disabled={estimating || allocations.length === 0}
+          className="rounded-lg border bg-background px-3 py-1.5 text-xs font-medium hover:bg-muted disabled:opacity-50"
+        >
+          {estimating ? d.estimating : d.estimateCosts}
+        </button>
+
+        {estimateResult && (
+          <div className="space-y-1 rounded-xl border bg-muted/30 p-4 text-sm">
+            <p className="tabular-nums">
+              {d.accommodationCostLabel}: {fmt(estimateResult.accommodationTotal, currency)}
+              {' · '}
+              {d.transferCostLabel}: {fmt(estimateResult.transferTotal, currency)}
+            </p>
+            {estimateResult.defaultedNightsCount > 0 && (
+              <p className="text-xs text-muted-foreground">
+                {interpolate(d.defaultedNightsWarning, { count: estimateResult.defaultedNightsCount })}
+              </p>
+            )}
+            {estimateResult.unscheduledGuestCount > 0 && (
+              <p className="text-xs text-muted-foreground">
+                {interpolate(d.unscheduledTransferWarning, { count: estimateResult.unscheduledGuestCount })}
               </p>
             )}
           </div>

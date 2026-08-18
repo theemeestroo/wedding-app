@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { CreateProjectForm } from '@/components/projects/create-project-form'
 
-export const metadata = { title: 'Create your project — Wedding Decision Platform' }
+export const metadata = { title: 'Create your project — Aisle' }
 
 // Deliberately outside the (app) route group — that layout redirects here
 // when the user has no project yet, so this page can't live inside it
@@ -33,7 +33,7 @@ export default async function NewProjectPage({
   return (
     <div className="mx-auto flex min-h-screen max-w-sm flex-col justify-center px-4 py-16">
       <div className="mb-6 space-y-1.5 text-center">
-        <h1 className="text-xl font-bold tracking-tight">{d.title}</h1>
+        <h1 className="font-heading text-xl font-semibold tracking-tight">{d.title}</h1>
         <p className="text-sm text-muted-foreground">{d.subtitle}</p>
       </div>
       <CreateProjectForm lang={lang} dict={dict} />

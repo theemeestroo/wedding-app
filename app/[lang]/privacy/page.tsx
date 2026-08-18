@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale } from '@/lib/i18n'
 
-export const metadata = { title: 'Privacy — Wedding Decision Platform' }
+export const metadata = { title: 'Privacy — Aisle' }
 
 export default async function PrivacyPage({
   params,
@@ -16,7 +16,7 @@ export default async function PrivacyPage({
 
   return (
     <main className="mx-auto max-w-2xl space-y-4 px-4 py-16">
-      <h1 className="text-2xl font-bold tracking-tight">{d.title}</h1>
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{d.title}</h1>
       <p className="text-sm text-muted-foreground">{d.intro}</p>
       <h2 className="text-lg font-semibold">{d.whatHeading}</h2>
       <p className="text-sm text-muted-foreground">{d.whatBody}</p>

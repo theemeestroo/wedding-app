@@ -54,7 +54,7 @@ export default async function EnquiryDetailPage({
           {venue?.name}
         </Link>
         <div className="mt-1 flex items-center gap-3">
-          <h1 className="text-2xl font-bold tracking-tight">{dict.enquiries.detail.heading}</h1>
+          <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.enquiries.detail.heading}</h1>
           <EnquiryStatusBadge dict={dict} status={enquiry.status as EnquiryStatus} />
         </div>
       </div>

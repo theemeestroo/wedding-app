@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { CreateOptionForm } from '@/components/options/create-option-form'
 
-export const metadata = { title: 'Create option — Wedding Decision Platform' }
+export const metadata = { title: 'Create option — Aisle' }
 
 export default async function NewOptionPage({
   params,
@@ -31,7 +31,7 @@ export default async function NewOptionPage({
 
   return (
     <div className="mx-auto max-w-lg space-y-6">
-      <h1 className="text-2xl font-bold tracking-tight">{dict.options.create.title}</h1>
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.options.create.title}</h1>
       <CreateOptionForm
         lang={lang}
         dict={dict}

@@ -35,65 +35,69 @@
   --radius-xl: calc(var(--radius) * 1.5);
   --radius-2xl: calc(var(--radius) * 2);
   --radius-3xl: calc(var(--radius) * 2.5);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+  --font-script: var(--font-script-raw);
 }
 
 /*
- * Plain shadcn "neutral" base palette — no brand colors yet.
- * Swap these tokens once the wedding app has a visual identity.
+ * Visual identity: warm paper + ink + a wax-seal rose, styled after a
+ * letterpress wedding invitation — cream stock, deep serif ink, one
+ * considered accent colour. Dark mode is "candlelight", not slate-black.
  */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.5rem;
+  --background: oklch(0.975 0.012 78);
+  --foreground: oklch(0.27 0.025 45);
+  --card: oklch(0.99 0.007 78);
+  --card-foreground: oklch(0.27 0.025 45);
+  --popover: oklch(0.99 0.007 78);
+  --popover-foreground: oklch(0.27 0.025 45);
+  --primary: oklch(0.4 0.09 26);
+  --primary-foreground: oklch(0.98 0.012 78);
+  --secondary: oklch(0.93 0.015 70);
+  --secondary-foreground: oklch(0.32 0.025 45);
+  --muted: oklch(0.945 0.013 72);
+  --muted-foreground: oklch(0.48 0.025 48);
+  --accent: oklch(0.87 0.035 122);
+  --accent-foreground: oklch(0.3 0.04 130);
+  --destructive: oklch(0.53 0.17 25);
+  --destructive-foreground: oklch(0.98 0.012 78);
+  --border: oklch(0.87 0.017 65);
+  --input: oklch(0.87 0.017 65);
+  --ring: oklch(0.4 0.09 26 / 40%);
+  --chart-1: oklch(0.4 0.09 26);
+  --chart-2: oklch(0.6 0.08 140);
+  --chart-3: oklch(0.7 0.13 75);
+  --chart-4: oklch(0.55 0.06 250);
+  --chart-5: oklch(0.65 0.12 40);
+  --radius: 0.4rem;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.145 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --background: oklch(0.2 0.017 45);
+  --foreground: oklch(0.93 0.015 72);
+  --card: oklch(0.24 0.019 45);
+  --card-foreground: oklch(0.93 0.015 72);
+  --popover: oklch(0.24 0.019 45);
+  --popover-foreground: oklch(0.93 0.015 72);
+  --primary: oklch(0.72 0.1 35);
+  --primary-foreground: oklch(0.18 0.02 45);
+  --secondary: oklch(0.3 0.02 45);
+  --secondary-foreground: oklch(0.93 0.015 72);
+  --muted: oklch(0.28 0.018 45);
+  --muted-foreground: oklch(0.68 0.02 62);
+  --accent: oklch(0.34 0.035 128);
+  --accent-foreground: oklch(0.9 0.03 120);
+  --destructive: oklch(0.68 0.19 25);
+  --destructive-foreground: oklch(0.18 0.02 45);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.72 0.1 35 / 45%);
+  --chart-1: oklch(0.72 0.1 35);
+  --chart-2: oklch(0.68 0.1 140);
+  --chart-3: oklch(0.78 0.13 75);
+  --chart-4: oklch(0.65 0.07 250);
+  --chart-5: oklch(0.72 0.12 40);
 }
 
 @layer base {
@@ -108,13 +112,107 @@
   }
 }
 
-/* Subtle backdrop for auth/marketing pages — keyed off the primary token, not a fixed brand hue. */
+/* Soft blush-and-ivory wash for auth/marketing backdrops — keyed off the
+   primary token so it follows the palette, not a fixed hue. */
 .gradient-hero {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--foreground) 100%);
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--primary), transparent),
+    radial-gradient(ellipse 60% 50% at 100% 100%, var(--accent), transparent);
 }
 
+/* Delicate pinpoint pattern, like dots on writing paper. */
 .dot-pattern {
   background-image: radial-gradient(currentColor 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-size: 28px 28px;
   color: var(--muted-foreground);
+}
+
+/* Faint paper grain so flat colour fields read as stock, not screen-flat. */
+.paper-grain {
+  position: relative;
+  isolation: isolate;
+}
+.paper-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark .paper-grain::after {
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+}
+
+/* Engraved double-rule frame, like the inner border of a letterpress card. */
+.invite-frame {
+  position: relative;
+}
+.invite-frame::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+
+/*
+ * Full-bleed editorial slab — a fixed dark-ink section used sparingly for
+ * "statement" moments (a pull-quote, a closing line). Deliberately static,
+ * not theme-tokens, so it reads the same considered way in light or dark
+ * mode rather than flattening out against a dark-mode background.
+ */
+.ink-band {
+  background: oklch(0.205 0.022 45);
+  color: oklch(0.95 0.014 72);
+}
+.ink-band .text-muted-foreground {
+  color: oklch(0.72 0.02 62);
+}
+/* Dark mode's own background already sits near oklch(0.2) — go a step
+   darker again so the band still reads as a deliberate inset, not a
+   seam that disappears into the surrounding page. */
+.dark .ink-band {
+  background: oklch(0.1 0.015 45);
+}
+
+/* Architectural arch — a full semicircle top, standing in for a framed
+   photograph where we have none: colour and texture instead of an image. */
+.arch-top {
+  border-radius: 999px 999px 0 0;
+}
+
+/*
+ * Ticket/coupon scalloped edge — a row of half-circle bites taken out of an
+ * element's bottom seam. Cheats by painting circles the colour of whatever
+ * sits immediately behind the element, so --scallop-bg must be set to match
+ * that surface (defaults to the page background).
+ */
+.scallop-bottom {
+  position: relative;
+}
+.scallop-bottom::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 16px;
+  transform: translateY(50%);
+  background: radial-gradient(
+      circle at 8px 8px,
+      transparent 7.5px,
+      var(--scallop-bg, var(--background)) 8px
+    )
+    repeat-x;
+  background-size: 16px 16px;
+}
+
+/* Oversized ghost numerals for editorial step/section counters. */
+.numeral-ghost {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--primary);
+  opacity: 0.16;
 }

@@ -44,9 +44,12 @@ export function OriginClusterPanel({
   }
 
   return (
-    <div className="rounded-2xl border bg-card p-6">
+    <div className="rounded-2xl border bg-card p-6 sm:p-7">
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">{d.heading}</h2>
+        <h2 className="flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
+          <span className="h-px w-5 bg-primary/40" aria-hidden="true" />
+          {d.heading}
+        </h2>
         <button
           onClick={handleRecompute}
           disabled={recomputing}

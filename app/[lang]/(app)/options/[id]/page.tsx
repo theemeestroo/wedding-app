@@ -31,7 +31,18 @@ export default async function OptionDetailPage({
 
   if (!option) notFound()
 
-  const [{ data: plan }, { data: venue }, { data: enquiry }, { data: events }, { data: clusters }, { data: ratings }, { data: decision }] = await Promise.all([
+  const [
+    { data: plan },
+    { data: venue },
+    { data: enquiry },
+    { data: events },
+    { data: clusters },
+    { data: ratings },
+    { data: decision },
+    { data: accommodations },
+    { data: arrivalProfiles },
+    { data: allocations },
+  ] = await Promise.all([
     supabase.from('guest_plans').select('id, name, included_tiers, included_groups').eq('id', option.guest_plan_id).single(),
     supabase.from('venues').select('id, name, archetype, location_city, location_country, latitude, longitude').eq('id', option.venue_id).single(),
     supabase.from('enquiries').select('id').eq('venue_id', option.venue_id).maybeSingle(),
@@ -43,6 +54,12 @@ export default async function OptionDetailPage({
     supabase.from('origin_clusters').select('id, label, centroid_lat, centroid_lng').eq('project_id', project.id),
     supabase.from('ratings').select('id, profile_id, rating, note').eq('option_id', id),
     supabase.from('decisions').select('option_id, rationale, decided_at').eq('project_id', project.id).maybeSingle(),
+    supabase.from('accommodations').select('id, name, nightly_rate, currency').eq('venue_id', option.venue_id),
+    supabase
+      .from('arrival_profiles')
+      .select('id, household_id, arrival_date, arrival_window, departure_date, departure_window, visa_notes')
+      .eq('option_id', id),
+    supabase.from('allocations').select('id, household_id, accommodation_id, rooms_assigned').eq('option_id', id),
   ])
 
   if (!plan || !venue) notFound()
@@ -127,6 +144,10 @@ export default async function OptionDetailPage({
       projectId={project.id}
       clusters={(clusters ?? []).map((c) => ({ id: c.id, label: c.label, lat: c.centroid_lat, lng: c.centroid_lng }))}
       householdClusters={householdClusterInputs}
+      households={includedHouseholds.map((h) => ({ id: h.id, name: h.name }))}
+      accommodations={accommodations ?? []}
+      arrivalProfiles={arrivalProfiles ?? []}
+      allocations={allocations ?? []}
       ratings={ratings ?? []}
       memberNames={Object.fromEntries(memberNames)}
       currentUserId={user.id}

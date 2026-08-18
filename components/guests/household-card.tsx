@@ -7,6 +7,15 @@ import type { Dictionary } from '@/lib/i18n'
 
 const TIERS = ['A', 'B', 'C', 'D'] as const
 
+// Graduated visual weight by tier — A reads heaviest (closest circle), D
+// lightest — so the list telegraphs priority at a glance, not just on hover.
+const TIER_STYLES: Record<(typeof TIERS)[number], string> = {
+  A: 'border-primary bg-primary text-primary-foreground',
+  B: 'border-primary/50 bg-primary/15 text-primary',
+  C: 'border-primary/30 bg-primary/5 text-primary/80',
+  D: 'border-border bg-muted text-muted-foreground',
+}
+
 export interface HouseholdGuest {
   id: string
   first_name: string
@@ -127,30 +136,39 @@ export function HouseholdCard({
   }
 
   return (
-    <div className="rounded-2xl border bg-card p-5">
+    <div className="rounded-2xl border bg-card p-6">
       <div className="flex items-start justify-between gap-3">
-        <div>
-          <h3 className="font-medium">{household.name}</h3>
-          <p className="text-sm text-muted-foreground">
-            {[household.home_city, household.home_country].filter(Boolean).join(', ')}
-          </p>
-        </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <span className="rounded-full bg-muted px-2 py-0.5 text-xs">
-            {dict.guests.tierLabel} {household.tier}
+        <div className="flex items-start gap-3.5">
+          <span
+            title={`${dict.guests.tierLabel} ${household.tier}`}
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border font-heading text-sm italic ${TIER_STYLES[household.tier]}`}
+          >
+            {household.tier}
           </span>
-          {household.group_label && (
-            <span className="rounded-full bg-muted px-2 py-0.5 text-xs">{household.group_label}</span>
-          )}
+          <div>
+            <h3 className="font-heading text-lg italic tracking-tight">{household.name}</h3>
+            <p className="text-sm text-muted-foreground">
+              {[household.home_city, household.home_country].filter(Boolean).join(', ')}
+            </p>
+          </div>
         </div>
+        {household.group_label && (
+          <span className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
+            {household.group_label}
+          </span>
+        )}
       </div>
 
-      <ul className="mt-3 space-y-1">
+      <ul className="mt-4 divide-y divide-border/60 border-t border-border/60">
         {guests.map((g) => (
-          <li key={g.id} className="flex items-center justify-between text-sm">
+          <li key={g.id} className="flex items-center justify-between py-2 text-sm">
             <span>
               {g.first_name} {g.last_name}
-              {g.is_child && <span className="ml-2 text-xs text-muted-foreground">{d.childBadge}</span>}
+              {g.is_child && (
+                <span className="ml-2 rounded-full bg-muted px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
+                  {d.childBadge}
+                </span>
+              )}
             </span>
             <button onClick={() => handleDeleteGuest(g.id)} className="text-xs text-muted-foreground hover:text-destructive">
               {dict.common.delete}

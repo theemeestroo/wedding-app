@@ -1,0 +1,21 @@
+-- =============================================================================
+-- Phase 7 deferred features — visa notes (self-reported only)
+--
+-- Visa lead-time is tied to a specific wedding date, so it belongs on the
+-- option×household row that already exists (wedding.arrival_profiles), not
+-- on wedding.households (which has no free-text column and isn't option-
+-- scoped). This is deliberately a plain text field the couple fills in
+-- themselves — the app never computes or asserts a real visa requirement or
+-- lead time. No licensed regulatory dataset exists for this, and guessing
+-- would actively mislead a couple about a real immigration requirement —
+-- the same honesty concern already worked through for flight-route data in
+-- Phase 5 (see AGENTS.md).
+--
+-- Legal ceremony feasibility (the venue/country-level half of "visa/legal
+-- tracking") gets no schema change at all — it's the same shape as an
+-- existing wedding.venue_facts row or the wedding.venues.notes column
+-- already, and a dedicated feature identical to something that already
+-- exists would be pure duplication.
+-- =============================================================================
+
+alter table wedding.arrival_profiles add column visa_notes text;

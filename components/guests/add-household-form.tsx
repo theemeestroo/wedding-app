@@ -95,8 +95,11 @@ export function AddHouseholdForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 rounded-2xl border bg-card p-6">
-      <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">{d.heading}</h2>
+    <form onSubmit={handleSubmit} className="space-y-3 rounded-2xl border bg-card p-6 sm:p-7">
+      <h2 className="mb-1 flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
+        <span className="h-px w-5 bg-primary/40" aria-hidden="true" />
+        {d.heading}
+      </h2>
       <div className="grid grid-cols-2 gap-2">
         <input
           type="text"

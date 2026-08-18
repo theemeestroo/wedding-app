@@ -5,7 +5,7 @@ import { getCurrentProject } from '@/lib/project'
 import { VenueBoard } from '@/components/venues/venue-board'
 import type { VenueCardData } from '@/components/venues/venue-card'
 
-export const metadata = { title: 'Venues — Wedding Decision Platform' }
+export const metadata = { title: 'Venues — Aisle' }
 
 export default async function VenuesPage({
   params,
@@ -42,7 +42,7 @@ export default async function VenuesPage({
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold tracking-tight">{dict.nav.venues}</h1>
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.nav.venues}</h1>
       <VenueBoard lang={lang} dict={dict} venues={venues} />
     </div>
   )

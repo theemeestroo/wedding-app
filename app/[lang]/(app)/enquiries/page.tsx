@@ -6,7 +6,7 @@ import { getCurrentProject } from '@/lib/project'
 import { EnquiryList, type EnquiryListItem } from '@/components/enquiries/enquiry-list'
 import type { EnquiryStatus } from '@/components/enquiries/enquiry-status-badge'
 
-export const metadata = { title: 'Enquiries — Wedding Decision Platform' }
+export const metadata = { title: 'Enquiries — Aisle' }
 
 export default async function EnquiriesPage({
   params,
@@ -66,7 +66,7 @@ export default async function EnquiriesPage({
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold tracking-tight">{dict.nav.enquiries}</h1>
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{dict.nav.enquiries}</h1>
       <EnquiryList lang={lang} dict={dict} enquiries={enquiries} />
     </div>
   )

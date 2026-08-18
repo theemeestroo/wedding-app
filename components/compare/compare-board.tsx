@@ -1,11 +1,20 @@
 'use client'
 
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { localizePath } from '@/lib/locale'
 import type { Dictionary } from '@/lib/i18n'
-import type { DifficultyBand } from '@/lib/journey-engine'
+import { computeOptionLogistics, type DifficultyBand, type HouseholdClusterInput, type ClusterCoordsInput, type Coordinates } from '@/lib/journey-engine'
+import { computeAttendanceForecast } from '@/lib/attendance-engine'
+import { toWeightedClusters } from '@/lib/burden-surface-engine'
+import { DEFAULT_LAYER_VISIBILITY, type DroppedPin, type LayerVisibility } from '@/components/map/travel-map'
+import { MapSidePanel } from '@/components/map/map-side-panel'
+import { MapLegend } from '@/components/map/map-legend'
+
+// MapLibre touches window/WebGL at module init — client-only, no SSR.
+const TravelMap = dynamic(() => import('@/components/map/travel-map').then((m) => m.TravelMap), { ssr: false })
 
 type RatingValue = 'love' | 'like' | 'neutral' | 'dislike'
 
@@ -33,6 +42,8 @@ export interface CompareOption {
   ratings: RatingEntry[]
   isDecided: boolean
   breakEven: number[]
+  venueCoords: Coordinates | null
+  householdClusterInputs: HouseholdClusterInput[]
 }
 
 const LINE_COLORS = ['#2563eb', '#7c3aed', '#0891b2', '#db2777', '#65a30d', '#ea580c']
@@ -56,12 +67,14 @@ export function CompareBoard({
   currency,
   options,
   breakEvenGuestCounts,
+  clusterCoords,
 }: {
   dict: Dictionary
   lang: string
   currency: string
   options: CompareOption[]
   breakEvenGuestCounts: number[]
+  clusterCoords: ClusterCoordsInput[]
 }) {
   const d = dict.compare
   const od = dict.options.detail
@@ -89,9 +102,26 @@ export function CompareBoard({
     return point
   })
 
+  // --- Map view -------------------------------------------------------------
+  const [view, setView] = useState<'table' | 'map'>('table')
+  const mappableOptions = selectedOptions.filter((o) => o.venueCoords !== null)
+  const [activeOptionId, setActiveOptionId] = useState<string | null>(null)
+  const activeOption = mappableOptions.find((o) => o.id === activeOptionId) ?? mappableOptions[0] ?? null
+  const [layerVisibility, setLayerVisibility] = useState<LayerVisibility>(DEFAULT_LAYER_VISIBILITY)
+  const [droppedPin, setDroppedPin] = useState<DroppedPin | null>(null)
+
+  // Cheap (a handful of clusters) — plain consts, same as option-detail.tsx's
+  // summary/logistics computations; no manual memoization needed alongside
+  // the React Compiler.
+  const weightedClusters = activeOption ? toWeightedClusters(activeOption.householdClusterInputs, clusterCoords) : []
+  const activeLogistics = activeOption?.venueCoords
+    ? computeOptionLogistics(activeOption.householdClusterInputs, clusterCoords, activeOption.venueCoords)
+    : null
+  const attendanceForecast = activeLogistics ? computeAttendanceForecast(activeLogistics.clusters) : null
+
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold tracking-tight">{d.heading}</h1>
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{d.heading}</h1>
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">{d.pickHeading}</h2>
@@ -115,6 +145,80 @@ export function CompareBoard({
         <p className="text-sm text-muted-foreground">{d.needTwo}</p>
       ) : (
         <>
+          <div className="flex rounded-xl bg-muted p-1 text-sm w-fit">
+            <button
+              type="button"
+              onClick={() => setView('table')}
+              className={`rounded-lg px-3 py-1.5 font-medium transition-all ${
+                view === 'table' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {d.map.viewTable}
+            </button>
+            <button
+              type="button"
+              onClick={() => setView('map')}
+              className={`rounded-lg px-3 py-1.5 font-medium transition-all ${
+                view === 'map' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {d.map.viewMap}
+            </button>
+          </div>
+
+          {view === 'map' && (
+            mappableOptions.length === 0 || !activeOption ? (
+              <p className="text-sm text-muted-foreground">{d.map.noCoordsForMap}</p>
+            ) : (
+              <section className="space-y-3">
+                {mappableOptions.length > 1 && (
+                  <div className="flex flex-wrap gap-2">
+                    {mappableOptions.map((o) => (
+                      <button
+                        key={o.id}
+                        onClick={() => setActiveOptionId(o.id)}
+                        className={
+                          'rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors ' +
+                          (activeOption.id === o.id ? 'border-primary bg-primary/10' : 'bg-background hover:bg-muted')
+                        }
+                      >
+                        {optionLabel(o)}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                <div className="grid gap-4 lg:grid-cols-[1fr_280px]">
+                  {activeLogistics && (
+                    <TravelMap
+                      dict={dict}
+                      activeVenue={{ id: activeOption.id, name: activeOption.venueName, lat: activeOption.venueCoords!.lat, lng: activeOption.venueCoords!.lng }}
+                      otherVenues={mappableOptions.map((o) => ({ id: o.id, name: o.venueName, lat: o.venueCoords!.lat, lng: o.venueCoords!.lng }))}
+                      logistics={activeLogistics}
+                      weightedClusters={weightedClusters}
+                      layerVisibility={layerVisibility}
+                      onDropPin={setDroppedPin}
+                    />
+                  )}
+                  <div className="space-y-4">
+                    {activeLogistics && attendanceForecast && (
+                      <MapSidePanel
+                        dict={dict}
+                        venueName={activeOption.venueName}
+                        logistics={activeLogistics}
+                        attendanceForecast={attendanceForecast}
+                        droppedPin={droppedPin}
+                      />
+                    )}
+                    <MapLegend dict={dict} visibility={layerVisibility} onChange={setLayerVisibility} />
+                  </div>
+                </div>
+              </section>
+            )
+          )}
+
+          {view === 'table' && (
+          <>
           <section className="overflow-x-auto rounded-xl border bg-card">
             <table className="w-full text-sm" aria-label={d.heading}>
               <thead>
@@ -271,6 +375,8 @@ export function CompareBoard({
               </ResponsiveContainer>
             </div>
           </section>
+          </>
+          )}
         </>
       )}
     </div>

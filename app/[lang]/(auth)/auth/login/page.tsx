@@ -5,7 +5,7 @@ import { getDictionary, hasLocale } from '@/lib/i18n'
 import { localizePath } from '@/lib/locale'
 import { LoginForm } from '@/components/auth/login-form'
 
-export const metadata = { title: 'Sign in — Wedding Decision Platform' }
+export const metadata = { title: 'Sign in — Aisle' }
 
 export default async function LoginPage({
   params,
@@ -27,7 +27,7 @@ export default async function LoginPage({
   return (
     <div className="space-y-6">
       <div className="space-y-1.5 text-center">
-        <h1 className="text-xl font-bold tracking-tight">{d.title}</h1>
+        <h1 className="font-heading text-xl font-semibold tracking-tight">{d.title}</h1>
         <p className="text-sm text-muted-foreground">{d.subtitle}</p>
       </div>
 

@@ -9,6 +9,7 @@ import { VenueSourcesTab, type VenueSource } from './venue-sources-tab'
 import { VenueFactsTab, type VenueFact } from './venue-facts-tab'
 import { VenueDocumentsTab, type VenueDocument } from './venue-documents-tab'
 import { VenueNotesTab } from './venue-notes-tab'
+import { VenueAccommodationTab, type Accommodation } from './venue-accommodation-tab'
 import { EnquiryStatusBadge, type EnquiryStatus } from '@/components/enquiries/enquiry-status-badge'
 
 interface VenueContact {
@@ -25,7 +26,7 @@ interface VenueEnquirySummary {
   follow_up_date: string | null
 }
 
-type Tab = 'overview' | 'sources' | 'facts' | 'documents' | 'notes'
+type Tab = 'overview' | 'sources' | 'facts' | 'accommodation' | 'documents' | 'notes'
 
 export function VenueDetailTabs({
   lang,
@@ -34,6 +35,7 @@ export function VenueDetailTabs({
   sources,
   facts,
   contacts,
+  accommodations,
   documents,
   projectId,
   enquiry,
@@ -44,6 +46,7 @@ export function VenueDetailTabs({
   sources: VenueSource[]
   facts: VenueFact[]
   contacts: VenueContact[]
+  accommodations: Accommodation[]
   documents: VenueDocument[]
   projectId: string
   enquiry: VenueEnquirySummary | null
@@ -55,6 +58,7 @@ export function VenueDetailTabs({
     { id: 'overview', label: d.overview },
     { id: 'sources', label: d.sources, count: sources.length },
     { id: 'facts', label: d.facts, count: facts.length },
+    { id: 'accommodation', label: d.accommodation, count: accommodations.length },
     { id: 'documents', label: d.documents, count: documents.length },
     { id: 'notes', label: d.notes },
   ]
@@ -63,7 +67,7 @@ export function VenueDetailTabs({
     <div className="space-y-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">{venue.name}</h1>
+          <h1 className="font-heading text-2xl font-semibold tracking-tight">{venue.name}</h1>
           {contacts.length > 0 && (
             <p className="text-sm text-muted-foreground">
               {contacts.map((c) => c.name).filter(Boolean).join(', ')}
@@ -104,6 +108,9 @@ export function VenueDetailTabs({
         {tab === 'overview' && <VenueOverviewTab dict={dict} venue={venue} />}
         {tab === 'sources' && <VenueSourcesTab dict={dict} venueId={venue.id} sources={sources} />}
         {tab === 'facts' && <VenueFactsTab dict={dict} venueId={venue.id} facts={facts} />}
+        {tab === 'accommodation' && (
+          <VenueAccommodationTab dict={dict} venueId={venue.id} accommodations={accommodations} />
+        )}
         {tab === 'documents' && (
           <VenueDocumentsTab dict={dict} projectId={projectId} venueId={venue.id} documents={documents} />
         )}

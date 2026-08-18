@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale } from '@/lib/i18n'
 import { AcceptInviteForm } from '@/components/auth/accept-invite-form'
 
-export const metadata = { title: "You've been invited — Wedding Decision Platform" }
+export const metadata = { title: "You've been invited — Aisle" }
 
 export default async function AcceptInvitePage({
   params,
@@ -21,7 +21,7 @@ export default async function AcceptInvitePage({
   return (
     <div className="space-y-6">
       <div className="space-y-1.5 text-center">
-        <h1 className="text-xl font-bold tracking-tight">{d.title}</h1>
+        <h1 className="font-heading text-xl font-semibold tracking-tight">{d.title}</h1>
       </div>
 
       <AcceptInviteForm lang={lang} dict={dict} token={token ?? null} />

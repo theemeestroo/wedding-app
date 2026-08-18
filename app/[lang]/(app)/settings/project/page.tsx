@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { DeleteProject } from '@/components/settings/delete-project'
 
-export const metadata = { title: 'Project settings — Wedding Decision Platform' }
+export const metadata = { title: 'Project settings — Aisle' }
 
 export default async function ProjectSettingsPage({
   params,
@@ -29,7 +29,7 @@ export default async function ProjectSettingsPage({
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold tracking-tight">{d.project.heading}</h1>
+      <h1 className="font-heading text-2xl font-semibold tracking-tight">{d.project.heading}</h1>
 
       <p className="text-sm text-muted-foreground">
         {d.project.privacyLink}{' '}

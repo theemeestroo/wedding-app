@@ -15,7 +15,9 @@
     "@supabase/supabase-js": "^2.103.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "d3-contour": "^4.0.2",
     "lucide-react": "^1.8.0",
+    "maplibre-gl": "^6.4.0",
     "next": "16.2.3",
     "radix-ui": "^1.4.3",
     "react": "19.2.4",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/d3-contour": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

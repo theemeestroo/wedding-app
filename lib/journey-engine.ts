@@ -38,7 +38,7 @@ export interface JourneyResult {
 
 // Below this distance, driving door-to-door is almost always faster and
 // simpler than flying once airport transfers and buffers are counted.
-const DRIVE_THRESHOLD_KM = 300
+export const DRIVE_THRESHOLD_KM = 300
 
 /**
  * Connections heuristic: short-haul is almost always direct; long-haul
@@ -47,7 +47,7 @@ const DRIVE_THRESHOLD_KM = 300
  * through smaller airports. A heuristic on real airport size, not a claim
  * about any specific route.
  */
-function estimateConnections(flightKm: number, originType: Airport['type'], destType: Airport['type']): number {
+export function estimateConnections(flightKm: number, originType: Airport['type'], destType: Airport['type']): number {
   const bothLarge = originType === 'large' && destType === 'large'
   const eitherLarge = originType === 'large' || destType === 'large'
 
@@ -58,12 +58,12 @@ function estimateConnections(flightKm: number, originType: Airport['type'], dest
 }
 
 /** distance-band × direct/connection factor, per PRD §9.1/§10.6's own heuristic shape. */
-function estimateFlightCost(flightKm: number, connections: number): number {
+export function estimateFlightCost(flightKm: number, connections: number): number {
   const ratePerKm = flightKm < 1000 ? 0.15 : flightKm < 4000 ? 0.1 : 0.08
   return Math.max(flightKm * ratePerKm, 60) + connections * 50
 }
 
-function bandFor(hours: number, connections: number): DifficultyBand {
+export function bandFor(hours: number, connections: number): DifficultyBand {
   // PRD §10.4's Hard band has no upper bound — a genuinely long-but-real
   // journey (e.g. New York–Sydney, ~24h door-to-door) is still Hard, not
   // Blocked. Blocked means no viable route or a stated maximum exceeded
@@ -74,6 +74,52 @@ function bandFor(hours: number, connections: number): DifficultyBand {
   if (hours < 4 && connections === 0) return 'easy'
   if (hours <= 8 && connections <= 1) return 'moderate'
   return 'hard'
+}
+
+export interface NearestAirportResult {
+  airport: Airport
+  distanceKm: number
+}
+
+/**
+ * The fly-branch of a journey, given already-resolved nearest airports for
+ * both ends. Split out from computeJourney() so bulk callers that need the
+ * same origin or destination repeated many times (the burden-surface grid in
+ * lib/burden-surface-engine.ts — every grid point is a candidate destination)
+ * can resolve each unique coordinate's nearest airport once with
+ * findNearestAirport() and reuse it, instead of re-scanning all 3,270
+ * airports on every pair. computeJourney() itself is unchanged behaviourally
+ * — it just calls this after doing its own lookups.
+ */
+export function computeJourneyFromAirports(
+  directKm: number,
+  originNearest: NearestAirportResult,
+  destNearest: NearestAirportResult,
+): JourneyResult {
+  const leg1Hours = originNearest.distanceKm / 60 // home -> departure airport
+  const leg3Hours = destNearest.distanceKm / 60 // arrival airport -> venue
+  const flightKm = distanceKm(
+    originNearest.airport.lat,
+    originNearest.airport.lng,
+    destNearest.airport.lat,
+    destNearest.airport.lng,
+  )
+  const connections = estimateConnections(flightKm, originNearest.airport.type, destNearest.airport.type)
+  const flightHours = flightKm / 750 + 1 + connections * 1.5 // cruise speed + takeoff/landing + layovers
+  const checkInBufferHours = 2
+
+  const doorToDoorHours = leg1Hours + checkInBufferHours + flightHours + leg3Hours
+
+  return {
+    mode: 'fly',
+    originAirport: originNearest.airport,
+    destAirport: destNearest.airport,
+    connections,
+    doorToDoorHours,
+    costPerPerson: estimateFlightCost(flightKm, connections),
+    difficultyBand: bandFor(doorToDoorHours, connections),
+    distanceKm: directKm,
+  }
 }
 
 export function computeJourney(origin: Coordinates, destination: Coordinates): JourneyResult {
@@ -109,30 +155,7 @@ export function computeJourney(origin: Coordinates, destination: Coordinates): J
     }
   }
 
-  const leg1Hours = originNearest.distanceKm / 60 // home -> departure airport
-  const leg3Hours = destNearest.distanceKm / 60 // arrival airport -> venue
-  const flightKm = distanceKm(
-    originNearest.airport.lat,
-    originNearest.airport.lng,
-    destNearest.airport.lat,
-    destNearest.airport.lng,
-  )
-  const connections = estimateConnections(flightKm, originNearest.airport.type, destNearest.airport.type)
-  const flightHours = flightKm / 750 + 1 + connections * 1.5 // cruise speed + takeoff/landing + layovers
-  const checkInBufferHours = 2
-
-  const doorToDoorHours = leg1Hours + checkInBufferHours + flightHours + leg3Hours
-
-  return {
-    mode: 'fly',
-    originAirport: originNearest.airport,
-    destAirport: destNearest.airport,
-    connections,
-    doorToDoorHours,
-    costPerPerson: estimateFlightCost(flightKm, connections),
-    difficultyBand: bandFor(doorToDoorHours, connections),
-    distanceKm: directKm,
-  }
+  return computeJourneyFromAirports(directKm, originNearest, destNearest)
 }
 
 // ---------------------------------------------------------------------------

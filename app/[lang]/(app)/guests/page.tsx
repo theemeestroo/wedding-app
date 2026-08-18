@@ -10,7 +10,7 @@ import { HouseholdCard } from '@/components/guests/household-card'
 import { OriginClusterPanel } from '@/components/guests/origin-cluster-panel'
 import { ExportButtons, type ExportRow } from '@/components/guests/export-buttons'
 
-export const metadata = { title: 'Guests — Wedding Decision Platform' }
+export const metadata = { title: 'Guests — Aisle' }
 
 export default async function GuestsPage({
   params,
@@ -78,12 +78,12 @@ export default async function GuestsPage({
   )
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-9">
+      <div className="flex flex-wrap items-end justify-between gap-4 border-b pb-7">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">{d.heading}</h1>
+          <h1 className="font-heading text-4xl italic tracking-tight sm:text-5xl">{d.heading}</h1>
           {(households?.length ?? 0) > 0 && (
-            <p className="text-sm text-muted-foreground">
+            <p className="mt-2.5 text-sm text-muted-foreground">
               {interpolate(d.originSummary, { regions: regionCount, countries: countries.size })}
             </p>
           )}

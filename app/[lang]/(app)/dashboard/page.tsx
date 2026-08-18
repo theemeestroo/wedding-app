@@ -60,39 +60,37 @@ export default async function DashboardPage({
   const followUpsDueCount = (enquiryRows ?? []).filter((e) => e.follow_up_date && e.follow_up_date <= today).length
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">{project.name}</h1>
-        <p className="text-sm text-muted-foreground">
+    <div className="space-y-9">
+      <div className="border-b pb-7">
+        <p className="mb-2.5 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.2em] text-primary">
+          <span className="h-px w-8 bg-primary/50" aria-hidden="true" />
           {d.currencyLabel}: {project.currency}
         </p>
+        <h1 className="font-heading text-4xl italic tracking-tight sm:text-5xl">{project.name}</h1>
       </div>
 
-      <section className="rounded-2xl border bg-card p-6">
-        <h2 className="mb-4 text-sm font-medium uppercase tracking-wide text-muted-foreground">
-          {d.membersHeading}
-        </h2>
-        <ul className="space-y-2">
+      <DashboardSection heading={d.membersHeading}>
+        <ul className="divide-y divide-border/60">
           {members?.map((m, i) => (
-            <li key={i} className="flex items-center justify-between text-sm">
-              <span>{m.profile?.full_name || m.profile?.email}</span>
-              <span className="text-muted-foreground capitalize">{m.role}</span>
+            <li key={i} className="flex items-center gap-3 py-2.5 first:pt-0 last:pb-0">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 font-heading text-sm italic text-primary">
+                {initials(m.profile?.full_name || m.profile?.email)}
+              </span>
+              <span className="flex-1 text-sm">{m.profile?.full_name || m.profile?.email}</span>
+              <span className="text-xs uppercase tracking-wide text-muted-foreground">{m.role}</span>
             </li>
           ))}
         </ul>
         <Link
           href={localizePath(lang, '/settings/members')}
-          className="mt-4 inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
+          className="mt-5 inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
         >
           {d.inviteCta}
         </Link>
-      </section>
+      </DashboardSection>
 
       {(awaitingReplyCount > 0 || followUpsDueCount > 0) && (
-        <section className="rounded-2xl border bg-card p-6">
-          <h2 className="mb-2 text-sm font-medium uppercase tracking-wide text-muted-foreground">
-            {d.needsAttentionHeading}
-          </h2>
+        <DashboardSection heading={d.needsAttentionHeading}>
           <p className="text-sm">
             {awaitingReplyCount > 0 && interpolate(d.awaitingReplyCount, { count: awaitingReplyCount })}
             {awaitingReplyCount > 0 && followUpsDueCount > 0 && ' · '}
@@ -104,14 +102,11 @@ export default async function DashboardPage({
           >
             {d.viewEnquiries}
           </Link>
-        </section>
+        </DashboardSection>
       )}
 
       {venueCount && venueCount > 0 ? (
-        <section className="rounded-2xl border bg-card p-6">
-          <h2 className="mb-4 text-sm font-medium uppercase tracking-wide text-muted-foreground">
-            {d.venuesHeading}
-          </h2>
+        <DashboardSection heading={d.venuesHeading}>
           <p className="text-sm">{interpolate(d.venueCount, { count: venueCount })}</p>
           <Link
             href={localizePath(lang, '/venues')}
@@ -119,10 +114,10 @@ export default async function DashboardPage({
           >
             {d.viewVenues}
           </Link>
-        </section>
+        </DashboardSection>
       ) : (
-        <section className="rounded-2xl border border-dashed bg-card p-6 text-center">
-          <p className="mb-3 text-sm text-muted-foreground">{d.noVenuesYet}</p>
+        <section className="rounded-2xl border border-dashed bg-card p-8 text-center">
+          <p className="mb-4 text-sm text-muted-foreground">{d.noVenuesYet}</p>
           <Link
             href={localizePath(lang, '/venues/new')}
             className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
@@ -132,5 +127,23 @@ export default async function DashboardPage({
         </section>
       )}
     </div>
+  )
+}
+
+function initials(name: string | null | undefined) {
+  const parts = (name ?? '').trim().split(/\s+/).filter(Boolean)
+  const chars = parts.slice(0, 2).map((p) => p[0]?.toUpperCase())
+  return chars.join('') || '?'
+}
+
+function DashboardSection({ heading, children }: { heading: string; children: React.ReactNode }) {
+  return (
+    <section className="rounded-2xl border bg-card p-6 sm:p-7">
+      <h2 className="mb-5 flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.18em] text-primary">
+        <span className="h-px w-5 bg-primary/40" aria-hidden="true" />
+        {heading}
+      </h2>
+      {children}
+    </section>
   )
 }
