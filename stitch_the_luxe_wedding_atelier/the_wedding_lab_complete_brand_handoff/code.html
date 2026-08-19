@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>The Wedding Lab - Developer Handoff Package</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        midnight: '#2d1b2e',
+                        gold: '#c5a059',
+                        parchment: '#fff7fb',
+                        charcoal: '#1a1a1a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fff7fb; /* Soft Parchment */
+            color: #1a1a1a; /* Deep Charcoal */
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen pb-20">
+<header class="bg-midnight text-parchment py-12 px-6 sm:px-12 lg:px-24 mb-12 shadow-md">
+<div class="max-w-7xl mx-auto">
+<p class="text-gold font-sans font-semibold tracking-widest uppercase text-sm mb-2">Developer Handoff Package</p>
+<h1 class="text-4xl md:text-5xl font-serif font-bold tracking-tight">The Wedding Lab</h1>
+<p class="mt-4 text-lg max-w-2xl text-parchment/80 font-sans">A premium wedding planning platform with a "Grand Regency Luxe" aesthetic. High-end stationery, editorial layouts, tactile luxury.</p>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 space-y-20">
+<!-- Visual Identity -->
+<section>
+<div class="border-b border-gold/30 pb-4 mb-8">
+<h2 class="text-3xl font-serif font-semibold text-midnight">Visual Identity</h2>
+<p class="text-gray-600 mt-2">Core brand assets and logo variations.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Primary Logo -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col">
+<h3 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-500 mb-4">Primary Logo</h3>
+<div class="flex-grow flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+<img alt="Primary Logo" class="max-h-48 object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfAmeV5-T80C07a5MqrreMU3KRehDakwOfC8Wgv1DIQeH_BI4WlbZL6IZxr2TtrQvssqUX31D-0e_iZZUnCEpP37RoLmYxLy8eBaH1LrWJH03ysFovLns5wSzzrvsqrZ9eV2Kj4Y2_ieum860AziLxAuGjJZzdDbDi7v4_RPCsTdx4K_q_q9K1g77F2KWwbDy31gJHZAHwsAxHuYGM8u-K2Co5lYxVavv-kNbgg_nxXwC6qQFpb6aZoA">
+</div>
+</div>
+<!-- Horizontal Wordmark -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col">
+<h3 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-500 mb-4">Horizontal Wordmark</h3>
+<div class="flex-grow flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+<img alt="Horizontal Wordmark" class="max-h-48 object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXTV0dwy_f9mURUK9ZOKCkPTyyqLhl8lXf4mKv8gbz9yFRy39tpeseCtgH024QFi2tIMyk6g4qTMl8Kd_Dba-yZ_VqVFP_ApF9Rp3WXhaqzUttfxLGL4OZr3lgkNCSKQZPePBDlgJmUU2dGKYPyUb7AkOQgnWFp3iwnXxbImNdxEUyHkKIf_tGZCyf-SpkM6Tf7Sa4AVfzmEKmj0lxliD_o9VmmTSS_QMj-Bv64_Mb-psZ-3BzbNnRFQ">
+</div>
+</div>
+<!-- Simplified Favicon -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col">
+<h3 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-500 mb-4">Light Variation</h3>
+<div class="flex-grow flex items-center justify-center bg-gray-50 rounded-lg p-4 overflow-hidden">
+<img alt="Light Variation Logo" class="object-contain mix-blend-multiply max-h-48" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8JFzcizixT5XCNT_U2qVVqQBfUC4OiBE0NMAa2uuKSCSHfHl-KicqGBLswD9Hg1KXeYGYSXBNriKWOcsPKA0Z2hS1Bg4PZj8xCuLN6KYwZaG5KrER9EFhfVwPG29XCu5pzhp5kXC_dkeB92qmw8uoAtBG0OIQBL319ORtlDvKGrd0IsbnU3FAt4gt2UwOsByLe4ss9py8o4_DKcEPlyuRdj4tZq0R4undtsWOmTwV9mFfJtQ3tra9lg">
+</div>
+</div>
+</div>
+</section>
+<!-- Design Tokens -->
+<section>
+<div class="border-b border-gold/30 pb-4 mb-8">
+<h2 class="text-3xl font-serif font-semibold text-midnight">Design Tokens</h2>
+<p class="text-gray-600 mt-2">Core color palette for the platform.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+<!-- Midnight Plum -->
+<div class="rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col">
+<div class="h-32 bg-midnight w-full"></div>
+<div class="bg-white p-4">
+<p class="font-semibold text-gray-900 font-sans">Midnight Plum</p>
+<p class="font-mono text-sm text-gray-500 mt-1">#2d1b2e</p>
+<p class="text-xs text-gray-400 mt-2">Primary Brand, Backgrounds</p>
+</div>
+</div>
+<!-- Burnished Gold -->
+<div class="rounded-xl overflow-hidden shadow-sm border border-gray-100 flex flex-col">
+<div class="h-32 bg-gold w-full"></div>
+<div class="bg-white p-4">
+<p class="font-semibold text-gray-900 font-sans">Burnished Gold</p>
+<p class="font-mono text-sm text-gray-500 mt-1">#c5a059</p>
+<p class="text-xs text-gray-400 mt-2">Accents, Borders, Highlights</p>
+</div>
+</div>
+<!-- Soft Parchment -->
+<div class="rounded-xl overflow-hidden shadow-sm border border-gray-200 flex flex-col">
+<div class="h-32 bg-parchment w-full border-b border-gray-100"></div>
+<div class="bg-white p-4">
+<p class="font-semibold text-gray-900 font-sans">Soft Parchment</p>
+<p class="font-mono text-sm text-gray-500 mt-1">#fff7fb</p>
+<p class="text-xs text-gray-400 mt-2">Surfaces, Backgrounds</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Typography -->
+<section>
+<div class="border-b border-gold/30 pb-4 mb-8">
+<h2 class="text-3xl font-serif font-semibold text-midnight">Typography</h2>
+</div>
+<div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 grid md:grid-cols-2 gap-8">
+<div>
+<h3 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-500 mb-4">Headings (Serif)</h3>
+<div class="font-serif">
+<p class="text-5xl mb-2">Playfair Display</p>
+<p class="text-2xl italic text-gray-600">The quick brown fox jumps over the lazy dog.</p>
+</div>
+</div>
+<div>
+<h3 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-500 mb-4">Body / Data (Sans-serif)</h3>
+<div class="font-sans">
+<p class="text-3xl mb-2 font-medium">Inter</p>
+<p class="text-base text-gray-600">The quick brown fox jumps over the lazy dog. 1234567890</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Sample Imagery -->
+<section>
+<div class="border-b border-gold/30 pb-4 mb-8">
+<h2 class="text-3xl font-serif font-semibold text-midnight">Photography Direction</h2>
+<p class="text-gray-600 mt-2">Sample imagery reflecting the brand's mood and tone.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="flex flex-col">
+<h3 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-500 mb-4">Floral Arrangement</h3>
+<div class="rounded-xl overflow-hidden shadow-sm">
+<img alt="Floral Arrangement Sample" class="w-full h-auto object-cover aspect-video" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG18yQL5doYHb3GAhHhmwjnVw25-v3XiP9cZoyA43w0MUYI5GXZvTwwYNw9kW_g_03b3UwGwWaYmeNqfyMCVQ0BTndrXwZDQb1DMmU6HW9XlqnVpmNQ2iXnMrumnNbD3Q9f9gRVi9U-S9gw31-3uoyk1DvaE4DvrZL_Ycimdm1Efw7NHHcERSnGcdSnPSdmFuk4MHh7IMQ2DplXbjDVRNTVG-WgXEH-_67lG2x0sK1WK25sSPmU6hvHRr-vvg5c_v1Yws">
+</div>
+</div>
+<div class="flex flex-col">
+<h3 class="font-sans font-semibold text-sm uppercase tracking-wider text-gray-500 mb-4">Luxe Venue</h3>
+<div class="rounded-xl overflow-hidden shadow-sm">
+<img alt="Luxe Venue Sample" class="w-full h-auto object-cover aspect-video" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-1yewJ53x8gL9gj65qaGyKm54tYMlfMCZJczNLYhKNnPm7NRuzHv4YDsODSA6jsCB16S_-fFsA_iAV46tt1HyI4fPasNwGBxP9Zi-cIvKhy7-TP9x9zekseauQxgwtz2RVVLLQqHOc-e4yNXvEaTbsqbR1ifh9-fNua5VyAc-kGl1-b0fh9zCfl_XYp5YFbuKjWJnwDRp_iTgsSmfWcupJGF3Cb_2mFmLybZecopBd0yL5kMh0ke1ILX0ta4kpwBIDvk">
+</div>
+</div>
+</div>
+</section>
+</main>
+
+
+</body></html>

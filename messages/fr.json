@@ -254,15 +254,9 @@
     "accommodation": {
       "empty": "Aucun hébergement enregistré pour l'instant.",
       "namePlaceholder": "ex. Chambres du jardin",
-      "roomsPlaceholder": "Chambres disponibles",
-      "capacityAdultsPlaceholder": "Adultes par chambre",
-      "capacityChildrenPlaceholder": "Enfants par chambre",
-      "nightlyRatePlaceholder": "Tarif par nuit",
-      "currencyPlaceholder": "EUR",
       "addAccommodation": "Ajouter un hébergement",
-      "roomsUnit": "chambres",
-      "capacityLabel": "capacité",
-      "perNight": "/ nuit",
+      "manageRooms": "Gérer les chambres",
+      "hideRooms": "Masquer les chambres",
       "typeLabels": {
         "venue_block": "Chambres du lieu",
         "hotel": "Hôtel",
@@ -274,6 +268,20 @@
         "researched": "Recherché",
         "confirmed": "Confirmé",
         "contracted": "Contractuel"
+      },
+      "rooms": {
+        "empty": "Aucune chambre ajoutée pour l'instant.",
+        "roomCount": "{{count}} chambre(s)",
+        "labelPlaceholder": "ex. Chambre du jardin",
+        "roomTypePlaceholder": "ex. Double, Twin, Suite",
+        "capacityAdultsPlaceholder": "Adultes",
+        "capacityChildrenPlaceholder": "Enfants",
+        "nightlyRatePlaceholder": "Tarif par nuit",
+        "currencyPlaceholder": "EUR",
+        "quantityLabel": "Nombre de chambres à ajouter",
+        "addRooms": "Ajouter des chambres",
+        "capacityLabel": "capacité",
+        "perNight": "/ nuit"
       }
     },
     "documents": {
@@ -508,6 +516,13 @@
       "biggestUnknownIntro": "La plus grande inconnue de cette option est",
       "biggestUnknownCta": "Demander dans la demande",
       "applyTemplate": "Appliquer les coûts typiques pour ce type de lieu",
+      "tabs": {
+        "logistics": "Logistique",
+        "accommodation": "Hébergement",
+        "events": "Événements",
+        "costs": "Règles de coût",
+        "decision": "Évaluations et décision"
+      },
       "eventsHeading": "Événements",
       "primaryBadge": "principal",
       "addEvent": "Ajouter un événement",
@@ -576,11 +591,12 @@
       "attendanceForecastCaveat": "Une estimation approximative basée sur la difficulté de trajet, pas une vraie prédiction — le budget doit continuer à utiliser le nombre total d'invités.",
       "accommodationHeading": "Hébergement et transferts",
       "noAccommodations": "Ajoutez un hébergement sur la page du lieu pour pouvoir y affecter des foyers.",
+      "occupancyBadge": "{{booked}}/{{total}} chambres réservées",
+      "occupancyFull": "Complet",
       "householdColumn": "Foyer",
       "arrivalColumn": "Arrivée",
       "departureColumn": "Départ",
-      "accommodationColumn": "Hébergé à",
-      "roomsAssignedPlaceholder": "Chambres",
+      "accommodationColumn": "Chambres",
       "visaNotesColumn": "Notes de visa",
       "visaNotesPlaceholder": "ex. visa Schengen, 6 semaines nécessaires",
       "windowLabels": {
@@ -590,7 +606,10 @@
         "night": "Nuit"
       },
       "windowUnset": "Non défini",
-      "noAccommodationSelected": "Non affecté",
+      "noAccommodationSelected": "Aucune chambre affectée",
+      "assignRoomPlaceholder": "+ Affecter une chambre…",
+      "noRoomsAvailable": "Plus de chambres disponibles",
+      "roomCapacityWarning": "{{guestCount}} invités, capacité {{capacity}}",
       "estimateCosts": "Estimer les coûts d'hébergement et de transfert",
       "estimating": "Estimation…",
       "accommodationCostLabel": "Hébergement (calculé automatiquement)",

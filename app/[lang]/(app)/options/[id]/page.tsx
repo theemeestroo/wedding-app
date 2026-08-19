@@ -54,15 +54,21 @@ export default async function OptionDetailPage({
     supabase.from('origin_clusters').select('id, label, centroid_lat, centroid_lng').eq('project_id', project.id),
     supabase.from('ratings').select('id, profile_id, rating, note').eq('option_id', id),
     supabase.from('decisions').select('option_id, rationale, decided_at').eq('project_id', project.id).maybeSingle(),
-    supabase.from('accommodations').select('id, name, nightly_rate, currency').eq('venue_id', option.venue_id),
+    supabase.from('accommodations').select('id, name').eq('venue_id', option.venue_id),
     supabase
       .from('arrival_profiles')
       .select('id, household_id, arrival_date, arrival_window, departure_date, departure_window, visa_notes')
       .eq('option_id', id),
-    supabase.from('allocations').select('id, household_id, accommodation_id, rooms_assigned').eq('option_id', id),
+    supabase.from('allocations').select('id, household_id, room_id').eq('option_id', id),
   ])
 
   if (!plan || !venue) notFound()
+
+  const accommodationIds = (accommodations ?? []).map((a) => a.id)
+  const { data: accommodationRooms } = await supabase
+    .from('accommodation_rooms')
+    .select('id, accommodation_id, label, room_type, capacity_adults, capacity_children, nightly_rate, currency')
+    .in('accommodation_id', accommodationIds.length > 0 ? accommodationIds : ['00000000-0000-0000-0000-000000000000'])
 
   const { data: households } = await supabase
     .from('households')
@@ -144,8 +150,9 @@ export default async function OptionDetailPage({
       projectId={project.id}
       clusters={(clusters ?? []).map((c) => ({ id: c.id, label: c.label, lat: c.centroid_lat, lng: c.centroid_lng }))}
       householdClusters={householdClusterInputs}
-      households={includedHouseholds.map((h) => ({ id: h.id, name: h.name }))}
+      households={includedHouseholds.map((h) => ({ id: h.id, name: h.name, adultCount: h.adultCount, childCount: h.childCount }))}
       accommodations={accommodations ?? []}
+      rooms={accommodationRooms ?? []}
       arrivalProfiles={arrivalProfiles ?? []}
       allocations={allocations ?? []}
       ratings={ratings ?? []}

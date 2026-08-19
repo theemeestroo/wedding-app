@@ -1,0 +1,190 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Login - The Wedding Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#fed488",
+                        "primary-fixed": "#f7daf4",
+                        "primary-fixed-dim": "#dabed8",
+                        "surface-container": "#f6eaf5",
+                        "on-tertiary-container": "#8a8885",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#140516",
+                        "primary-container": "#2d1b2e",
+                        "tertiary": "#0a0a08",
+                        "on-tertiary-fixed": "#1c1c1a",
+                        "on-primary-fixed-variant": "#554055",
+                        "on-background": "#1f1a21",
+                        "on-surface-variant": "#4c454a",
+                        "on-surface": "#1f1a21",
+                        "surface-container-highest": "#ebdfea",
+                        "on-secondary-fixed": "#261900",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "surface-variant": "#ebdfea",
+                        "surface-dim": "#e2d7e1",
+                        "inverse-surface": "#352e36",
+                        "surface-container-low": "#fcf0fb",
+                        "surface": "#fff7fb",
+                        "outline-variant": "#cec3cb",
+                        "inverse-on-surface": "#f9edf8",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "error": "#ba1a1a",
+                        "background": "#fff7fb",
+                        "on-tertiary-fixed-variant": "#474744",
+                        "secondary-fixed": "#ffdea5",
+                        "surface-tint": "#6e576d",
+                        "secondary-fixed-dim": "#e9c176",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#785a1a",
+                        "surface-bright": "#fff7fb",
+                        "surface-container-high": "#f1e5f0",
+                        "on-primary-fixed": "#271528",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#9a8199",
+                        "tertiary-fixed": "#e5e2de",
+                        "outline": "#7d757b",
+                        "tertiary-container": "#21211f",
+                        "secondary": "#775a19",
+                        "inverse-primary": "#dabed8",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "32px",
+                        "container-max": "1280px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "80px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "body-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "headline-md": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.15em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Inputs based on Style Guidance */
+        .input-regency {
+            @apply w-full bg-transparent border-0 border-b border-primary/20 text-on-surface font-body-md focus:ring-0 focus:border-secondary transition-colors duration-300 px-0 py-3;
+        }
+        .input-regency:focus {
+            @apply bg-surface-container-low border-b-[1.5px];
+        }
+
+        /* Ambient Shadow for Interactive Cards */
+        .shadow-ambient {
+            box-shadow: 0px 20px 40px rgba(45, 27, 46, 0.05);
+        }
+
+        /* Subtle Background Texture */
+        .bg-texture-plum {
+            background-color: #140516; /* Midnight Plum */
+            background-image: radial-gradient(circle at 50% 50%, rgba(119, 90, 25, 0.05) 0%, transparent 100%),
+                              radial-gradient(circle at 100% 0%, rgba(247, 218, 244, 0.03) 0%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-primary text-on-surface font-body-md min-h-screen flex items-center justify-center bg-texture-plum">
+<!-- Transactional Page: No TopNavBar or BottomNavBar -->
+<main class="w-full max-w-[1000px] px-margin-mobile md:px-margin-desktop py-20 flex flex-col md:flex-row items-center justify-center gap-gutter relative z-10">
+<!-- Login Card -->
+<section class="w-full max-w-md bg-surface-container-lowest border border-secondary/20 shadow-ambient p-8 md:p-12 relative overflow-hidden flex flex-col items-center">
+<!-- Branding -->
+<div class="mb-10 text-center">
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXTV0dwy_f9mURUK9ZOKCkPTyyqLhl8lXf4mKv8gbz9yFRy39tpeseCtgH024QFi2tIMyk6g4qTMl8Kd_Dba-yZ_VqVFP_ApF9Rp3WXhaqzUttfxLGL4OZr3lgkNCSKQZPePBDlgJmUU2dGKYPyUb7AkOQgnWFp3iwnXxbImNdxEUyHkKIf_tGZCyf-SpkM6Tf7Sa4AVfzmEKmj0lxliD_o9VmmTSS_QMj-Bv64_Mb-psZ-3BzbNnRFQ" alt="The Wedding Lab" class="h-12 mb-2 mx-auto block">
+<h1 class="font-headline-lg text-headline-lg text-primary">Welcome Back</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Sign in to continue planning your perfect day.</p>
+</div>
+<!-- Social Logins -->
+<div class="w-full flex flex-col gap-4 mb-8">
+<button class="w-full flex items-center justify-center gap-3 bg-transparent border border-secondary/30 text-primary font-label-caps text-label-caps py-4 px-6 hover:border-secondary hover:bg-surface-container-low transition-all duration-300">
+<img alt="Google Logo" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwWEaAQA-0pBOncnj5HVkMDuu0N2BGXBrUf-Wz387-YwhQtty0TP1r45AhtQwU6mkwmumhgdLsRgGfNHP6_h3Qhoy1A_GS89fyF8faC5omsWDRhuHv17CaKejuM4VlYB3k1nSCgDQWWY1KgX8gIMb0ku6TUnLguGLp1lQ0GsQ0TPxnPrCM9lEO9Xv9N1ESbdMV3im1Q4PWsu4lRCHAQAQcEimJiBD5hTF8SAJULlrIT3pD-jBYXxJuyg">
+                    Sign in with Google
+                </button>
+<button class="w-full flex items-center justify-center gap-3 bg-transparent border border-secondary/30 text-primary font-label-caps text-label-caps py-4 px-6 hover:border-secondary hover:bg-surface-container-low transition-all duration-300">
+<span class="material-symbols-outlined fill text-[20px]" data-icon="apple">file_download</span>
+                    Sign in with Apple
+                </button>
+</div>
+<!-- Divider -->
+<div class="w-full flex items-center gap-4 mb-8">
+<div class="h-px bg-secondary/20 flex-1"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">OR</span>
+<div class="h-px bg-secondary/20 flex-1"></div>
+</div>
+<!-- Traditional Form -->
+<form action="#" class="w-full flex flex-col gap-6" method="POST">
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-primary mb-1" for="email">Email Address</label>
+<input class="input-regency" id="email" name="email" placeholder="name@example.com" required="" type="email">
+</div>
+<div class="flex flex-col mb-2">
+<div class="flex justify-between items-center mb-1">
+<label class="font-label-caps text-label-caps text-primary" for="password">Password</label>
+<a class="font-label-caps text-[10px] uppercase tracking-[0.15em] font-semibold text-secondary hover:text-primary transition-colors" href="#">Forgot?</a>
+</div>
+<input class="input-regency" id="password" name="password" placeholder="••••••••" required="" type="password">
+</div>
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-4 px-8 mt-2 border border-transparent hover:border-secondary hover:text-secondary transition-all duration-300" type="submit">
+                    Sign In
+                </button>
+</form>
+<div class="mt-8 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Don't have an account? 
+                    <a class="font-label-caps text-label-caps text-secondary underline decoration-secondary/30 hover:decoration-secondary transition-all" href="#">Create Account</a>
+</p>
+</div>
+</section>
+<!-- Optional: Decorative Imagery / Editorial Element for Desktop -->
+<section class="hidden lg:block w-full max-w-md relative h-[600px] border border-secondary/20">
+<div class="bg-cover bg-center w-full h-full opacity-90" data-alt="A highly detailed, editorial-style photograph of an exquisite wedding reception table setting. The scene is bathed in soft, natural light filtering through sheer curtains, creating a light-mode Grand Regency aesthetic. The table features intricate crystal glassware, soft parchment-colored linens, subtle gold-rimmed plates, and elegant floral arrangements in deep midnight plum and soft ivory. The composition emphasizes quiet luxury, high contrast, and meticulous attention to detail." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDTZ7z0HN3c5jzRMM1J0lz3OMY-MLh5OVBSnJMJyAbGrhXI3BRI6w8Slm6L2on2Z5UwuYC2hrbgJWh7GIeX6VsjiO_4B41b-EQwGDiUS-etS4fpXnkFa10fX1fIaOinJxrNXm99TRMsGRqUquH2pgIxaeL7rhH-KhcA2muiNlxA_xpV-eQBdyxF87GQKuLgqeX6vlbUM27VgiwIc8lgvl8MrQW3LlG-ZREbpwEgYwMqcnEqTDumgMD-0w')"></div>
+<!-- Subtle Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex items-end p-8">
+<p class="font-display-lg text-headline-md text-secondary-fixed tracking-tight">"Where elegance meets meticulous curation."</p>
+</div>
+</section>
+</main>
+
+
+</body></html>

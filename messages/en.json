@@ -254,15 +254,9 @@
     "accommodation": {
       "empty": "No accommodation options recorded yet.",
       "namePlaceholder": "e.g. Garden rooms",
-      "roomsPlaceholder": "Rooms available",
-      "capacityAdultsPlaceholder": "Adults per room",
-      "capacityChildrenPlaceholder": "Children per room",
-      "nightlyRatePlaceholder": "Nightly rate",
-      "currencyPlaceholder": "EUR",
       "addAccommodation": "Add accommodation",
-      "roomsUnit": "rooms",
-      "capacityLabel": "sleeps",
-      "perNight": "/ night",
+      "manageRooms": "Manage rooms",
+      "hideRooms": "Hide rooms",
       "typeLabels": {
         "venue_block": "Venue block",
         "hotel": "Hotel",
@@ -274,6 +268,20 @@
         "researched": "Researched",
         "confirmed": "Confirmed",
         "contracted": "Contracted"
+      },
+      "rooms": {
+        "empty": "No rooms added yet.",
+        "roomCount": "{{count}} room(s)",
+        "labelPlaceholder": "e.g. Garden Room",
+        "roomTypePlaceholder": "e.g. Double, Twin, Suite",
+        "capacityAdultsPlaceholder": "Adults",
+        "capacityChildrenPlaceholder": "Children",
+        "nightlyRatePlaceholder": "Nightly rate",
+        "currencyPlaceholder": "EUR",
+        "quantityLabel": "Number of rooms to add",
+        "addRooms": "Add rooms",
+        "capacityLabel": "sleeps",
+        "perNight": "/ night"
       }
     },
     "documents": {
@@ -508,6 +516,13 @@
       "biggestUnknownIntro": "The biggest unknown in this option is",
       "biggestUnknownCta": "Ask about it in the enquiry",
       "applyTemplate": "Apply typical costs for this venue type",
+      "tabs": {
+        "logistics": "Logistics",
+        "accommodation": "Accommodation",
+        "events": "Events",
+        "costs": "Cost rules",
+        "decision": "Ratings & decision"
+      },
       "eventsHeading": "Events",
       "primaryBadge": "primary",
       "addEvent": "Add event",
@@ -576,11 +591,12 @@
       "attendanceForecastCaveat": "A rough guess based on travel difficulty, not a real prediction — budgets should still use the full invited count.",
       "accommodationHeading": "Accommodation & transfers",
       "noAccommodations": "Add accommodation on the venue's page to allocate households here.",
+      "occupancyBadge": "{{booked}}/{{total}} rooms booked",
+      "occupancyFull": "Full",
       "householdColumn": "Household",
       "arrivalColumn": "Arrival",
       "departureColumn": "Departure",
-      "accommodationColumn": "Staying at",
-      "roomsAssignedPlaceholder": "Rooms",
+      "accommodationColumn": "Rooms",
       "visaNotesColumn": "Visa notes",
       "visaNotesPlaceholder": "e.g. Schengen visa, 6 weeks needed",
       "windowLabels": {
@@ -590,7 +606,10 @@
         "night": "Night"
       },
       "windowUnset": "Not set",
-      "noAccommodationSelected": "Not allocated",
+      "noAccommodationSelected": "No rooms assigned",
+      "assignRoomPlaceholder": "+ Assign room…",
+      "noRoomsAvailable": "No rooms left to assign",
+      "roomCapacityWarning": "{{guestCount}} guests, sleeps {{capacity}}",
       "estimateCosts": "Estimate accommodation & transfer costs",
       "estimating": "Estimating…",
       "accommodationCostLabel": "Accommodation (auto-calculated)",

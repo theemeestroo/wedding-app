@@ -10,6 +10,7 @@ import { VenueFactsTab, type VenueFact } from './venue-facts-tab'
 import { VenueDocumentsTab, type VenueDocument } from './venue-documents-tab'
 import { VenueNotesTab } from './venue-notes-tab'
 import { VenueAccommodationTab, type Accommodation } from './venue-accommodation-tab'
+import type { AccommodationRoom } from './accommodation-rooms-manager'
 import { EnquiryStatusBadge, type EnquiryStatus } from '@/components/enquiries/enquiry-status-badge'
 
 interface VenueContact {
@@ -36,6 +37,7 @@ export function VenueDetailTabs({
   facts,
   contacts,
   accommodations,
+  accommodationRooms,
   documents,
   projectId,
   enquiry,
@@ -47,6 +49,7 @@ export function VenueDetailTabs({
   facts: VenueFact[]
   contacts: VenueContact[]
   accommodations: Accommodation[]
+  accommodationRooms: AccommodationRoom[]
   documents: VenueDocument[]
   projectId: string
   enquiry: VenueEnquirySummary | null
@@ -109,7 +112,7 @@ export function VenueDetailTabs({
         {tab === 'sources' && <VenueSourcesTab dict={dict} venueId={venue.id} sources={sources} />}
         {tab === 'facts' && <VenueFactsTab dict={dict} venueId={venue.id} facts={facts} />}
         {tab === 'accommodation' && (
-          <VenueAccommodationTab dict={dict} venueId={venue.id} accommodations={accommodations} />
+          <VenueAccommodationTab dict={dict} venueId={venue.id} accommodations={accommodations} rooms={accommodationRooms} />
         )}
         {tab === 'documents' && (
           <VenueDocumentsTab dict={dict} projectId={projectId} venueId={venue.id} documents={documents} />

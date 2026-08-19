@@ -14,7 +14,9 @@
 
 export type ArrivalWindow = 'morning' | 'afternoon' | 'evening' | 'night'
 
-export interface AccommodationInput {
+// A room, not the property it belongs to — nightly_rate lives here since
+// Phase 7b moved capacity/rate from the accommodation down to each room.
+export interface RoomInput {
   id: string
   nightlyRate: number | null
   currency: string | null
@@ -28,10 +30,11 @@ export interface ArrivalProfileInput {
   departureWindow: ArrivalWindow | null
 }
 
+// One allocation = one room. A household needing multiple rooms gets
+// multiple AllocationInput rows, same as wedding.allocations itself.
 export interface AllocationInput {
   householdId: string
-  accommodationId: string
-  roomsAssigned: number
+  roomId: string
 }
 
 /**
@@ -57,9 +60,8 @@ function resolveNights(profile: ArrivalProfileInput | undefined): {
 }
 
 export interface AccommodationCostBreakdownRow {
-  accommodationId: string
+  roomId: string
   nights: number
-  roomsAssigned: number
   amount: number
   currency: string | null
 }
@@ -75,9 +77,9 @@ export interface AccommodationCostResult {
 export function computeAccommodationCost(
   allocations: AllocationInput[],
   arrivalProfiles: ArrivalProfileInput[],
-  accommodations: AccommodationInput[],
+  rooms: RoomInput[],
 ): AccommodationCostResult {
-  const accommodationById = new Map(accommodations.map((a) => [a.id, a]))
+  const roomById = new Map(rooms.map((r) => [r.id, r]))
   const profileByHousehold = new Map(arrivalProfiles.map((p) => [p.householdId, p]))
 
   const breakdown: AccommodationCostBreakdownRow[] = []
@@ -86,32 +88,73 @@ export function computeAccommodationCost(
   const currencies = new Set<string>()
 
   for (const allocation of allocations) {
-    const accommodation = accommodationById.get(allocation.accommodationId)
-    if (!accommodation || accommodation.nightlyRate == null) continue
+    const room = roomById.get(allocation.roomId)
+    if (!room || room.nightlyRate == null) continue
 
     const { nights, isDefaulted } = resolveNights(profileByHousehold.get(allocation.householdId))
     if (isDefaulted) defaultedHouseholdCount += 1
 
-    const amount = accommodation.nightlyRate * allocation.roomsAssigned * nights
+    const amount = room.nightlyRate * nights
     total += amount
-    if (accommodation.currency) currencies.add(accommodation.currency)
+    if (room.currency) currencies.add(room.currency)
 
     breakdown.push({
-      accommodationId: allocation.accommodationId,
+      roomId: allocation.roomId,
       nights,
-      roomsAssigned: allocation.roomsAssigned,
       amount,
-      currency: accommodation.currency,
+      currency: room.currency,
     })
   }
 
   return {
     total,
-    currency: accommodations.find((a) => a.currency)?.currency ?? null,
+    currency: rooms.find((r) => r.currency)?.currency ?? null,
     mixedCurrency: currencies.size > 1,
     breakdown,
     defaultedHouseholdCount,
   }
+}
+
+// ---------------------------------------------------------------------------
+// Room occupancy — how many of an accommodation's rooms are booked within a
+// given Option. Pure lookup, not persisted; backs the "N/M rooms booked"
+// badge on the option's Accommodation tab so a fully-booked property is
+// visible before someone tries (and fails, on the unique(option_id, room_id)
+// constraint) to double-book it.
+// ---------------------------------------------------------------------------
+
+export interface RoomOccupancyInput {
+  id: string
+  accommodationId: string
+}
+
+export interface AccommodationOccupancy {
+  accommodationId: string
+  totalRooms: number
+  bookedRooms: number
+  isFull: boolean
+}
+
+export function computeRoomOccupancy(
+  rooms: RoomOccupancyInput[],
+  allocations: { roomId: string }[],
+): AccommodationOccupancy[] {
+  const bookedRoomIds = new Set(allocations.map((a) => a.roomId))
+  const byAccommodation = new Map<string, { total: number; booked: number }>()
+
+  for (const room of rooms) {
+    const entry = byAccommodation.get(room.accommodationId) ?? { total: 0, booked: 0 }
+    entry.total += 1
+    if (bookedRoomIds.has(room.id)) entry.booked += 1
+    byAccommodation.set(room.accommodationId, entry)
+  }
+
+  return Array.from(byAccommodation.entries()).map(([accommodationId, { total, booked }]) => ({
+    accommodationId,
+    totalRooms: total,
+    bookedRooms: booked,
+    isFull: booked >= total,
+  }))
 }
 
 // ---------------------------------------------------------------------------

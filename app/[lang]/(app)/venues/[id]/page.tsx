@@ -36,11 +36,18 @@ export default async function VenueDetailPage({
     supabase.from('venue_sources').select('id, url, platform, title, image_url, description, price_shown').eq('venue_id', id).order('created_at', { ascending: false }),
     supabase.from('venue_facts').select('id, fact_key, fact_value, confidence').eq('venue_id', id).order('created_at', { ascending: false }),
     supabase.from('venue_contacts').select('id, name, email, phone, role').eq('venue_id', id),
-    supabase.from('accommodations').select('id, name, type, rooms_available, capacity_adults, capacity_children, nightly_rate, currency, confidence').eq('venue_id', id).order('created_at', { ascending: false }),
+    supabase.from('accommodations').select('id, name, type, confidence').eq('venue_id', id).order('created_at', { ascending: false }),
     supabase.from('venue_documents').select('id, storage_path, filename, created_at').eq('venue_id', id).order('created_at', { ascending: false }),
     // Every venue has exactly one enquiry (Phase 2 trigger) — safe to assume it exists.
     supabase.from('enquiries').select('id, status, follow_up_date').eq('venue_id', id).single(),
   ])
+
+  const accommodationIds = (accommodations ?? []).map((a) => a.id)
+  const { data: accommodationRooms } = await supabase
+    .from('accommodation_rooms')
+    .select('id, accommodation_id, label, room_type, capacity_adults, capacity_children, nightly_rate, currency')
+    .in('accommodation_id', accommodationIds.length > 0 ? accommodationIds : ['00000000-0000-0000-0000-000000000000'])
+    .order('created_at', { ascending: true })
 
   // Signed URLs generated fresh per page load — documents live in a private bucket.
   const documentsWithUrls = await Promise.all(
@@ -61,6 +68,7 @@ export default async function VenueDetailPage({
       facts={facts ?? []}
       contacts={contacts ?? []}
       accommodations={accommodations ?? []}
+      accommodationRooms={accommodationRooms ?? []}
       documents={documentsWithUrls}
       projectId={project.id}
       enquiry={enquiry ?? null}
