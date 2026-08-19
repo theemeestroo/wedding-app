@@ -2,7 +2,7 @@ import { LoginForm } from '@/components/auth/login-form'
 import { getDictionary } from '@/lib/i18n'
 import Link from 'next/link'
 
-export const metadata = { title: 'Sign in — Aisle' }
+export const metadata = { title: 'Sign in — The Wedding Lab' }
 
 export default async function LoginPage({
   searchParams,

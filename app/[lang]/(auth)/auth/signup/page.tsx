@@ -5,7 +5,7 @@ import { getDictionary, hasLocale } from '@/lib/i18n'
 import { localizePath } from '@/lib/locale'
 import { SignupForm } from '@/components/auth/signup-form'
 
-export const metadata = { title: 'Create account — Aisle' }
+export const metadata = { title: 'Create account — The Wedding Lab' }
 
 export default async function SignupPage({
   params,

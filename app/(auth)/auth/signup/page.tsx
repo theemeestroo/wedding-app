@@ -2,7 +2,7 @@ import { SignupForm } from '@/components/auth/signup-form'
 import { getDictionary } from '@/lib/i18n'
 import Link from 'next/link'
 
-export const metadata = { title: 'Create account — Aisle' }
+export const metadata = { title: 'Create account — The Wedding Lab' }
 
 export default async function SignupPage() {
   const dict = await getDictionary('en')

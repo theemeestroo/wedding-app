@@ -5,7 +5,7 @@ import { localizePath } from '@/lib/locale'
 import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 
-export const metadata = { title: 'Options — Aisle' }
+export const metadata = { title: 'Options — The Wedding Lab' }
 
 export default async function OptionsPage({
   params,
@@ -38,7 +38,7 @@ export default async function OptionsPage({
         <h1 className="font-heading text-2xl font-semibold tracking-tight">{d.heading}</h1>
         <Link
           href={localizePath(lang, '/options/new')}
-          className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+          className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold"
         >
           {d.createCta}
         </Link>

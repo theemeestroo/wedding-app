@@ -118,21 +118,21 @@ export function VenueSourcesTab({
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder={d.urlPlaceholder}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
           <input
             type="text"
             value={priceShown}
             onChange={(e) => setPriceShown(e.target.value)}
             placeholder={d.pricePlaceholder}
-            className="w-40 shrink-0 rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="w-40 shrink-0 rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
         </div>
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         <button
           type="submit"
           disabled={saving}
-          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold disabled:opacity-50"
         >
           {fetching ? d.fetching : saving ? dict.common.saving : d.addSource}
         </button>

@@ -46,7 +46,7 @@ export function EnquiryMessageGenerator({
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         rows={8}
-        className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+        className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
       />
       <div className="flex items-center gap-2">
         <button

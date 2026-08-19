@@ -5,7 +5,7 @@ import { getCurrentProject } from '@/lib/project'
 import { VenueBoard } from '@/components/venues/venue-board'
 import type { VenueCardData } from '@/components/venues/venue-card'
 
-export const metadata = { title: 'Venues — Aisle' }
+export const metadata = { title: 'Venues — The Wedding Lab' }
 
 export default async function VenuesPage({
   params,

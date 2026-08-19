@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
 import { Logo } from '@/components/logo'
 import { LaurelDivider } from '@/components/shared/laurel-divider'
 import { ArchPanel } from '@/components/shared/arch-panel'
+import { ThemeToggle } from '@/components/theme-toggle'
 import type { Dictionary } from '@/lib/i18n'
 
 /**
@@ -51,27 +51,28 @@ function SiteHeader({
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
         <Link href="#" className="flex items-center gap-2.5">
           <Logo size={30} />
-          <span className="font-heading text-xl italic tracking-tight">Aisle</span>
+          <span className="font-heading text-xl italic tracking-tight text-primary">The Wedding Lab</span>
         </Link>
         <nav className="flex items-center gap-6">
           <a
             href="#how-it-works"
-            className="hidden text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-foreground sm:inline"
+            className="hidden text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground sm:inline"
           >
             {d.navFeatures}
           </a>
           <Link
             href={loginHref}
-            className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-foreground"
+            className="text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground transition-colors hover:text-foreground"
           >
             {d.navSignIn}
           </Link>
           <Link
             href={signupHref}
-            className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+            className="btn-primary inline-flex items-center justify-center px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.15em]"
           >
             {d.navGetStarted}
           </Link>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
@@ -88,13 +89,11 @@ function Hero({
   loginHref: string
 }) {
   return (
-    <section className="paper-grain relative overflow-hidden border-b">
-      <div className="gradient-hero absolute inset-0 opacity-[0.05]" />
-      <div className="dot-pattern absolute inset-0 opacity-30" />
+    <section className="relative overflow-hidden border-b">
       <div className="relative mx-auto grid max-w-6xl gap-16 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-32">
         <div>
-          <p className="mb-6 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.22em] text-primary">
-            <span className="h-px w-9 bg-primary/50" aria-hidden="true" />
+          <p className="mb-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold">
+            <span className="h-px w-9 bg-gold/60" aria-hidden="true" />
             {d.heroEyebrow}
           </p>
           <h1 className="font-heading text-5xl leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.5rem]">
@@ -106,14 +105,11 @@ function Hero({
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <Link
               href={signupHref}
-              className="inline-flex items-center justify-center rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+              className="btn-primary inline-flex items-center justify-center px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.15em]"
             >
               {d.heroCtaPrimary}
             </Link>
-            <Link
-              href={loginHref}
-              className="text-sm font-medium text-foreground underline-offset-4 hover:underline"
-            >
+            <Link href={loginHref} className="btn-tertiary text-sm font-medium">
               {d.heroCtaSecondary}
             </Link>
           </div>
@@ -134,7 +130,7 @@ function Hero({
 /** Illustrative "compare two options" panel — decorative, not live data. */
 function CompareMockup({ d }: { d: Dictionary['home'] }) {
   return (
-    <div className="invite-frame relative -rotate-1 rounded-2xl border bg-card p-5 shadow-xl shadow-primary/10 sm:p-6">
+    <div className="ambient-shadow relative border bg-card p-5 sm:p-6">
       <div className="space-y-4">
         <MockupOptionRow
           d={d}
@@ -184,7 +180,7 @@ function MockupOptionRow({
     <div className={`rounded-xl border p-4 ${accent ? 'bg-secondary/60' : 'bg-background'}`}>
       <div className="mb-3 flex items-center justify-between gap-2">
         <span className="font-heading text-base italic">{name}</span>
-        <span className="rounded-full border border-primary/25 bg-primary/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
+        <span className="rounded-full border border-gold/40 bg-gold/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
           {confidence}
         </span>
       </div>
@@ -274,11 +270,7 @@ function Features({ d }: { d: Dictionary['home'] }) {
 
         <div className="mt-16 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f, i) => (
-            <div
-              key={f.title}
-              style={{ '--scallop-bg': 'var(--secondary)' } as CSSProperties}
-              className="scallop-bottom relative rounded-t-2xl border border-b-0 bg-card px-6 pb-8 pt-6 shadow-sm shadow-primary/5"
-            >
+            <div key={f.title} className="ambient-shadow relative border bg-card px-6 pb-8 pt-6">
               <FeatureMark rotate={i * 23} />
               <h3 className="mt-4 pr-8 text-sm font-semibold tracking-tight">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
@@ -297,7 +289,7 @@ function FeatureMark({ rotate = 0 }: { rotate?: number }) {
       height="20"
       viewBox="0 0 20 20"
       fill="none"
-      className="absolute right-6 top-6 text-primary/50"
+      className="absolute right-6 top-6 text-gold/70"
       style={{ transform: `rotate(${rotate}deg)` }}
       aria-hidden="true"
     >
@@ -308,17 +300,18 @@ function FeatureMark({ rotate = 0 }: { rotate?: number }) {
 
 function ClosingCta({ d, signupHref }: { d: Dictionary['home']; signupHref: string }) {
   return (
-    <section className="ink-band paper-grain relative overflow-hidden">
-      <div className="dot-pattern absolute inset-0 opacity-[0.08]" />
+    <section className="ink-band relative overflow-hidden">
       <div className="relative mx-auto max-w-2xl px-4 py-24 text-center sm:px-6 sm:py-32">
-        <LaurelDivider className="mb-8 justify-center text-primary" />
-        <h2 className="font-heading text-4xl italic tracking-tight sm:text-5xl">{d.closingHeading}</h2>
+        <LaurelDivider className="mb-8 justify-center" />
+        <h2 className="gold-gradient-text font-heading text-4xl italic tracking-tight sm:text-5xl">
+          {d.closingHeading}
+        </h2>
         <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
           {d.closingBody}
         </p>
         <Link
           href={signupHref}
-          className="mt-9 inline-flex items-center justify-center rounded-xl bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:opacity-90"
+          className="btn-secondary mt-9 inline-flex items-center justify-center px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.15em]"
         >
           {d.closingCta}
         </Link>

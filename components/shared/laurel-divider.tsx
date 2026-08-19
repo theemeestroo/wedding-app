@@ -11,7 +11,7 @@ export function LaurelDivider({
   className?: string
 }) {
   return (
-    <div className={`flex items-center justify-center gap-3 text-primary/70 ${className}`} aria-hidden="true">
+    <div className={`flex items-center justify-center gap-3 text-gold/80 ${className}`} aria-hidden="true">
       <Sprig />
       {children}
       <Sprig flip />

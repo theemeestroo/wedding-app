@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Logo } from '@/components/logo'
 import { ArchPanel } from '@/components/shared/arch-panel'
+import { ThemeToggle } from '@/components/theme-toggle'
 import { getDictionary, DEFAULT_LOCALE } from '@/lib/i18n'
 
 // Auth pages depend on Supabase at runtime — never statically prerender.
@@ -25,21 +26,17 @@ export default async function AuthLayout({
       </div>
 
       {/* Form column */}
-      <div className="paper-grain relative flex min-w-0 items-center justify-center px-4 py-16">
-        <div className="gradient-hero absolute inset-0 opacity-[0.05] lg:hidden" />
-        <div className="dot-pattern absolute inset-0 opacity-30 lg:hidden" />
-
+      <div className="relative flex min-w-0 items-center justify-center px-4 py-16">
         <div className="relative w-full min-w-0 max-w-sm">
-          <div className="mb-8 flex flex-col items-center gap-3 lg:items-start">
+          <div className="mb-8 flex w-full items-center justify-between gap-3">
             <Link href="/" className="flex items-center gap-2.5 text-muted-foreground transition-colors hover:text-foreground">
               <Logo size={36} />
-              <span className="font-heading text-lg italic text-foreground">Aisle</span>
+              <span className="font-heading text-lg italic text-primary">The Wedding Lab</span>
             </Link>
+            <ThemeToggle />
           </div>
 
-          <div className="invite-frame rounded-2xl border bg-card p-8 shadow-xl shadow-primary/5">
-            {children}
-          </div>
+          <div className="ambient-shadow border bg-card p-8">{children}</div>
         </div>
       </div>
     </div>

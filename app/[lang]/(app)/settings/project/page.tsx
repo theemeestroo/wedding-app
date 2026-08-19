@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { DeleteProject } from '@/components/settings/delete-project'
 
-export const metadata = { title: 'Project settings — Aisle' }
+export const metadata = { title: 'Project settings — The Wedding Lab' }
 
 export default async function ProjectSettingsPage({
   params,

@@ -77,7 +77,7 @@ export function SignupForm({
     <div className="space-y-4">
       <form onSubmit={handleSignup} className="space-y-3">
         <div className="space-y-1.5">
-          <label htmlFor="full-name" className="text-sm font-medium">
+          <label htmlFor="full-name" className="text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground">
             {d.fullNameLabel}
           </label>
           <input
@@ -87,13 +87,13 @@ export function SignupForm({
             required
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="input-regency py-2.5 text-sm outline-none placeholder:text-muted-foreground"
             placeholder={d.fullNamePlaceholder}
           />
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="email" className="text-sm font-medium">
+          <label htmlFor="email" className="text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground">
             {d.emailLabel}
           </label>
           <input
@@ -103,13 +103,13 @@ export function SignupForm({
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="input-regency py-2.5 text-sm outline-none placeholder:text-muted-foreground"
             placeholder={d.emailPlaceholder}
           />
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="password" className="text-sm font-medium">
+          <label htmlFor="password" className="text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground">
             {d.passwordLabel}
           </label>
           <input
@@ -119,7 +119,7 @@ export function SignupForm({
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="input-regency py-2.5 text-sm outline-none placeholder:text-muted-foreground"
             placeholder={d.passwordPlaceholder}
           />
         </div>
@@ -129,7 +129,7 @@ export function SignupForm({
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+          className="btn-primary w-full py-3 text-[11px] font-semibold uppercase tracking-[0.15em] disabled:opacity-50"
         >
           {loading ? d.loading : d.submit}
         </button>
@@ -137,10 +137,10 @@ export function SignupForm({
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t border-gold/30" />
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">{dict.common.or}</span>
+        <div className="relative flex justify-center text-[11px] uppercase tracking-[0.15em]">
+          <span className="bg-card px-2 text-muted-foreground">{dict.common.or}</span>
         </div>
       </div>
 
@@ -148,7 +148,7 @@ export function SignupForm({
         <button
           type="button"
           onClick={() => handleOAuth('apple')}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border bg-background px-4 py-2.5 text-sm font-medium transition-all hover:bg-muted hover:shadow-sm"
+          className="btn-secondary flex w-full items-center justify-center gap-2 py-2.5 text-sm font-medium"
         >
           <AppleIcon />
           {d.continueWithApple}
@@ -156,7 +156,7 @@ export function SignupForm({
         <button
           type="button"
           onClick={() => handleOAuth('google')}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border bg-background px-4 py-2.5 text-sm font-medium transition-all hover:bg-muted hover:shadow-sm"
+          className="btn-secondary flex w-full items-center justify-center gap-2 py-2.5 text-sm font-medium"
         >
           <GoogleIcon />
           {d.continueWithGoogle}

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getDictionary, hasLocale } from '@/lib/i18n'
 
-export const metadata = { title: 'Privacy — Aisle' }
+export const metadata = { title: 'Privacy — The Wedding Lab' }
 
 export default async function PrivacyPage({
   params,

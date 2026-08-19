@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { CsvImportFlow } from '@/components/guests/csv-import-flow'
 
-export const metadata = { title: 'Import guests — Aisle' }
+export const metadata = { title: 'Import guests — The Wedding Lab' }
 
 export default async function ImportGuestsPage({
   params,

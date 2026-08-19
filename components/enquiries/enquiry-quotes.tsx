@@ -95,20 +95,20 @@ export function EnquiryQuotes({
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder={d.amountPlaceholder}
-            className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
           <input
             type="text"
             value={currency}
             onChange={(e) => setCurrency(e.target.value.toUpperCase())}
             maxLength={3}
-            className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
           <input
             type="date"
             value={validUntil}
             onChange={(e) => setValidUntil(e.target.value)}
-            className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
         </div>
         <textarea
@@ -116,13 +116,13 @@ export function EnquiryQuotes({
           onChange={(e) => setNotes(e.target.value)}
           placeholder={d.notesPlaceholder}
           rows={2}
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
         {documents.length > 0 && (
           <select
             value={documentId}
             onChange={(e) => setDocumentId(e.target.value)}
-            className="w-full rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="w-full rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           >
             <option value="">{d.noDocument}</option>
             {documents.map((doc) => (
@@ -135,7 +135,7 @@ export function EnquiryQuotes({
         <button
           type="submit"
           disabled={saving}
-          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold disabled:opacity-50"
         >
           {saving ? dict.common.saving : d.addQuote}
         </button>

@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { CreateOptionForm } from '@/components/options/create-option-form'
 
-export const metadata = { title: 'Create option — Aisle' }
+export const metadata = { title: 'Create option — The Wedding Lab' }
 
 export default async function NewOptionPage({
   params,

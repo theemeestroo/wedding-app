@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { TierManager } from '@/components/settings/tier-manager'
 
-export const metadata = { title: 'Manage tiers — Aisle' }
+export const metadata = { title: 'Manage tiers — The Wedding Lab' }
 
 export default async function TiersSettingsPage({
   params,

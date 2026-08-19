@@ -82,14 +82,14 @@ export function LoginForm({
       <URLError error={urlError} />
 
       {/* Tab toggle */}
-      <div className="flex rounded-xl bg-muted p-1 text-sm">
+      <div className="flex border-b text-[11px] font-semibold uppercase tracking-[0.15em]">
         <button
           type="button"
           onClick={() => { setMode('password'); setError(null); setMessage(null) }}
-          className={`flex-1 rounded-lg py-2 font-medium transition-all ${
+          className={`flex-1 border-b-2 py-2.5 transition-colors ${
             mode === 'password'
-              ? 'bg-background text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
+              ? 'border-gold text-primary'
+              : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
           {d.tabPassword}
@@ -97,10 +97,10 @@ export function LoginForm({
         <button
           type="button"
           onClick={() => { setMode('magic'); setError(null); setMessage(null) }}
-          className={`flex-1 rounded-lg py-2 font-medium transition-all ${
+          className={`flex-1 border-b-2 py-2.5 transition-colors ${
             mode === 'magic'
-              ? 'bg-background text-foreground shadow-sm'
-              : 'text-muted-foreground hover:text-foreground'
+              ? 'border-gold text-primary'
+              : 'border-transparent text-muted-foreground hover:text-foreground'
           }`}
         >
           {d.tabMagic}
@@ -117,7 +117,7 @@ export function LoginForm({
           className="space-y-3"
         >
           <div className="space-y-1.5">
-            <label htmlFor="email" className="text-sm font-medium">
+            <label htmlFor="email" className="text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground">
               {d.emailLabel}
             </label>
             <input
@@ -127,7 +127,7 @@ export function LoginForm({
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+              className="input-regency py-2.5 text-sm outline-none placeholder:text-muted-foreground"
               placeholder={d.emailPlaceholder}
             />
           </div>
@@ -135,12 +135,12 @@ export function LoginForm({
           {mode === 'password' && (
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="text-sm font-medium">
+                <label htmlFor="password" className="text-[11px] font-semibold uppercase tracking-[0.15em] text-foreground">
                   {d.passwordLabel}
                 </label>
                 <Link
                   href={`/${lang}/auth/reset-password`}
-                  className="text-xs text-muted-foreground underline-offset-4 hover:underline"
+                  className="text-[10px] font-semibold uppercase tracking-[0.15em] text-gold hover:text-primary"
                 >
                   {d.forgotPassword}
                 </Link>
@@ -152,7 +152,7 @@ export function LoginForm({
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+                className="input-regency py-2.5 text-sm outline-none placeholder:text-muted-foreground"
                 placeholder={d.passwordPlaceholder}
               />
             </div>
@@ -165,7 +165,7 @@ export function LoginForm({
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+            className="btn-primary w-full py-3 text-[11px] font-semibold uppercase tracking-[0.15em] disabled:opacity-50"
           >
             {loading
               ? mode === 'password' ? d.loadingPassword : d.loadingMagic
@@ -179,10 +179,10 @@ export function LoginForm({
       {/* OAuth divider */}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t border-gold/30" />
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">{dict.common.or}</span>
+        <div className="relative flex justify-center text-[11px] uppercase tracking-[0.15em]">
+          <span className="bg-card px-2 text-muted-foreground">{dict.common.or}</span>
         </div>
       </div>
 
@@ -191,7 +191,7 @@ export function LoginForm({
         <button
           type="button"
           onClick={() => handleOAuth('apple')}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border bg-background px-4 py-2.5 text-sm font-medium transition-all hover:bg-muted hover:shadow-sm"
+          className="btn-secondary flex w-full items-center justify-center gap-2 py-2.5 text-sm font-medium"
         >
           <AppleIcon />
           {d.continueWithApple}
@@ -199,7 +199,7 @@ export function LoginForm({
         <button
           type="button"
           onClick={() => handleOAuth('google')}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border bg-background px-4 py-2.5 text-sm font-medium transition-all hover:bg-muted hover:shadow-sm"
+          className="btn-secondary flex w-full items-center justify-center gap-2 py-2.5 text-sm font-medium"
         >
           <GoogleIcon />
           {d.continueWithGoogle}

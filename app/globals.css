@@ -37,64 +37,69 @@
   --radius-3xl: calc(var(--radius) * 2.5);
   --font-sans: var(--font-body);
   --font-heading: var(--font-display);
-  --font-script: var(--font-script-raw);
+  --color-gold: var(--gold);
 }
 
 /*
- * Visual identity: warm paper + ink + a wax-seal rose, styled after a
- * letterpress wedding invitation — cream stock, deep serif ink, one
- * considered accent colour. Dark mode is "candlelight", not slate-black.
+ * Visual identity: "Grand Regency" — Midnight Plum, Burnished Gold and Soft
+ * Parchment, styled after a high-fashion editorial flagship rather than a
+ * handmade invitation. Sharp (0-radius) structural containers, hairline gold
+ * borders/dividers, extreme white space. Dark mode inverts to the deep plum
+ * "night" surface the reference brand's own dark pages use, gold staying the
+ * one accent colour in both.
  */
 :root {
-  --background: oklch(0.975 0.012 78);
-  --foreground: oklch(0.27 0.025 45);
-  --card: oklch(0.99 0.007 78);
-  --card-foreground: oklch(0.27 0.025 45);
-  --popover: oklch(0.99 0.007 78);
-  --popover-foreground: oklch(0.27 0.025 45);
-  --primary: oklch(0.4 0.09 26);
-  --primary-foreground: oklch(0.98 0.012 78);
-  --secondary: oklch(0.93 0.015 70);
-  --secondary-foreground: oklch(0.32 0.025 45);
-  --muted: oklch(0.945 0.013 72);
-  --muted-foreground: oklch(0.48 0.025 48);
-  --accent: oklch(0.87 0.035 122);
-  --accent-foreground: oklch(0.3 0.04 130);
-  --destructive: oklch(0.53 0.17 25);
-  --destructive-foreground: oklch(0.98 0.012 78);
-  --border: oklch(0.87 0.017 65);
-  --input: oklch(0.87 0.017 65);
-  --ring: oklch(0.4 0.09 26 / 40%);
-  --chart-1: oklch(0.4 0.09 26);
-  --chart-2: oklch(0.6 0.08 140);
+  --background: #fff7fb;
+  --foreground: #1a1a1a;
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+  --primary: #2d1b2e;
+  --primary-foreground: #ffffff;
+  --secondary: #f5ecd8;
+  --secondary-foreground: #2d1b2e;
+  --muted: #f6eee0;
+  --muted-foreground: #6b6560;
+  --accent: #f5ecd8;
+  --accent-foreground: #2d1b2e;
+  --destructive: #ba1a1a;
+  --destructive-foreground: #ffffff;
+  --gold: #c5a059;
+  --border: rgba(197, 160, 89, 0.25);
+  --input: rgba(197, 160, 89, 0.3);
+  --ring: rgba(197, 160, 89, 0.5);
+  --chart-1: #2d1b2e;
+  --chart-2: #c5a059;
   --chart-3: oklch(0.7 0.13 75);
   --chart-4: oklch(0.55 0.06 250);
   --chart-5: oklch(0.65 0.12 40);
-  --radius: 0.4rem;
+  --radius: 0rem;
 }
 
 .dark {
-  --background: oklch(0.2 0.017 45);
-  --foreground: oklch(0.93 0.015 72);
-  --card: oklch(0.24 0.019 45);
-  --card-foreground: oklch(0.93 0.015 72);
-  --popover: oklch(0.24 0.019 45);
-  --popover-foreground: oklch(0.93 0.015 72);
-  --primary: oklch(0.72 0.1 35);
-  --primary-foreground: oklch(0.18 0.02 45);
-  --secondary: oklch(0.3 0.02 45);
-  --secondary-foreground: oklch(0.93 0.015 72);
-  --muted: oklch(0.28 0.018 45);
-  --muted-foreground: oklch(0.68 0.02 62);
-  --accent: oklch(0.34 0.035 128);
-  --accent-foreground: oklch(0.9 0.03 120);
-  --destructive: oklch(0.68 0.19 25);
-  --destructive-foreground: oklch(0.18 0.02 45);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.72 0.1 35 / 45%);
-  --chart-1: oklch(0.72 0.1 35);
-  --chart-2: oklch(0.68 0.1 140);
+  --background: #140516;
+  --foreground: #fff7fb;
+  --card: #2d1b2e;
+  --card-foreground: #fff7fb;
+  --popover: #2d1b2e;
+  --popover-foreground: #fff7fb;
+  --primary: #fff7fb;
+  --primary-foreground: #140516;
+  --secondary: #241726;
+  --secondary-foreground: #fff7fb;
+  --muted: #241726;
+  --muted-foreground: #cbb8c9;
+  --accent: #3a2440;
+  --accent-foreground: #fff7fb;
+  --destructive: #ff6b6b;
+  --destructive-foreground: #140516;
+  --gold: #e9c176;
+  --border: rgba(233, 193, 118, 0.25);
+  --input: rgba(233, 193, 118, 0.3);
+  --ring: rgba(233, 193, 118, 0.5);
+  --chart-1: #fff7fb;
+  --chart-2: #e9c176;
   --chart-3: oklch(0.78 0.13 75);
   --chart-4: oklch(0.65 0.07 250);
   --chart-5: oklch(0.72 0.12 40);
@@ -112,101 +117,21 @@
   }
 }
 
-/* Soft blush-and-ivory wash for auth/marketing backdrops — keyed off the
-   primary token so it follows the palette, not a fixed hue. */
-.gradient-hero {
-  background: radial-gradient(ellipse 80% 60% at 50% -10%, var(--primary), transparent),
-    radial-gradient(ellipse 60% 50% at 100% 100%, var(--accent), transparent);
-}
-
-/* Delicate pinpoint pattern, like dots on writing paper. */
-.dot-pattern {
-  background-image: radial-gradient(currentColor 1px, transparent 1px);
-  background-size: 28px 28px;
-  color: var(--muted-foreground);
-}
-
-/* Faint paper grain so flat colour fields read as stock, not screen-flat. */
-.paper-grain {
-  position: relative;
-  isolation: isolate;
-}
-.paper-grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.5;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.dark .paper-grain::after {
-  mix-blend-mode: overlay;
-  opacity: 0.35;
-}
-
-/* Engraved double-rule frame, like the inner border of a letterpress card. */
-.invite-frame {
-  position: relative;
-}
-.invite-frame::before {
-  content: '';
-  position: absolute;
-  inset: 7px;
-  border: 1px solid var(--border);
-  pointer-events: none;
-}
-
 /*
- * Full-bleed editorial slab — a fixed dark-ink section used sparingly for
- * "statement" moments (a pull-quote, a closing line). Deliberately static,
- * not theme-tokens, so it reads the same considered way in light or dark
- * mode rather than flattening out against a dark-mode background.
+ * Full-bleed editorial slab — a fixed Midnight Plum section used sparingly
+ * for "statement" moments (a pull-quote, a closing line). Deliberately
+ * static, not theme-tokens, so it reads the same considered way in light or
+ * dark mode rather than flattening out against a dark-mode background.
  */
 .ink-band {
-  background: oklch(0.205 0.022 45);
-  color: oklch(0.95 0.014 72);
+  background: #140516;
+  color: #fff7fb;
 }
 .ink-band .text-muted-foreground {
-  color: oklch(0.72 0.02 62);
+  color: rgba(255, 247, 251, 0.65);
 }
-/* Dark mode's own background already sits near oklch(0.2) — go a step
-   darker again so the band still reads as a deliberate inset, not a
-   seam that disappears into the surrounding page. */
 .dark .ink-band {
-  background: oklch(0.1 0.015 45);
-}
-
-/* Architectural arch — a full semicircle top, standing in for a framed
-   photograph where we have none: colour and texture instead of an image. */
-.arch-top {
-  border-radius: 999px 999px 0 0;
-}
-
-/*
- * Ticket/coupon scalloped edge — a row of half-circle bites taken out of an
- * element's bottom seam. Cheats by painting circles the colour of whatever
- * sits immediately behind the element, so --scallop-bg must be set to match
- * that surface (defaults to the page background).
- */
-.scallop-bottom {
-  position: relative;
-}
-.scallop-bottom::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 16px;
-  transform: translateY(50%);
-  background: radial-gradient(
-      circle at 8px 8px,
-      transparent 7.5px,
-      var(--scallop-bg, var(--background)) 8px
-    )
-    repeat-x;
-  background-size: 16px 16px;
+  background: #0a0310;
 }
 
 /* Oversized ghost numerals for editorial step/section counters. */
@@ -215,4 +140,42 @@
   font-style: italic;
   color: var(--primary);
   opacity: 0.16;
+}
+
+/* Diffused, warm-tinted shadow for elevated cards — atmospheric depth
+   instead of a hard drop shadow. */
+.ambient-shadow {
+  box-shadow: 0px 20px 40px rgba(45, 27, 46, 0.06);
+}
+
+/* Metallic gold gradient text — for wordmark/headline accents on dark
+   surfaces (ink-band, the auth side panel). */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #e9c176, #fed488, #e9c176);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Buttons — Grand Regency: sharp corners, Midnight Plum fill, gold border
+   appears on hover rather than a colour/opacity fade. */
+.btn-primary {
+  @apply border border-transparent bg-primary text-primary-foreground transition-colors duration-300 hover:border-gold;
+}
+.btn-secondary {
+  @apply border border-gold/40 bg-transparent text-primary transition-colors duration-300 hover:border-gold hover:bg-gold/5;
+}
+.btn-tertiary {
+  @apply bg-transparent text-primary underline decoration-gold/40 underline-offset-4 transition-colors hover:decoration-gold;
+}
+/* .ink-band is a fixed dark surface regardless of light/dark mode, so its
+   secondary-button text can't rely on the mode-dependent --primary token —
+   pin it to white the same deliberate way .ink-band pins its background. */
+.ink-band .btn-secondary {
+  @apply border-gold/50 text-white hover:bg-gold/10;
+}
+
+/* Text inputs — bottom-border only (hairline style), gold on focus. */
+.input-regency {
+  @apply w-full border-0 border-b border-border bg-transparent text-foreground transition-colors duration-300 focus:border-gold focus:ring-0;
 }

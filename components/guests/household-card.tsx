@@ -203,14 +203,14 @@ export function HouseholdCard({
           value={newGuestFirst}
           onChange={(e) => setNewGuestFirst(e.target.value)}
           placeholder={d.firstNamePlaceholder}
-          className="w-32 rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+          className="w-32 rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
         />
         <input
           type="text"
           value={newGuestLast}
           onChange={(e) => setNewGuestLast(e.target.value)}
           placeholder={d.lastNamePlaceholder}
-          className="w-32 rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+          className="w-32 rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
         />
         <label className="flex items-center gap-1 text-xs text-muted-foreground">
           <input type="checkbox" checked={newGuestChild} onChange={(e) => setNewGuestChild(e.target.checked)} />
@@ -225,7 +225,7 @@ export function HouseholdCard({
         <select
           value={household.origin_cluster_id ?? ''}
           onChange={(e) => handleClusterChange(e.target.value)}
-          className="rounded-lg border bg-background px-2 py-1.5 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+          className="rounded-lg border bg-background px-2 py-1.5 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
         >
           <option value="">{d.unassignedCluster}</option>
           {clusters.map((c) => (
@@ -256,21 +256,21 @@ export function HouseholdCard({
               value={city}
               onChange={(e) => setCity(e.target.value)}
               placeholder={dict.guests.addHousehold.cityPlaceholder}
-              className="rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+              className="rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
             />
             <input
               type="text"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               placeholder={dict.guests.addHousehold.countryPlaceholder}
-              className="rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+              className="rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
             />
           </div>
           <div className="grid grid-cols-2 gap-2">
             <select
               value={tierId}
               onChange={(e) => setTierId(e.target.value)}
-              className="rounded-lg border bg-background px-2 py-1.5 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+              className="rounded-lg border bg-background px-2 py-1.5 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
             >
               <option value="">{dict.settings.tiers.noTierOption}</option>
               {tiers.map((t) => (
@@ -285,7 +285,7 @@ export function HouseholdCard({
               onChange={(e) => setGroupLabel(e.target.value)}
               placeholder={dict.guests.addHousehold.groupPlaceholder}
               list={`group-labels-${household.id}`}
-              className="rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+              className="rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
             />
             <datalist id={`group-labels-${household.id}`}>
               {existingGroups.map((g) => (

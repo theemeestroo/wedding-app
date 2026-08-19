@@ -6,6 +6,7 @@ import { useProject } from '@/lib/project-context'
 import { useTranslations } from '@/lib/i18n-context'
 import { SignOutButton } from '@/components/sign-out-button'
 import { Logo } from '@/components/logo'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export function AppNav({ lang }: { lang: string }) {
   const project = useProject()
@@ -34,7 +35,7 @@ export function AppNav({ lang }: { lang: string }) {
               {project.name}
             </span>
           </Link>
-          <nav className="flex items-center gap-5 text-xs font-medium uppercase tracking-[0.1em] text-muted-foreground">
+          <nav className="flex items-center gap-5 text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
             {links.map((link) => {
               const active = pathname?.startsWith(link.href)
               return (
@@ -47,14 +48,17 @@ export function AppNav({ lang }: { lang: string }) {
                 >
                   {link.label}
                   {active && (
-                    <span className="absolute -bottom-[15px] left-0 right-0 h-[2px] bg-primary" aria-hidden="true" />
+                    <span className="absolute -bottom-[15px] left-0 right-0 h-[2px] bg-gold" aria-hidden="true" />
                   )}
                 </Link>
               )
             })}
           </nav>
         </div>
-        <SignOutButton lang={lang} />
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <SignOutButton lang={lang} />
+        </div>
       </div>
     </header>
   )

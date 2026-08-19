@@ -5,7 +5,7 @@ import { getCurrentProject } from '@/lib/project'
 import { PlanForm } from '@/components/plans/plan-form'
 import { PlanCard, type PlanHousehold } from '@/components/plans/plan-card'
 
-export const metadata = { title: 'Guest plans — Aisle' }
+export const metadata = { title: 'Guest plans — The Wedding Lab' }
 
 export default async function PlansPage({
   params,

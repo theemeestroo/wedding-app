@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject, getProjectMembers } from '@/lib/project'
 import { InviteForm } from '@/components/projects/invite-form'
 
-export const metadata = { title: 'Members — Aisle' }
+export const metadata = { title: 'Members — The Wedding Lab' }
 
 export default async function MembersPage({
   params,

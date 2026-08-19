@@ -10,7 +10,7 @@ import { HouseholdCard } from '@/components/guests/household-card'
 import { OriginClusterPanel } from '@/components/guests/origin-cluster-panel'
 import { ExportButtons, type ExportRow } from '@/components/guests/export-buttons'
 
-export const metadata = { title: 'Guests — Aisle' }
+export const metadata = { title: 'Guests — The Wedding Lab' }
 
 export default async function GuestsPage({
   params,

@@ -22,7 +22,7 @@ export default function AuthError({
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-2xl border bg-card p-8 text-center shadow-xl shadow-primary/5">
+      <div className="ambient-shadow w-full max-w-sm border bg-card p-8 text-center">
         <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-destructive/10">
           <svg
             className="size-6 text-destructive"

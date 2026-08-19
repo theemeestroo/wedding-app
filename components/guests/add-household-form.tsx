@@ -110,14 +110,14 @@ export function AddHouseholdForm({
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           placeholder={d.firstNamePlaceholder}
-          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
         <input
           type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           placeholder={d.lastNamePlaceholder}
-          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
       </div>
       <label className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -130,21 +130,21 @@ export function AddHouseholdForm({
           value={city}
           onChange={(e) => setCity(e.target.value)}
           placeholder={d.cityPlaceholder}
-          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
         <input
           type="text"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
           placeholder={d.countryPlaceholder}
-          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
       </div>
       <div className="grid grid-cols-2 gap-2">
         <select
           value={tierId}
           onChange={(e) => setTierId(e.target.value)}
-          className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="rounded-xl border bg-background px-3 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         >
           <option value="">{dict.settings.tiers.noTierOption}</option>
           {tiers.map((t) => (
@@ -159,7 +159,7 @@ export function AddHouseholdForm({
           onChange={(e) => setGroupLabel(e.target.value)}
           placeholder={d.groupPlaceholder}
           list="group-labels-new"
-          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
         <datalist id="group-labels-new">
           {existingGroups.map((g) => (
@@ -173,7 +173,7 @@ export function AddHouseholdForm({
       <button
         type="submit"
         disabled={saving}
-        className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+        className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold disabled:opacity-50"
       >
         {saving ? dict.common.saving : d.submit}
       </button>

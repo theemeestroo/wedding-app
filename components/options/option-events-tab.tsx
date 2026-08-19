@@ -62,12 +62,12 @@ export function OptionEventsTab({
                 type="date"
                 defaultValue={ev.event_date ?? ''}
                 onBlur={(e) => handleUpdateEvent(ev.id, { event_date: e.target.value || null })}
-                className="rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               />
               <select
                 defaultValue={ev.attendance_mode}
                 onChange={(e) => handleUpdateEvent(ev.id, { attendance_mode: e.target.value as EventRow['attendance_mode'] })}
-                className="rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               >
                 <option value="full_plan">{d.attendanceFullPlan}</option>
                 <option value="percentage">{d.attendancePercentage}</option>
@@ -81,7 +81,7 @@ export function OptionEventsTab({
                   defaultValue={ev.attendance_percentage ?? ''}
                   onBlur={(e) => handleUpdateEvent(ev.id, { attendance_percentage: e.target.value ? Number(e.target.value) : null })}
                   placeholder="%"
-                  className="w-16 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                  className="w-16 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                 />
               )}
               {ev.attendance_mode === 'fixed_count' && (
@@ -92,7 +92,7 @@ export function OptionEventsTab({
                     defaultValue={ev.attendance_adults ?? ''}
                     onBlur={(e) => handleUpdateEvent(ev.id, { attendance_adults: e.target.value ? Number(e.target.value) : null })}
                     placeholder={d.adultsPlaceholder}
-                    className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                   />
                   <input
                     type="number"
@@ -100,7 +100,7 @@ export function OptionEventsTab({
                     defaultValue={ev.attendance_children ?? ''}
                     onBlur={(e) => handleUpdateEvent(ev.id, { attendance_children: e.target.value ? Number(e.target.value) : null })}
                     placeholder={d.childrenPlaceholder}
-                    className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                   />
                 </>
               )}
@@ -110,7 +110,7 @@ export function OptionEventsTab({
                 defaultValue={ev.nights ?? ''}
                 onBlur={(e) => handleUpdateEvent(ev.id, { nights: e.target.value ? Number(e.target.value) : null })}
                 placeholder={d.nightsPlaceholder}
-                className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               />
               <input
                 type="number"
@@ -118,7 +118,7 @@ export function OptionEventsTab({
                 defaultValue={ev.rooms ?? ''}
                 onBlur={(e) => handleUpdateEvent(ev.id, { rooms: e.target.value ? Number(e.target.value) : null })}
                 placeholder={d.roomsPlaceholder}
-                className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               />
               <input
                 type="number"
@@ -126,7 +126,7 @@ export function OptionEventsTab({
                 defaultValue={ev.hours ?? ''}
                 onBlur={(e) => handleUpdateEvent(ev.id, { hours: e.target.value ? Number(e.target.value) : null })}
                 placeholder={d.hoursPlaceholder}
-                className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="w-20 rounded-lg border bg-background px-2 py-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               />
             </div>
           </li>
@@ -138,7 +138,7 @@ export function OptionEventsTab({
           <select
             value={newEventType}
             onChange={(e) => setNewEventType(e.target.value as EventType)}
-            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
           >
             {EVENT_TYPES.filter((t) => !usedEventTypes.has(t)).map((t) => (
               <option key={t} value={t}>{d.eventTypeLabels[t]}</option>

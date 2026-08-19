@@ -105,7 +105,7 @@ export function AccommodationRoomsManager({
                       type="text"
                       defaultValue={room.label}
                       onBlur={(e) => e.target.value && handleUpdateRoom(room.id, { label: e.target.value })}
-                      className="w-28 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                      className="w-28 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                     />
                   </td>
                   <td className="px-3 py-1.5">
@@ -113,7 +113,7 @@ export function AccommodationRoomsManager({
                       type="text"
                       defaultValue={room.room_type ?? ''}
                       onBlur={(e) => handleUpdateRoom(room.id, { room_type: e.target.value || null })}
-                      className="w-24 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                      className="w-24 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                     />
                   </td>
                   <td className="px-3 py-1.5">
@@ -122,7 +122,7 @@ export function AccommodationRoomsManager({
                       min={0}
                       defaultValue={room.capacity_adults}
                       onBlur={(e) => handleUpdateRoom(room.id, { capacity_adults: Number(e.target.value) || 0 })}
-                      className="w-16 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                      className="w-16 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                     />
                   </td>
                   <td className="px-3 py-1.5">
@@ -131,7 +131,7 @@ export function AccommodationRoomsManager({
                       min={0}
                       defaultValue={room.capacity_children}
                       onBlur={(e) => handleUpdateRoom(room.id, { capacity_children: Number(e.target.value) || 0 })}
-                      className="w-16 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                      className="w-16 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                     />
                   </td>
                   <td className="px-3 py-1.5">
@@ -142,7 +142,7 @@ export function AccommodationRoomsManager({
                         step="0.01"
                         defaultValue={room.nightly_rate}
                         onBlur={(e) => handleUpdateRoom(room.id, { nightly_rate: Number(e.target.value) || 0 })}
-                        className="w-20 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                        className="w-20 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                       />
                       <span className="text-xs text-muted-foreground">{room.currency}</span>
                     </div>
@@ -167,14 +167,14 @@ export function AccommodationRoomsManager({
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             placeholder={d.labelPlaceholder}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
           <input
             type="text"
             value={roomType}
             onChange={(e) => setRoomType(e.target.value)}
             placeholder={d.roomTypePlaceholder}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
         </div>
         <div className="grid grid-cols-4 gap-2">
@@ -184,7 +184,7 @@ export function AccommodationRoomsManager({
             value={capacityAdults}
             onChange={(e) => setCapacityAdults(e.target.value)}
             placeholder={d.capacityAdultsPlaceholder}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
           <input
             type="number"
@@ -192,7 +192,7 @@ export function AccommodationRoomsManager({
             value={capacityChildren}
             onChange={(e) => setCapacityChildren(e.target.value)}
             placeholder={d.capacityChildrenPlaceholder}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
           <input
             type="number"
@@ -202,7 +202,7 @@ export function AccommodationRoomsManager({
             value={nightlyRate}
             onChange={(e) => setNightlyRate(e.target.value)}
             placeholder={d.nightlyRatePlaceholder}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
           <input
             type="text"
@@ -210,7 +210,7 @@ export function AccommodationRoomsManager({
             onChange={(e) => setCurrency(e.target.value.toUpperCase())}
             placeholder={d.currencyPlaceholder}
             maxLength={3}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -221,7 +221,7 @@ export function AccommodationRoomsManager({
             min="1"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-            className="w-20 rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="w-20 rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
           />
         </div>
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}

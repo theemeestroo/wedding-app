@@ -6,7 +6,7 @@ import { getCurrentProject } from '@/lib/project'
 import { EnquiryList, type EnquiryListItem } from '@/components/enquiries/enquiry-list'
 import type { EnquiryStatus } from '@/components/enquiries/enquiry-status-badge'
 
-export const metadata = { title: 'Enquiries — Aisle' }
+export const metadata = { title: 'Enquiries — The Wedding Lab' }
 
 export default async function EnquiriesPage({
   params,

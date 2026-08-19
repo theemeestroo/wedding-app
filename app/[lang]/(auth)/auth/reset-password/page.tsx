@@ -5,7 +5,7 @@ import { getDictionary, hasLocale } from '@/lib/i18n'
 import { localizePath } from '@/lib/locale'
 import { ResetPasswordForm } from '@/components/auth/reset-password-form'
 
-export const metadata = { title: 'Reset password — Aisle' }
+export const metadata = { title: 'Reset password — The Wedding Lab' }
 
 export default async function ResetPasswordPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params

@@ -49,7 +49,7 @@ export function CreateProjectForm({ lang, dict }: { lang: string; dict: Dictiona
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={d.namePlaceholder}
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
       </div>
 
@@ -61,7 +61,7 @@ export function CreateProjectForm({ lang, dict }: { lang: string; dict: Dictiona
           id="project-currency"
           value={currency}
           onChange={(e) => setCurrency(e.target.value)}
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         >
           {CURRENCIES.map((code) => (
             <option key={code} value={code}>
@@ -76,7 +76,7 @@ export function CreateProjectForm({ lang, dict }: { lang: string; dict: Dictiona
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+        className="w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold disabled:opacity-50"
       >
         {loading ? d.loading : d.submit}
       </button>

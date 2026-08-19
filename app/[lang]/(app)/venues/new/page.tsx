@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { AddVenueForm } from '@/components/venues/add-venue-form'
 
-export const metadata = { title: 'Add a venue — Aisle' }
+export const metadata = { title: 'Add a venue — The Wedding Lab' }
 
 export default async function NewVenuePage({
   params,

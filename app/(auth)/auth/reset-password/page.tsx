@@ -2,7 +2,7 @@ import { ResetPasswordForm } from '@/components/auth/reset-password-form'
 import { getDictionary } from '@/lib/i18n'
 import Link from 'next/link'
 
-export const metadata = { title: 'Reset password — Aisle' }
+export const metadata = { title: 'Reset password — The Wedding Lab' }
 
 export default async function ResetPasswordPage() {
   const dict = await getDictionary('en')

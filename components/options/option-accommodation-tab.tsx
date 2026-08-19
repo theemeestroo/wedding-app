@@ -207,14 +207,14 @@ export function OptionAccommodationTab({
                             type="date"
                             defaultValue={profile?.arrival_date ?? ''}
                             onBlur={(e) => handleUpdateArrivalProfile(h.id, { arrival_date: e.target.value || null })}
-                            className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                            className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                           />
                           <select
                             defaultValue={profile?.arrival_window ?? ''}
                             onChange={(e) =>
                               handleUpdateArrivalProfile(h.id, { arrival_window: (e.target.value || null) as ArrivalWindow | null })
                             }
-                            className="rounded-lg border bg-background px-1.5 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                            className="rounded-lg border bg-background px-1.5 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                           >
                             <option value="">{d.windowUnset}</option>
                             {ARRIVAL_WINDOWS.map((w) => (
@@ -229,14 +229,14 @@ export function OptionAccommodationTab({
                             type="date"
                             defaultValue={profile?.departure_date ?? ''}
                             onBlur={(e) => handleUpdateArrivalProfile(h.id, { departure_date: e.target.value || null })}
-                            className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                            className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                           />
                           <select
                             defaultValue={profile?.departure_window ?? ''}
                             onChange={(e) =>
                               handleUpdateArrivalProfile(h.id, { departure_window: (e.target.value || null) as ArrivalWindow | null })
                             }
-                            className="rounded-lg border bg-background px-1.5 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                            className="rounded-lg border bg-background px-1.5 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                           >
                             <option value="">{d.windowUnset}</option>
                             {ARRIVAL_WINDOWS.map((w) => (
@@ -284,7 +284,7 @@ export function OptionAccommodationTab({
                               handleAssignRoom(h.id, roomId)
                             }}
                             disabled={availableRooms.length === 0}
-                            className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-40"
+                            className="rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40 disabled:opacity-40"
                           >
                             <option value="">{availableRooms.length === 0 ? d.noRoomsAvailable : d.assignRoomPlaceholder}</option>
                             {accommodations.map((acc) => {
@@ -307,7 +307,7 @@ export function OptionAccommodationTab({
                           defaultValue={profile?.visa_notes ?? ''}
                           onBlur={(e) => handleUpdateArrivalProfile(h.id, { visa_notes: e.target.value || null })}
                           placeholder={d.visaNotesPlaceholder}
-                          className="w-40 rounded-lg border bg-background px-2 py-1 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+                          className="w-40 rounded-lg border bg-background px-2 py-1 text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
                         />
                       </td>
                     </tr>

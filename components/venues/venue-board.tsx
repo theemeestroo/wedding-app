@@ -29,7 +29,7 @@ export function VenueBoard({
         <p className="mb-4 text-sm text-muted-foreground">{d.empty}</p>
         <Link
           href={localizePath(lang, '/venues/new')}
-          className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+          className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold"
         >
           {d.addVenue}
         </Link>
@@ -55,7 +55,7 @@ export function VenueBoard({
         </div>
         <Link
           href={localizePath(lang, '/venues/new')}
-          className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+          className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold"
         >
           {d.addVenue}
         </Link>

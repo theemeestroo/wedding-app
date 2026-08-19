@@ -1,7 +1,7 @@
 import { getDictionary } from '@/lib/i18n'
 import { AcceptInviteForm } from '@/components/auth/accept-invite-form'
 
-export const metadata = { title: "You've been invited — Aisle" }
+export const metadata = { title: "You've been invited — The Wedding Lab" }
 
 export default async function AcceptInvitePage({
   searchParams,

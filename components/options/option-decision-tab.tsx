@@ -88,7 +88,7 @@ export function OptionDecisionTab({
             onChange={(e) => setRatingNote(e.target.value)}
             placeholder={d.ratingNotePlaceholder}
             rows={2}
-            className="w-full rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="w-full rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
           <button
             type="submit"
@@ -125,7 +125,7 @@ export function OptionDecisionTab({
               onChange={(e) => setRationale(e.target.value)}
               placeholder={d.rationalePlaceholder}
               rows={2}
-              className="w-full rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+              className="w-full rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
             />
             <button
               type="submit"

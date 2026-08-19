@@ -233,7 +233,7 @@ export function CsvImportFlow({
           onChange={(e) => setCsvText(e.target.value)}
           rows={10}
           placeholder={d.pastePlaceholder}
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 font-mono text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 font-mono text-xs outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
         <input
           type="file"
@@ -249,7 +249,7 @@ export function CsvImportFlow({
         <button
           onClick={handleParse}
           disabled={!csvText.trim()}
-          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold disabled:opacity-50"
         >
           {d.parseButton}
         </button>
@@ -270,7 +270,7 @@ export function CsvImportFlow({
                 onChange={(e) =>
                   setMapping((prev) => prev.map((m, idx) => (idx === i ? (e.target.value as FieldKey) : m)))
                 }
-                className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               >
                 {FIELD_KEYS.map((k) => (
                   <option key={k} value={k}>
@@ -284,7 +284,7 @@ export function CsvImportFlow({
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         <button
           onClick={handleConfirmMapping}
-          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold"
         >
           {d.continueButton}
         </button>
@@ -303,12 +303,12 @@ export function CsvImportFlow({
                 <input
                   value={h.name}
                   onChange={(e) => updateHousehold(h.key, { name: e.target.value })}
-                  className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                  className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                 />
                 <select
                   value={h.tierId}
                   onChange={(e) => updateHousehold(h.key, { tierId: e.target.value })}
-                  className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                  className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                 >
                   <option value="">{dict.settings.tiers.noTierOption}</option>
                   {tiers.map((t) => (
@@ -335,7 +335,7 @@ export function CsvImportFlow({
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         <button
           onClick={handleImport}
-          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold"
         >
           {d.confirmImport}
         </button>
@@ -352,7 +352,7 @@ export function CsvImportFlow({
       <p className="text-sm text-muted-foreground">{d.done}</p>
       <a
         href={localizePath(lang, '/guests')}
-        className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+        className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold"
         onClick={() => router.refresh()}
       >
         {d.backToGuests}

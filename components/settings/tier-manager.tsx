@@ -100,7 +100,7 @@ export function TierManager({
                 onChange={(e) => setLabelDraft(e.target.value)}
                 onBlur={() => handleRename(t.id)}
                 onKeyDown={(e) => e.key === 'Enter' && handleRename(t.id)}
-                className="flex-1 rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="flex-1 rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               />
             ) : (
               <button
@@ -126,7 +126,7 @@ export function TierManager({
           value={newLabel}
           onChange={(e) => setNewLabel(e.target.value)}
           placeholder={d.addPlaceholder}
-          className="flex-1 rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+          className="flex-1 rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
         />
         <button
           type="submit"

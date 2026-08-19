@@ -107,7 +107,7 @@ export function AddVenueForm({
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder={d.urlPlaceholder}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
           <button
             type="button"
@@ -136,7 +136,7 @@ export function AddVenueForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder={d.namePlaceholder}
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
       </div>
 
@@ -150,7 +150,7 @@ export function AddVenueForm({
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
         </div>
         <div className="space-y-1.5">
@@ -162,7 +162,7 @@ export function AddVenueForm({
             type="text"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
         </div>
       </div>
@@ -175,7 +175,7 @@ export function AddVenueForm({
           id="venue-archetype"
           value={archetype}
           onChange={(e) => setArchetype(e.target.value as typeof archetype)}
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         >
           <option value="">{d.archetypeNone}</option>
           <option value="bare_villa">{d.archetypeBareVilla}</option>
@@ -189,7 +189,7 @@ export function AddVenueForm({
       <button
         type="submit"
         disabled={saving}
-        className="w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+        className="w-full rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold disabled:opacity-50"
       >
         {saving ? d.saving : d.submit}
       </button>

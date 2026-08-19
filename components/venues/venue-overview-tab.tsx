@@ -61,7 +61,7 @@ export function VenueOverviewTab({ dict, venue }: { dict: Dictionary; venue: Ven
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
       </div>
       <div className="grid grid-cols-2 gap-3">
@@ -71,7 +71,7 @@ export function VenueOverviewTab({ dict, venue }: { dict: Dictionary; venue: Ven
             id="ov-city"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
         </div>
         <div className="space-y-1.5">
@@ -80,7 +80,7 @@ export function VenueOverviewTab({ dict, venue }: { dict: Dictionary; venue: Ven
             id="ov-country"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+            className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
           />
         </div>
       </div>
@@ -90,7 +90,7 @@ export function VenueOverviewTab({ dict, venue }: { dict: Dictionary; venue: Ven
           id="ov-archetype"
           value={archetype}
           onChange={(e) => setArchetype(e.target.value)}
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         >
           <option value="">{d.archetypeNone}</option>
           <option value="bare_villa">{d.archetypeBareVilla}</option>
@@ -104,7 +104,7 @@ export function VenueOverviewTab({ dict, venue }: { dict: Dictionary; venue: Ven
           id="ov-status"
           value={status}
           onChange={(e) => setStatus(e.target.value as VenueDetail['status'])}
-          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:border-primary/50"
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         >
           <option value="considering">{d.statusConsidering}</option>
           <option value="shortlisted">{d.statusShortlisted}</option>
@@ -117,7 +117,7 @@ export function VenueOverviewTab({ dict, venue }: { dict: Dictionary; venue: Ven
       <button
         type="submit"
         disabled={saving}
-        className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+        className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold disabled:opacity-50"
       >
         {saving ? dict.common.saving : dict.common.save}
       </button>

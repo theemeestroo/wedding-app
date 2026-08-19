@@ -131,7 +131,7 @@ export function OptionCostsTab({
             value={ruleLabel}
             onChange={(e) => setRuleLabel(e.target.value)}
             placeholder={d.ruleLabelPlaceholder}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
           <input
             type="number"
@@ -139,14 +139,14 @@ export function OptionCostsTab({
             value={ruleRate}
             onChange={(e) => setRuleRate(e.target.value)}
             placeholder={d.ratePlaceholder}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
         </div>
         <div className="grid grid-cols-2 gap-2">
           <select
             value={ruleBasis}
             onChange={(e) => setRuleBasis(e.target.value as CostBasis)}
-            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
           >
             {BASES.map((b) => (
               <option key={b} value={b}>{d.basisLabels[b]}</option>
@@ -155,7 +155,7 @@ export function OptionCostsTab({
           <select
             value={ruleConfidence}
             onChange={(e) => setRuleConfidence(e.target.value as Confidence)}
-            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
           >
             {CONFIDENCES.map((c) => (
               <option key={c} value={c}>{d.confidenceLabels[c]}</option>
@@ -166,7 +166,7 @@ export function OptionCostsTab({
           <select
             value={ruleEventType}
             onChange={(e) => setRuleEventType(e.target.value as EventType | '')}
-            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
           >
             <option value="">{d.wholeOption}</option>
             {EVENT_TYPES.map((t) => (
@@ -176,7 +176,7 @@ export function OptionCostsTab({
           <select
             value={ruleOwner}
             onChange={(e) => setRuleOwner(e.target.value as typeof ruleOwner)}
-            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
           >
             <option value="option">{d.ownerOption}</option>
             <option value="venue">{d.ownerVenue}</option>

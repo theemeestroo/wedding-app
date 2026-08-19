@@ -76,7 +76,7 @@ export function OriginClusterPanel({
                 onChange={(e) => setLabelDraft(e.target.value)}
                 onBlur={() => handleRename(c.id)}
                 onKeyDown={(e) => e.key === 'Enter' && handleRename(c.id)}
-                className="rounded-lg border bg-background px-2 py-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="rounded-lg border bg-background px-2 py-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
               />
             ) : (
               <button

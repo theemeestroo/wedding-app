@@ -93,7 +93,7 @@ export function AcceptInviteForm({
     return (
       <div className="space-y-3 text-center">
         <p className="text-sm text-destructive">{d.invalid[state.reason as keyof typeof d.invalid] ?? d.invalid.not_found}</p>
-        <Link href={`/${lang}/auth/login`} className="text-sm font-medium text-primary underline-offset-4 hover:underline">
+        <Link href={`/${lang}/auth/login`} className="btn-tertiary text-sm font-medium">
           {d.backToLogin}
         </Link>
       </div>
@@ -113,13 +113,13 @@ export function AcceptInviteForm({
         <div className="flex flex-col gap-2">
           <Link
             href={`/${lang}/auth/signup?next=${encodeURIComponent(nextParam)}`}
-            className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+            className="btn-primary inline-flex items-center justify-center py-2.5 text-[11px] font-semibold uppercase tracking-[0.15em]"
           >
             {d.signUpToAccept}
           </Link>
           <Link
             href={`/${lang}/auth/login?next=${encodeURIComponent(nextParam)}`}
-            className="text-sm font-medium text-primary underline-offset-4 hover:underline"
+            className="btn-tertiary text-sm font-medium"
           >
             {d.logInToAccept}
           </Link>
@@ -145,7 +145,7 @@ export function AcceptInviteForm({
       </p>
       <button
         onClick={handleAccept}
-        className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90"
+        className="btn-primary inline-flex w-full items-center justify-center py-2.5 text-[11px] font-semibold uppercase tracking-[0.15em]"
       >
         {d.acceptButton}
       </button>

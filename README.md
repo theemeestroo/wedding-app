@@ -16,7 +16,7 @@ npm run dev
 
 - Supabase auth: login, signup, magic link, password reset, OAuth (Apple/Google) — all wired to the shared Supabase project's `auth.users`.
 - Locale-aware routing (`en`/`de`/`fr`) via `proxy.ts`, mirroring Letly's `[lang]` pattern.
-- shadcn/ui + Tailwind v4, plain neutral theme (no branding applied yet).
+- Tailwind v4, "Grand Regency" visual identity for **The Wedding Lab** — Midnight Plum, Burnished Gold and Soft Parchment, Playfair Display + Manrope, sharp corners and hairline gold borders.
 
 ## What's not here yet
 

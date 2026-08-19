@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { CreateProjectForm } from '@/components/projects/create-project-form'
 
-export const metadata = { title: 'Create your project — Aisle' }
+export const metadata = { title: 'Create your project — The Wedding Lab' }
 
 // Deliberately outside the (app) route group — that layout redirects here
 // when the user has no project yet, so this page can't live inside it

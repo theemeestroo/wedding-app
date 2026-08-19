@@ -128,12 +128,12 @@ export function VenueAccommodationTab({
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={d.namePlaceholder}
-            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
           <select
             value={type}
             onChange={(e) => setType(e.target.value as AccommodationType)}
-            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
           >
             {TYPES.map((t) => (
               <option key={t} value={t}>{d.typeLabels[t]}</option>
@@ -143,7 +143,7 @@ export function VenueAccommodationTab({
         <select
           value={confidence}
           onChange={(e) => setConfidence(e.target.value as Confidence)}
-          className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+          className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
         >
           {CONFIDENCES.map((c) => (
             <option key={c} value={c}>{d.confidenceLabels[c]}</option>
@@ -153,7 +153,7 @@ export function VenueAccommodationTab({
         <button
           type="submit"
           disabled={saving}
-          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:opacity-90 disabled:opacity-50"
+          className="rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground border border-transparent transition-colors duration-300 hover:border-gold disabled:opacity-50"
         >
           {saving ? dict.common.saving : d.addAccommodation}
         </button>

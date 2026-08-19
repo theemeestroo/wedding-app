@@ -7,7 +7,7 @@ import { computeOptionCosts, type CostRuleInput, type OptionEventInput } from '@
 import { computeOptionLogistics, type HouseholdClusterInput, type ClusterCoordsInput } from '@/lib/journey-engine'
 import { CompareBoard } from '@/components/compare/compare-board'
 
-export const metadata = { title: 'Compare — Aisle' }
+export const metadata = { title: 'Compare — The Wedding Lab' }
 
 // Synthetic guest-count sweep for the break-even chart (PRD §13) — the
 // current plan's adult:child ratio is preserved at each point.
