@@ -31,6 +31,14 @@ export function AddHouseholdForm({
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  // Household name defaults to "First Last" (specific, not the collision-prone
+  // "Last household" pattern) and keeps tracking the name fields until the
+  // user types into it directly — same dirty-flag pattern as a slug field.
+  const [householdName, setHouseholdName] = useState('')
+  const [nameTouched, setNameTouched] = useState(false)
+  const suggestedName = [firstName, lastName].filter(Boolean).join(' ')
+  const effectiveName = nameTouched ? householdName : suggestedName
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
@@ -57,7 +65,7 @@ export function AddHouseholdForm({
       .from('households')
       .insert({
         project_id: projectId,
-        name: lastName ? `${lastName} household` : firstName,
+        name: effectiveName.trim() || firstName,
         home_city: city || null,
         home_country: country || null,
         latitude,
@@ -94,6 +102,8 @@ export function AddHouseholdForm({
     setCity('')
     setCountry('')
     setGroupLabel('')
+    setHouseholdName('')
+    setNameTouched(false)
     router.refresh()
   }
 
@@ -118,6 +128,22 @@ export function AddHouseholdForm({
           onChange={(e) => setLastName(e.target.value)}
           placeholder={d.lastNamePlaceholder}
           className="rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
+        />
+      </div>
+      <div>
+        <label htmlFor="household-name" className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
+          {d.nameLabel}
+        </label>
+        <input
+          id="household-name"
+          type="text"
+          value={effectiveName}
+          onChange={(e) => {
+            setHouseholdName(e.target.value)
+            setNameTouched(true)
+          }}
+          placeholder={d.namePlaceholder}
+          className="w-full rounded-xl border bg-background px-3.5 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40 focus-visible:border-gold"
         />
       </div>
       <label className="flex items-center gap-2 text-sm text-muted-foreground">

@@ -257,6 +257,13 @@
       "addAccommodation": "Ajouter un hébergement",
       "manageRooms": "Gérer les chambres",
       "hideRooms": "Masquer les chambres",
+      "pricingModeLabel": "Tarification",
+      "pricingModeOptions": {
+        "per_room": "Par chambre — chaque chambre tarifée séparément",
+        "block": "Bloc entier — un tarif par nuit pour l'usage exclusif"
+      },
+      "blockNightlyRatePlaceholder": "Tarif par nuit pour le bloc entier",
+      "blockPriceSummary": "{{rate}} / nuit pour l'usage exclusif",
       "typeLabels": {
         "venue_block": "Chambres du lieu",
         "hotel": "Hôtel",
@@ -272,11 +279,13 @@
       "rooms": {
         "empty": "Aucune chambre ajoutée pour l'instant.",
         "roomCount": "{{count}} chambre(s)",
+        "blockModeNote": "Cet hébergement est tarifé comme un bloc entier — les tarifs des chambres ci-dessous sont facultatifs et servent uniquement à indiquer qui loge où.",
         "labelPlaceholder": "ex. Chambre du jardin",
         "roomTypePlaceholder": "ex. Double, Twin, Suite",
         "capacityAdultsPlaceholder": "Adultes",
         "capacityChildrenPlaceholder": "Enfants",
         "nightlyRatePlaceholder": "Tarif par nuit",
+        "nightlyRateOptionalPlaceholder": "Tarif par nuit (facultatif)",
         "currencyPlaceholder": "EUR",
         "quantityLabel": "Nombre de chambres à ajouter",
         "addRooms": "Ajouter des chambres",
@@ -373,12 +382,61 @@
     "tierLabel": "Niveau",
     "tierLegend": "Niveaux : {{list}}",
     "manageTiersLink": "Gérer les niveaux",
+    "tabs": {
+      "overview": "Aperçu",
+      "households": "Foyers",
+      "list": "Liste des invités",
+      "origins": "Origines"
+    },
+    "overview": {
+      "totalGuests": "Invités",
+      "totalHouseholds": "Foyers",
+      "adults": "Adultes",
+      "children": "Enfants",
+      "attending": "Présents confirmés",
+      "byTier": "Par niveau",
+      "byGroup": "Par groupe",
+      "byStatus": "Par statut RSVP",
+      "ungrouped": "Sans groupe",
+      "noTiers": "Aucun niveau défini pour l'instant.",
+      "noGroups": "Aucun groupe pour l'instant."
+    },
+    "rsvp": {
+      "not_invited": "Pas encore invité",
+      "invited": "Invité",
+      "attending": "Confirmé",
+      "declined": "Décliné",
+      "statusLabel": "RSVP",
+      "markAllAttending": "Marquer tous comme confirmés"
+    },
+    "list": {
+      "searchPlaceholder": "Rechercher des invités ou des foyers…",
+      "filterTier": "Tous les niveaux",
+      "filterGroup": "Tous les groupes",
+      "filterStatus": "Tous les statuts",
+      "clearFilters": "Réinitialiser les filtres",
+      "columnName": "Nom",
+      "columnHousehold": "Foyer",
+      "columnTier": "Niveau",
+      "columnGroup": "Groupe",
+      "columnChild": "Enfant",
+      "columnStatus": "RSVP",
+      "columnOrigin": "Origine",
+      "empty": "Aucun invité ne correspond à ces filtres."
+    },
+    "households": {
+      "groupByTier": "Grouper par niveau",
+      "groupByGroup": "Grouper par groupe",
+      "groupByNone": "Aucun regroupement"
+    },
     "notice": {
       "text": "Vous ajoutez les coordonnées de personnes qui n'ont pas donné leur consentement individuellement — cela relève de l'intérêt légitime pour l'organisation du mariage, et ces données sont définitivement supprimées si vous supprimez ce projet.",
       "learnMore": "En savoir plus"
     },
     "addHousehold": {
       "heading": "Ajouter un foyer",
+      "nameLabel": "Nom du foyer",
+      "namePlaceholder": "ex. John & Jane Smith",
       "firstNamePlaceholder": "Prénom",
       "lastNamePlaceholder": "Nom",
       "isChildLabel": "Enfant",
@@ -397,7 +455,10 @@
       "unassignedCluster": "Non assigné",
       "cancelEdit": "Annuler",
       "editHousehold": "Modifier",
-      "deleteHousehold": "Supprimer le foyer"
+      "deleteHousehold": "Supprimer le foyer",
+      "nameLabel": "Nom du foyer",
+      "duplicateNameWarning": "Un autre foyer porte déjà ce nom — rendez-le plus spécifique.",
+      "markAllAttending": "Marquer tous comme confirmés"
     },
     "origins": {
       "heading": "Régions d'origine",
@@ -487,7 +548,7 @@
     "title": "Avis de confidentialité",
     "intro": "Cette page explique comment The Wedding Lab traite les données des invités — les personnes que vous invitez, pas seulement les titulaires du compte.",
     "whatHeading": "Ce que nous stockons",
-    "whatBody": "Le nom, la ville et le pays de résidence, et si un invité est un enfant, pour toute personne que vous ajoutez en tant qu'invité ou membre d'un foyer — collectés pour que l'application puisse afficher les distances de trajet, la taille des groupes et les coûts des lieux sur l'ensemble de votre liste d'invités.",
+    "whatBody": "Le nom, la ville et le pays de résidence, si un invité est un enfant, et un statut RSVP si vous en enregistrez un, pour toute personne que vous ajoutez en tant qu'invité ou membre d'un foyer — collectés pour que l'application puisse afficher les distances de trajet, la taille des groupes et les coûts des lieux sur l'ensemble de votre liste d'invités.",
     "whyHeading": "Pourquoi cela est autorisé sans demander l'accord de chaque invité",
     "whyBody": "Les invités ne créent pas de compte et ne donnent pas leur consentement individuellement. Nous nous appuyons sur l'intérêt légitime : vous organisez un mariage, ces données sont nécessaires à cette fin, et elles ne sont utilisées qu'au sein de votre projet — jamais vendues, jamais partagées automatiquement avec les lieux, ni utilisées à d'autres fins.",
     "deletionHeading": "Suppression",

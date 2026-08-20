@@ -5,9 +5,7 @@ import { localizePath, interpolate } from '@/lib/locale'
 import { createClient } from '@/lib/supabase/server'
 import { getCurrentProject } from '@/lib/project'
 import { GdprNotice } from '@/components/guests/gdpr-notice'
-import { AddHouseholdForm } from '@/components/guests/add-household-form'
-import { HouseholdCard } from '@/components/guests/household-card'
-import { OriginClusterPanel } from '@/components/guests/origin-cluster-panel'
+import { GuestsTabs } from '@/components/guests/guests-tabs'
 import { ExportButtons, type ExportRow } from '@/components/guests/export-buttons'
 
 export const metadata = { title: 'Guests — The Wedding Lab' }
@@ -37,7 +35,7 @@ export default async function GuestsPage({
       .select('id, name, home_city, home_country, tier_id, group_label, origin_cluster_id')
       .eq('project_id', project.id)
       .order('created_at', { ascending: true }),
-    supabase.from('origin_clusters').select('id, label').eq('project_id', project.id),
+    supabase.from('origin_clusters').select('id, label, home_country, home_city').eq('project_id', project.id),
     supabase
       .from('tier_definitions')
       .select('id, label, sort_order')
@@ -51,7 +49,7 @@ export default async function GuestsPage({
   const householdIds = (households ?? []).map((h) => h.id)
   const { data: guests } = await supabase
     .from('guests')
-    .select('id, household_id, first_name, last_name, is_child')
+    .select('id, household_id, first_name, last_name, is_child, rsvp_status')
     .in('household_id', householdIds.length > 0 ? householdIds : ['00000000-0000-0000-0000-000000000000'])
 
   const guestsByHousehold = new Map<string, typeof guests>()
@@ -71,6 +69,7 @@ export default async function GuestsPage({
   const clustersWithCounts = (clusters ?? []).map((c) => ({
     id: c.id,
     label: c.label,
+    homeCountry: c.home_country,
     householdCount: (households ?? []).filter((h) => h.origin_cluster_id === c.id).length,
     guestCount: guestCountByCluster.get(c.id) ?? 0,
   }))
@@ -90,6 +89,7 @@ export default async function GuestsPage({
       country: h.home_country ?? '',
       tier: (h.tier_id && tierLabelById.get(h.tier_id)) || '',
       group: h.group_label ?? '',
+      rsvpStatus: g.rsvp_status,
     })),
   )
 
@@ -126,34 +126,17 @@ export default async function GuestsPage({
 
       <GdprNotice lang={lang} dict={dict} />
 
-      <AddHouseholdForm dict={dict} projectId={project.id} tiers={tiers} existingGroups={existingGroups} />
-
-      {clustersWithCounts.length > 0 && (
-        <OriginClusterPanel
-          dict={dict}
-          projectId={project.id}
-          clusters={clustersWithCounts}
-          unassignedCount={unassignedCount}
-        />
-      )}
-      {clustersWithCounts.length === 0 && unassignedCount > 0 && (
-        <OriginClusterPanel dict={dict} projectId={project.id} clusters={[]} unassignedCount={unassignedCount} />
-      )}
-
-      <div className="space-y-3">
-        {(households ?? []).map((h) => (
-          <HouseholdCard
-            key={h.id}
-            dict={dict}
-            household={h}
-            guests={guestsByHousehold.get(h.id) ?? []}
-            clusters={clusterOptions}
-            tiers={tiers}
-            existingGroups={existingGroups}
-          />
-        ))}
-        {(households?.length ?? 0) === 0 && <p className="text-sm text-muted-foreground">{d.empty}</p>}
-      </div>
+      <GuestsTabs
+        dict={dict}
+        projectId={project.id}
+        households={households ?? []}
+        guests={guests ?? []}
+        tiers={tiers}
+        clusters={clusterOptions}
+        clustersWithCounts={clustersWithCounts}
+        unassignedCount={unassignedCount}
+        existingGroups={existingGroups}
+      />
     </div>
   )
 }

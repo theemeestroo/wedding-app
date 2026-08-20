@@ -10,16 +10,21 @@ import { AccommodationRoomsManager, type AccommodationRoom } from './accommodati
 
 type Confidence = 'guess' | 'researched' | 'confirmed' | 'contracted'
 export type AccommodationType = 'venue_block' | 'hotel' | 'villa' | 'other'
+export type PricingMode = 'block' | 'per_room'
 
 export interface Accommodation {
   id: string
   name: string
   type: AccommodationType
   confidence: Confidence
+  pricing_mode: PricingMode
+  block_nightly_rate: number | null
+  block_currency: string | null
 }
 
 const TYPES: AccommodationType[] = ['venue_block', 'hotel', 'villa', 'other']
 const CONFIDENCES: Confidence[] = ['guess', 'researched', 'confirmed', 'contracted']
+const PRICING_MODES: PricingMode[] = ['per_room', 'block']
 
 export function VenueAccommodationTab({
   dict,
@@ -39,6 +44,9 @@ export function VenueAccommodationTab({
   const [name, setName] = useState('')
   const [type, setType] = useState<AccommodationType>('hotel')
   const [confidence, setConfidence] = useState<Confidence>('guess')
+  const [pricingMode, setPricingMode] = useState<PricingMode>('per_room')
+  const [blockRate, setBlockRate] = useState('')
+  const [blockCurrency, setBlockCurrency] = useState('')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
@@ -46,6 +54,7 @@ export function VenueAccommodationTab({
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault()
     if (!name.trim()) return
+    if (pricingMode === 'block' && !blockRate) return
     setSaving(true)
     setError(null)
 
@@ -54,6 +63,9 @@ export function VenueAccommodationTab({
       name,
       type,
       confidence,
+      pricing_mode: pricingMode,
+      block_nightly_rate: pricingMode === 'block' ? Number(blockRate) : null,
+      block_currency: pricingMode === 'block' ? blockCurrency || null : null,
     })
 
     setSaving(false)
@@ -62,6 +74,9 @@ export function VenueAccommodationTab({
     } else {
       setName('')
       setConfidence('guess')
+      setPricingMode('per_room')
+      setBlockRate('')
+      setBlockCurrency('')
       router.refresh()
     }
   }
@@ -93,7 +108,11 @@ export function VenueAccommodationTab({
                   <p className="truncate text-xs text-muted-foreground">
                     {d.typeLabels[a.type]}
                     {' · '}
-                    {interpolate(d.rooms.roomCount, { count: accommodationRooms.length })}
+                    {a.pricing_mode === 'block' && a.block_nightly_rate != null
+                      ? interpolate(d.blockPriceSummary, {
+                          rate: `${a.block_nightly_rate}${a.block_currency ? ` ${a.block_currency}` : ''}`,
+                        })
+                      : interpolate(d.rooms.roomCount, { count: accommodationRooms.length })}
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
@@ -111,7 +130,7 @@ export function VenueAccommodationTab({
               </div>
               {isExpanded && (
                 <div className="border-t bg-muted/20 p-4">
-                  <AccommodationRoomsManager dict={dict} accommodationId={a.id} rooms={accommodationRooms} />
+                  <AccommodationRoomsManager dict={dict} accommodationId={a.id} rooms={accommodationRooms} pricingMode={a.pricing_mode} />
                 </div>
               )}
             </li>
@@ -149,6 +168,37 @@ export function VenueAccommodationTab({
             <option key={c} value={c}>{d.confidenceLabels[c]}</option>
           ))}
         </select>
+        <select
+          value={pricingMode}
+          onChange={(e) => setPricingMode(e.target.value as PricingMode)}
+          className="rounded-lg border bg-background px-2 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
+        >
+          {PRICING_MODES.map((m) => (
+            <option key={m} value={m}>{d.pricingModeOptions[m]}</option>
+          ))}
+        </select>
+        {pricingMode === 'block' && (
+          <div className="grid grid-cols-2 gap-2">
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              required
+              value={blockRate}
+              onChange={(e) => setBlockRate(e.target.value)}
+              placeholder={d.blockNightlyRatePlaceholder}
+              className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
+            />
+            <input
+              type="text"
+              value={blockCurrency}
+              onChange={(e) => setBlockCurrency(e.target.value.toUpperCase())}
+              placeholder={d.rooms.currencyPlaceholder}
+              maxLength={3}
+              className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
+            />
+          </div>
+        )}
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         <button
           type="submit"

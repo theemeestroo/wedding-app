@@ -67,6 +67,9 @@ export interface DecisionRow {
 export interface AccommodationRow {
   id: string
   name: string
+  pricing_mode: 'block' | 'per_room'
+  block_nightly_rate: number | null
+  block_currency: string | null
 }
 
 export interface RoomRow {
@@ -76,7 +79,7 @@ export interface RoomRow {
   room_type: string | null
   capacity_adults: number
   capacity_children: number
-  nightly_rate: number
+  nightly_rate: number | null
   currency: string | null
 }
 

@@ -54,7 +54,7 @@ export default async function OptionDetailPage({
     supabase.from('origin_clusters').select('id, label, centroid_lat, centroid_lng').eq('project_id', project.id),
     supabase.from('ratings').select('id, profile_id, rating, note').eq('option_id', id),
     supabase.from('decisions').select('option_id, rationale, decided_at').eq('project_id', project.id).maybeSingle(),
-    supabase.from('accommodations').select('id, name').eq('venue_id', option.venue_id),
+    supabase.from('accommodations').select('id, name, pricing_mode, block_nightly_rate, block_currency').eq('venue_id', option.venue_id),
     supabase
       .from('arrival_profiles')
       .select('id, household_id, arrival_date, arrival_window, departure_date, departure_window, visa_notes')

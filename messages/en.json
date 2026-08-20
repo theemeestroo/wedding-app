@@ -257,6 +257,13 @@
       "addAccommodation": "Add accommodation",
       "manageRooms": "Manage rooms",
       "hideRooms": "Hide rooms",
+      "pricingModeLabel": "Pricing",
+      "pricingModeOptions": {
+        "per_room": "Per room — each room priced separately",
+        "block": "Whole block — one nightly rate for exclusive use"
+      },
+      "blockNightlyRatePlaceholder": "Nightly rate for the whole block",
+      "blockPriceSummary": "{{rate}} / night for exclusive use",
       "typeLabels": {
         "venue_block": "Venue block",
         "hotel": "Hotel",
@@ -272,11 +279,13 @@
       "rooms": {
         "empty": "No rooms added yet.",
         "roomCount": "{{count}} room(s)",
+        "blockModeNote": "This accommodation is priced as one block — room rates below are optional, used only to label who's staying where.",
         "labelPlaceholder": "e.g. Garden Room",
         "roomTypePlaceholder": "e.g. Double, Twin, Suite",
         "capacityAdultsPlaceholder": "Adults",
         "capacityChildrenPlaceholder": "Children",
         "nightlyRatePlaceholder": "Nightly rate",
+        "nightlyRateOptionalPlaceholder": "Nightly rate (optional)",
         "currencyPlaceholder": "EUR",
         "quantityLabel": "Number of rooms to add",
         "addRooms": "Add rooms",
@@ -373,12 +382,61 @@
     "tierLabel": "Tier",
     "tierLegend": "Tiers: {{list}}",
     "manageTiersLink": "Manage tiers",
+    "tabs": {
+      "overview": "Overview",
+      "households": "Households",
+      "list": "Guest list",
+      "origins": "Origins"
+    },
+    "overview": {
+      "totalGuests": "Guests",
+      "totalHouseholds": "Households",
+      "adults": "Adults",
+      "children": "Children",
+      "attending": "Attending",
+      "byTier": "By tier",
+      "byGroup": "By group",
+      "byStatus": "By RSVP status",
+      "ungrouped": "Ungrouped",
+      "noTiers": "No tiers defined yet.",
+      "noGroups": "No groups yet."
+    },
+    "rsvp": {
+      "not_invited": "Not invited",
+      "invited": "Invited",
+      "attending": "Attending",
+      "declined": "Declined",
+      "statusLabel": "RSVP",
+      "markAllAttending": "Mark all attending"
+    },
+    "list": {
+      "searchPlaceholder": "Search guests or households…",
+      "filterTier": "All tiers",
+      "filterGroup": "All groups",
+      "filterStatus": "All statuses",
+      "clearFilters": "Clear filters",
+      "columnName": "Name",
+      "columnHousehold": "Household",
+      "columnTier": "Tier",
+      "columnGroup": "Group",
+      "columnChild": "Child",
+      "columnStatus": "RSVP",
+      "columnOrigin": "Origin",
+      "empty": "No guests match these filters."
+    },
+    "households": {
+      "groupByTier": "Group by tier",
+      "groupByGroup": "Group by group",
+      "groupByNone": "No grouping"
+    },
     "notice": {
       "text": "You're adding contact details for people who haven't been asked to consent themselves — this is handled under legitimate interest for wedding planning purposes, and permanently deleted if you delete this project.",
       "learnMore": "Learn more"
     },
     "addHousehold": {
       "heading": "Add a household",
+      "nameLabel": "Household name",
+      "namePlaceholder": "e.g. John & Jane Smith",
       "firstNamePlaceholder": "First name",
       "lastNamePlaceholder": "Last name",
       "isChildLabel": "Child",
@@ -397,7 +455,10 @@
       "unassignedCluster": "Unassigned",
       "cancelEdit": "Cancel",
       "editHousehold": "Edit",
-      "deleteHousehold": "Delete household"
+      "deleteHousehold": "Delete household",
+      "nameLabel": "Household name",
+      "duplicateNameWarning": "Another household already has this name — consider making it more specific.",
+      "markAllAttending": "Mark all attending"
     },
     "origins": {
       "heading": "Origin clusters",
@@ -487,7 +548,7 @@
     "title": "Privacy notice",
     "intro": "This page explains how The Wedding Lab handles guest data — the people you're inviting, not just the account holders.",
     "whatHeading": "What we store",
-    "whatBody": "Names, home city and country, and whether a guest is a child, for anyone you add as a guest or household member — collected so the app can show travel distance, group sizes and venue costs across your guest list.",
+    "whatBody": "Names, home city and country, whether a guest is a child, and an RSVP status if you record one, for anyone you add as a guest or household member — collected so the app can show travel distance, group sizes and venue costs across your guest list.",
     "whyHeading": "Why this is allowed without asking each guest",
     "whyBody": "Guests don't create accounts or consent individually. We rely on legitimate interest: you're planning a wedding, this data is necessary for that, and it's used only inside your project — never sold, shared with venues automatically, or used for anything else.",
     "deletionHeading": "Deletion",

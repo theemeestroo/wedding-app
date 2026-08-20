@@ -257,6 +257,13 @@
       "addAccommodation": "Unterkunft hinzufügen",
       "manageRooms": "Zimmer verwalten",
       "hideRooms": "Zimmer ausblenden",
+      "pricingModeLabel": "Preismodell",
+      "pricingModeOptions": {
+        "per_room": "Pro Zimmer — jedes Zimmer einzeln bepreist",
+        "block": "Gesamtes Kontingent — ein Preis pro Nacht für Alleinnutzung"
+      },
+      "blockNightlyRatePlaceholder": "Preis pro Nacht für das gesamte Kontingent",
+      "blockPriceSummary": "{{rate}} / Nacht für Alleinnutzung",
       "typeLabels": {
         "venue_block": "Zimmerkontingent der Location",
         "hotel": "Hotel",
@@ -272,11 +279,13 @@
       "rooms": {
         "empty": "Noch keine Zimmer hinzugefügt.",
         "roomCount": "{{count}} Zimmer",
+        "blockModeNote": "Diese Unterkunft wird als Gesamtkontingent bepreist — die Zimmerpreise unten sind optional und dienen nur dazu, zu kennzeichnen, wer wo übernachtet.",
         "labelPlaceholder": "z. B. Gartenzimmer",
         "roomTypePlaceholder": "z. B. Doppelzimmer, Zweibettzimmer, Suite",
         "capacityAdultsPlaceholder": "Erwachsene",
         "capacityChildrenPlaceholder": "Kinder",
         "nightlyRatePlaceholder": "Preis pro Nacht",
+        "nightlyRateOptionalPlaceholder": "Preis pro Nacht (optional)",
         "currencyPlaceholder": "EUR",
         "quantityLabel": "Anzahl der hinzuzufügenden Zimmer",
         "addRooms": "Zimmer hinzufügen",
@@ -373,12 +382,61 @@
     "tierLabel": "Stufe",
     "tierLegend": "Stufen: {{list}}",
     "manageTiersLink": "Stufen verwalten",
+    "tabs": {
+      "overview": "Übersicht",
+      "households": "Haushalte",
+      "list": "Gästeliste",
+      "origins": "Herkunft"
+    },
+    "overview": {
+      "totalGuests": "Gäste",
+      "totalHouseholds": "Haushalte",
+      "adults": "Erwachsene",
+      "children": "Kinder",
+      "attending": "Zusagen",
+      "byTier": "Nach Stufe",
+      "byGroup": "Nach Gruppe",
+      "byStatus": "Nach RSVP-Status",
+      "ungrouped": "Ohne Gruppe",
+      "noTiers": "Noch keine Stufen definiert.",
+      "noGroups": "Noch keine Gruppen."
+    },
+    "rsvp": {
+      "not_invited": "Nicht eingeladen",
+      "invited": "Eingeladen",
+      "attending": "Zugesagt",
+      "declined": "Abgesagt",
+      "statusLabel": "RSVP",
+      "markAllAttending": "Alle als zugesagt markieren"
+    },
+    "list": {
+      "searchPlaceholder": "Gäste oder Haushalte suchen…",
+      "filterTier": "Alle Stufen",
+      "filterGroup": "Alle Gruppen",
+      "filterStatus": "Alle Status",
+      "clearFilters": "Filter zurücksetzen",
+      "columnName": "Name",
+      "columnHousehold": "Haushalt",
+      "columnTier": "Stufe",
+      "columnGroup": "Gruppe",
+      "columnChild": "Kind",
+      "columnStatus": "RSVP",
+      "columnOrigin": "Herkunft",
+      "empty": "Keine Gäste entsprechen diesen Filtern."
+    },
+    "households": {
+      "groupByTier": "Nach Stufe gruppieren",
+      "groupByGroup": "Nach Gruppe gruppieren",
+      "groupByNone": "Keine Gruppierung"
+    },
     "notice": {
       "text": "Sie erfassen Kontaktdaten von Personen, die nicht selbst um Zustimmung gebeten wurden — dies erfolgt auf Basis eines berechtigten Interesses für die Hochzeitsplanung und wird bei Löschung dieses Projekts dauerhaft entfernt.",
       "learnMore": "Mehr erfahren"
     },
     "addHousehold": {
       "heading": "Haushalt hinzufügen",
+      "nameLabel": "Haushaltsname",
+      "namePlaceholder": "z. B. John & Jane Smith",
       "firstNamePlaceholder": "Vorname",
       "lastNamePlaceholder": "Nachname",
       "isChildLabel": "Kind",
@@ -397,7 +455,10 @@
       "unassignedCluster": "Nicht zugewiesen",
       "cancelEdit": "Abbrechen",
       "editHousehold": "Bearbeiten",
-      "deleteHousehold": "Haushalt löschen"
+      "deleteHousehold": "Haushalt löschen",
+      "nameLabel": "Haushaltsname",
+      "duplicateNameWarning": "Ein anderer Haushalt trägt bereits diesen Namen — machen Sie ihn eindeutiger.",
+      "markAllAttending": "Alle als zugesagt markieren"
     },
     "origins": {
       "heading": "Herkunftscluster",
@@ -487,7 +548,7 @@
     "title": "Datenschutzhinweis",
     "intro": "Diese Seite erklärt, wie The Wedding Lab mit Gästedaten umgeht — also den Personen, die Sie einladen, nicht nur den Kontoinhabern.",
     "whatHeading": "Was wir speichern",
-    "whatBody": "Namen, Wohnort und -land sowie ob ein Gast ein Kind ist, für jeden, den Sie als Gast oder Haushaltsmitglied hinzufügen — erfasst, damit die App Reisedistanzen, Gruppengrößen und Location-Kosten über Ihre gesamte Gästeliste anzeigen kann.",
+    "whatBody": "Namen, Wohnort und -land, ob ein Gast ein Kind ist, sowie ein RSVP-Status, falls Sie einen erfassen, für jeden, den Sie als Gast oder Haushaltsmitglied hinzufügen — erfasst, damit die App Reisedistanzen, Gruppengrößen und Location-Kosten über Ihre gesamte Gästeliste anzeigen kann.",
     "whyHeading": "Warum dies ohne individuelle Zustimmung jedes Gastes zulässig ist",
     "whyBody": "Gäste erstellen keine Konten und stimmen nicht einzeln zu. Wir stützen uns auf berechtigtes Interesse: Sie planen eine Hochzeit, diese Daten sind dafür notwendig und werden ausschließlich innerhalb Ihres Projekts verwendet — niemals verkauft, automatisch an Locations weitergegeben oder anderweitig genutzt.",
     "deletionHeading": "Löschung",

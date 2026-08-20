@@ -16,10 +16,25 @@ export type ArrivalWindow = 'morning' | 'afternoon' | 'evening' | 'night'
 
 // A room, not the property it belongs to — nightly_rate lives here since
 // Phase 7b moved capacity/rate from the accommodation down to each room.
+// accommodationId is needed (Phase 7c) to look up the parent's pricingMode:
+// a room under a block-priced accommodation is a labelling/allocation unit
+// only, and its own nightlyRate (if any) is ignored for cost purposes.
 export interface RoomInput {
   id: string
+  accommodationId: string
   nightlyRate: number | null
   currency: string | null
+}
+
+// The property record. Phase 7c: pricingMode decides whether cost is read
+// off each room (unchanged Phase 7b behaviour) or off blockNightlyRate here
+// — one rate for exclusive use of the whole property, e.g. Ca' Salva's real
+// "EUR2,000/night, all 21 beds" proposal, which was never priced per room.
+export interface AccommodationInput {
+  id: string
+  pricingMode: 'block' | 'per_room'
+  blockNightlyRate: number | null
+  blockCurrency: string | null
 }
 
 export interface ArrivalProfileInput {
@@ -59,8 +74,12 @@ function resolveNights(profile: ArrivalProfileInput | undefined): {
   return { nights: 2, isDefaulted: true }
 }
 
+// Exactly one of roomId/accommodationId is set, matching which pricing path
+// produced the row — a per-room row prices one allocation, a block row
+// prices the whole property once regardless of how many allocations it has.
 export interface AccommodationCostBreakdownRow {
-  roomId: string
+  roomId: string | null
+  accommodationId: string | null
   nights: number
   amount: number
   currency: string | null
@@ -75,11 +94,13 @@ export interface AccommodationCostResult {
 }
 
 export function computeAccommodationCost(
+  accommodations: AccommodationInput[],
   allocations: AllocationInput[],
   arrivalProfiles: ArrivalProfileInput[],
   rooms: RoomInput[],
 ): AccommodationCostResult {
   const roomById = new Map(rooms.map((r) => [r.id, r]))
+  const accommodationById = new Map(accommodations.map((a) => [a.id, a]))
   const profileByHousehold = new Map(arrivalProfiles.map((p) => [p.householdId, p]))
 
   const breakdown: AccommodationCostBreakdownRow[] = []
@@ -87,9 +108,24 @@ export function computeAccommodationCost(
   let defaultedHouseholdCount = 0
   const currencies = new Set<string>()
 
+  // Block-priced allocations are set aside and priced once per accommodation
+  // below, not per allocation — the property costs the same whether one
+  // guest or twenty are staying in it.
+  const blockGroups = new Map<string, AllocationInput[]>()
+
   for (const allocation of allocations) {
     const room = roomById.get(allocation.roomId)
-    if (!room || room.nightlyRate == null) continue
+    if (!room) continue
+    const accommodation = accommodationById.get(room.accommodationId)
+
+    if (accommodation?.pricingMode === 'block') {
+      const list = blockGroups.get(accommodation.id) ?? []
+      list.push(allocation)
+      blockGroups.set(accommodation.id, list)
+      continue
+    }
+
+    if (room.nightlyRate == null) continue
 
     const { nights, isDefaulted } = resolveNights(profileByHousehold.get(allocation.householdId))
     if (isDefaulted) defaultedHouseholdCount += 1
@@ -100,15 +136,56 @@ export function computeAccommodationCost(
 
     breakdown.push({
       roomId: allocation.roomId,
+      accommodationId: null,
       nights,
       amount,
       currency: room.currency,
     })
   }
 
+  // One row per block-priced accommodation, using the span from the
+  // earliest arrival to the latest departure among everyone allocated to
+  // it — the property is booked for as long as its longest-staying guest
+  // needs it, same "arrive the day before, leave the day after" 2-night
+  // default as the per-room path when no one has a profile set yet.
+  for (const [accommodationId, groupAllocations] of blockGroups) {
+    const accommodation = accommodationById.get(accommodationId)
+    if (!accommodation || accommodation.blockNightlyRate == null) continue
+
+    const datedProfiles = groupAllocations
+      .map((a) => profileByHousehold.get(a.householdId))
+      .filter((p): p is ArrivalProfileInput => Boolean(p?.arrivalDate && p?.departureDate))
+
+    const nights =
+      datedProfiles.length > 0
+        ? Math.max(
+            0,
+            Math.round(
+              (Math.max(...datedProfiles.map((p) => new Date(p.departureDate!).getTime())) -
+                Math.min(...datedProfiles.map((p) => new Date(p.arrivalDate!).getTime()))) /
+                (1000 * 60 * 60 * 24),
+            ),
+          )
+        : 2
+
+    defaultedHouseholdCount += groupAllocations.length - datedProfiles.length
+
+    const amount = accommodation.blockNightlyRate * nights
+    total += amount
+    if (accommodation.blockCurrency) currencies.add(accommodation.blockCurrency)
+
+    breakdown.push({
+      roomId: null,
+      accommodationId,
+      nights,
+      amount,
+      currency: accommodation.blockCurrency,
+    })
+  }
+
   return {
     total,
-    currency: rooms.find((r) => r.currency)?.currency ?? null,
+    currency: rooms.find((r) => r.currency)?.currency ?? accommodations.find((a) => a.blockCurrency)?.blockCurrency ?? null,
     mixedCurrency: currencies.size > 1,
     breakdown,
     defaultedHouseholdCount,

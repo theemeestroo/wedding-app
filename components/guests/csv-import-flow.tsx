@@ -132,7 +132,11 @@ export function CsvImportFlow({
       } else {
         grouped.set(key, {
           key,
-          name: householdName || (lastName ? `${lastName} household` : firstName),
+          // Left empty when no explicit household-name column is mapped —
+          // finalized below once every row in the group is known, so the
+          // default can list every member's first name rather than just
+          // whoever's row happened to create the group.
+          name: householdName,
           city,
           country,
           tierId: matchTierId(tierCell, tiers),
@@ -140,6 +144,16 @@ export function CsvImportFlow({
           members: [{ firstName, lastName, isChild }],
         })
       }
+    }
+
+    // Finalize default names now that every group's full member list is
+    // known — "John & Jane Smith" instead of the collision-prone generic
+    // "Smith household" every same-surname group used to get.
+    for (const h of grouped.values()) {
+      if (h.name) continue
+      const lastName = h.members.find((m) => m.lastName)?.lastName ?? ''
+      const firstNames = h.members.map((m) => m.firstName).filter(Boolean)
+      h.name = lastName ? `${firstNames.join(' & ')} ${lastName}` : (firstNames[0] ?? '')
     }
 
     setHouseholds(Array.from(grouped.values()))

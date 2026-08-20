@@ -12,6 +12,7 @@ import {
   type AllocationInput,
   type ArrivalProfileInput,
   type RoomInput,
+  type AccommodationInput,
 } from '@/lib/accommodation-engine'
 import type { HouseholdClusterInput } from '@/lib/journey-engine'
 import type { Dictionary } from '@/lib/i18n'
@@ -112,11 +113,18 @@ export function OptionAccommodationTab({
     }))
     const roomInputs: RoomInput[] = rooms.map((r) => ({
       id: r.id,
+      accommodationId: r.accommodation_id,
       nightlyRate: r.nightly_rate,
       currency: r.currency,
     }))
+    const accommodationInputs: AccommodationInput[] = accommodations.map((a) => ({
+      id: a.id,
+      pricingMode: a.pricing_mode,
+      blockNightlyRate: a.block_nightly_rate,
+      blockCurrency: a.block_currency,
+    }))
 
-    const accommodationResult = computeAccommodationCost(allocationInputs, arrivalProfileInputs, roomInputs)
+    const accommodationResult = computeAccommodationCost(accommodationInputs, allocationInputs, arrivalProfileInputs, roomInputs)
     const transferResult = computeTransferEstimate(householdClusters, arrivalProfileInputs)
 
     await supabase.from('cost_rules').delete().eq('option_id', optionId).eq('label', d.accommodationCostLabel)

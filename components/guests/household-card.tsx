@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import type { Dictionary } from '@/lib/i18n'
+import { RsvpStatusControl, type RsvpStatus } from '@/components/guests/rsvp-status-control'
 
 // Graduated visual weight by tier position — the first-defined tier reads
 // heaviest, the last lightest — so the list telegraphs priority at a glance,
@@ -26,6 +27,7 @@ export interface HouseholdGuest {
   first_name: string
   last_name: string | null
   is_child: boolean
+  rsvp_status: RsvpStatus
 }
 
 export interface Household {
@@ -56,6 +58,7 @@ export function HouseholdCard({
   clusters,
   tiers,
   existingGroups,
+  isDuplicateName = false,
 }: {
   dict: Dictionary
   household: Household
@@ -63,12 +66,14 @@ export function HouseholdCard({
   clusters: ClusterOption[]
   tiers: TierOption[]
   existingGroups: string[]
+  isDuplicateName?: boolean
 }) {
   const router = useRouter()
   const d = dict.guests.household
   const supabase = createClient()
 
   const [editing, setEditing] = useState(false)
+  const [name, setName] = useState(household.name)
   const [city, setCity] = useState(household.home_city ?? '')
   const [country, setCountry] = useState(household.home_country ?? '')
   const [tierId, setTierId] = useState(household.tier_id ?? '')
@@ -103,6 +108,7 @@ export function HouseholdCard({
     await supabase
       .from('households')
       .update({
+        name: name.trim() || household.name,
         home_city: city || null,
         home_country: country || null,
         tier_id: tierId || null,
@@ -144,6 +150,16 @@ export function HouseholdCard({
     router.refresh()
   }
 
+  async function handleRsvpChange(guestId: string, status: RsvpStatus) {
+    await supabase.from('guests').update({ rsvp_status: status }).eq('id', guestId)
+    router.refresh()
+  }
+
+  async function handleMarkAllAttending() {
+    await supabase.from('guests').update({ rsvp_status: 'attending' }).eq('household_id', household.id)
+    router.refresh()
+  }
+
   async function handleDeleteHousehold() {
     if (!confirm(d.confirmDelete)) return
     await supabase.from('households').delete().eq('id', household.id)
@@ -159,6 +175,15 @@ export function HouseholdCard({
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="font-heading text-lg italic tracking-tight">{household.name}</h3>
+              {isDuplicateName && (
+                <span
+                  title={d.duplicateNameWarning}
+                  className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold/20 text-[10px] font-bold text-gold"
+                  aria-label={d.duplicateNameWarning}
+                >
+                  !
+                </span>
+              )}
               {tier && (
                 <span
                   className={`shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide ${tierBadgeStyle(tier.sortOrder, tiers.length)}`}
@@ -181,7 +206,7 @@ export function HouseholdCard({
 
       <ul className="mt-4 divide-y divide-border/60 border-t border-border/60">
         {guests.map((g) => (
-          <li key={g.id} className="flex items-center justify-between py-2 text-sm">
+          <li key={g.id} className="flex items-center justify-between gap-3 py-2 text-sm">
             <span>
               {g.first_name} {g.last_name}
               {g.is_child && (
@@ -190,12 +215,24 @@ export function HouseholdCard({
                 </span>
               )}
             </span>
-            <button onClick={() => handleDeleteGuest(g.id)} className="text-xs text-muted-foreground hover:text-destructive">
-              {dict.common.delete}
-            </button>
+            <div className="flex shrink-0 items-center gap-3">
+              <RsvpStatusControl dict={dict} status={g.rsvp_status} onChange={(status) => handleRsvpChange(g.id, status)} />
+              <button onClick={() => handleDeleteGuest(g.id)} className="text-xs text-muted-foreground hover:text-destructive">
+                {dict.common.delete}
+              </button>
+            </div>
           </li>
         ))}
       </ul>
+
+      {guests.length > 1 && (
+        <button
+          onClick={handleMarkAllAttending}
+          className="mt-2 text-xs text-muted-foreground underline-offset-4 hover:text-primary hover:underline"
+        >
+          {d.markAllAttending}
+        </button>
+      )}
 
       <form onSubmit={handleAddGuest} className="mt-3 flex flex-wrap items-center gap-2">
         <input
@@ -250,6 +287,18 @@ export function HouseholdCard({
 
       {editing && (
         <form onSubmit={handleSaveEdit} className="mt-3 space-y-2 rounded-xl border bg-muted/30 p-3">
+          <div>
+            <label htmlFor={`household-name-${household.id}`} className="mb-1 block text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+              {d.nameLabel}
+            </label>
+            <input
+              id={`household-name-${household.id}`}
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-lg border bg-background px-2.5 py-1.5 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
+            />
+          </div>
           <div className="grid grid-cols-2 gap-2">
             <input
               type="text"

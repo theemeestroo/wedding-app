@@ -36,7 +36,7 @@ export default async function VenueDetailPage({
     supabase.from('venue_sources').select('id, url, platform, title, image_url, description, price_shown').eq('venue_id', id).order('created_at', { ascending: false }),
     supabase.from('venue_facts').select('id, fact_key, fact_value, confidence').eq('venue_id', id).order('created_at', { ascending: false }),
     supabase.from('venue_contacts').select('id, name, email, phone, role').eq('venue_id', id),
-    supabase.from('accommodations').select('id, name, type, confidence').eq('venue_id', id).order('created_at', { ascending: false }),
+    supabase.from('accommodations').select('id, name, type, confidence, pricing_mode, block_nightly_rate, block_currency').eq('venue_id', id).order('created_at', { ascending: false }),
     supabase.from('venue_documents').select('id, storage_path, filename, created_at').eq('venue_id', id).order('created_at', { ascending: false }),
     // Every venue has exactly one enquiry (Phase 2 trigger) — safe to assume it exists.
     supabase.from('enquiries').select('id, status, follow_up_date').eq('venue_id', id).single(),

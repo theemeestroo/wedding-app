@@ -12,7 +12,7 @@ export interface AccommodationRoom {
   room_type: string | null
   capacity_adults: number
   capacity_children: number
-  nightly_rate: number
+  nightly_rate: number | null
   currency: string | null
 }
 
@@ -20,10 +20,12 @@ export function AccommodationRoomsManager({
   dict,
   accommodationId,
   rooms,
+  pricingMode,
 }: {
   dict: Dictionary
   accommodationId: string
   rooms: AccommodationRoom[]
+  pricingMode: 'block' | 'per_room'
 }) {
   const router = useRouter()
   const d = dict.venues.accommodation.rooms
@@ -41,7 +43,8 @@ export function AccommodationRoomsManager({
 
   async function handleAddRooms(e: React.FormEvent) {
     e.preventDefault()
-    if (!label.trim() || !nightlyRate) return
+    if (!label.trim()) return
+    if (pricingMode === 'per_room' && !nightlyRate) return
     setSaving(true)
     setError(null)
 
@@ -52,7 +55,7 @@ export function AccommodationRoomsManager({
       room_type: roomType || null,
       capacity_adults: Number(capacityAdults) || 0,
       capacity_children: Number(capacityChildren) || 0,
-      nightly_rate: Number(nightlyRate),
+      nightly_rate: nightlyRate ? Number(nightlyRate) : null,
       currency: currency || null,
     }))
 
@@ -82,6 +85,11 @@ export function AccommodationRoomsManager({
 
   return (
     <div className="space-y-4">
+      {pricingMode === 'block' && (
+        <p className="rounded-lg border border-dashed bg-muted/30 px-3 py-2 text-xs text-muted-foreground">
+          {d.blockModeNote}
+        </p>
+      )}
       {rooms.length === 0 ? (
         <p className="text-sm text-muted-foreground">{d.empty}</p>
       ) : (
@@ -140,8 +148,9 @@ export function AccommodationRoomsManager({
                         type="number"
                         min={0}
                         step="0.01"
-                        defaultValue={room.nightly_rate}
-                        onBlur={(e) => handleUpdateRoom(room.id, { nightly_rate: Number(e.target.value) || 0 })}
+                        defaultValue={room.nightly_rate ?? ''}
+                        placeholder={pricingMode === 'block' ? d.nightlyRateOptionalPlaceholder : undefined}
+                        onBlur={(e) => handleUpdateRoom(room.id, { nightly_rate: e.target.value ? Number(e.target.value) : null })}
                         className="w-20 rounded-lg border bg-background px-2 py-1 text-xs outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
                       />
                       <span className="text-xs text-muted-foreground">{room.currency}</span>
@@ -198,10 +207,10 @@ export function AccommodationRoomsManager({
             type="number"
             min="0"
             step="0.01"
-            required
+            required={pricingMode === 'per_room'}
             value={nightlyRate}
             onChange={(e) => setNightlyRate(e.target.value)}
-            placeholder={d.nightlyRatePlaceholder}
+            placeholder={pricingMode === 'block' ? d.nightlyRateOptionalPlaceholder : d.nightlyRatePlaceholder}
             className="rounded-lg border bg-background px-2.5 py-1.5 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-gold/40"
           />
           <input

@@ -9,8 +9,33 @@ import type { Dictionary } from '@/lib/i18n'
 export interface OriginCluster {
   id: string
   label: string
+  homeCountry: string
   householdCount: number
   guestCount: number
+}
+
+interface CountryGroup {
+  country: string
+  householdCount: number
+  guestCount: number
+  clusters: OriginCluster[]
+}
+
+function groupByCountry(clusters: OriginCluster[]): CountryGroup[] {
+  const byCountry = new Map<string, OriginCluster[]>()
+  for (const c of clusters) {
+    const list = byCountry.get(c.homeCountry) ?? []
+    list.push(c)
+    byCountry.set(c.homeCountry, list)
+  }
+  return Array.from(byCountry.entries())
+    .map(([country, list]) => ({
+      country,
+      householdCount: list.reduce((sum, c) => sum + c.householdCount, 0),
+      guestCount: list.reduce((sum, c) => sum + c.guestCount, 0),
+      clusters: [...list].sort((a, b) => b.guestCount - a.guestCount),
+    }))
+    .sort((a, b) => b.guestCount - a.guestCount)
 }
 
 export function OriginClusterPanel({
@@ -66,36 +91,48 @@ export function OriginClusterPanel({
         </p>
       )}
 
-      <ul className="space-y-2">
-        {clusters.map((c) => (
-          <li key={c.id} className="flex items-center justify-between gap-2 text-sm">
-            {editingId === c.id ? (
-              <input
-                autoFocus
-                value={labelDraft}
-                onChange={(e) => setLabelDraft(e.target.value)}
-                onBlur={() => handleRename(c.id)}
-                onKeyDown={(e) => e.key === 'Enter' && handleRename(c.id)}
-                className="rounded-lg border bg-background px-2 py-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
-              />
-            ) : (
-              <button
-                onClick={() => {
-                  setEditingId(c.id)
-                  setLabelDraft(c.label)
-                }}
-                className="text-left underline-offset-4 hover:underline"
-              >
-                {c.label}
-              </button>
-            )}
-            <span className="shrink-0 text-xs text-muted-foreground">
-              {interpolate(d.countSummary, { households: c.householdCount, guests: c.guestCount })}
-            </span>
-          </li>
+      <div className="space-y-5">
+        {groupByCountry(clusters).map((group) => (
+          <div key={group.country}>
+            <div className="mb-1.5 flex items-baseline justify-between gap-2 border-b border-gold/20 pb-1">
+              <h3 className="text-sm font-semibold tracking-tight">{group.country}</h3>
+              <span className="shrink-0 text-xs font-medium text-muted-foreground">
+                {interpolate(d.countSummary, { households: group.householdCount, guests: group.guestCount })}
+              </span>
+            </div>
+            <ul className="space-y-2">
+              {group.clusters.map((c) => (
+                <li key={c.id} className="flex items-center justify-between gap-2 pl-3 text-sm">
+                  {editingId === c.id ? (
+                    <input
+                      autoFocus
+                      value={labelDraft}
+                      onChange={(e) => setLabelDraft(e.target.value)}
+                      onBlur={() => handleRename(c.id)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleRename(c.id)}
+                      className="rounded-lg border bg-background px-2 py-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
+                    />
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setEditingId(c.id)
+                        setLabelDraft(c.label)
+                      }}
+                      className="text-left underline-offset-4 hover:underline"
+                    >
+                      {c.label}
+                    </button>
+                  )}
+                  <span className="shrink-0 text-xs text-muted-foreground">
+                    {interpolate(d.countSummary, { households: c.householdCount, guests: c.guestCount })}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
         {clusters.length === 0 && <p className="text-sm text-muted-foreground">{d.empty}</p>}
-      </ul>
+      </div>
     </div>
   )
 }

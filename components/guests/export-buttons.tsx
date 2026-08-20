@@ -11,6 +11,7 @@ export interface ExportRow {
   country: string
   tier: string
   group: string
+  rsvpStatus: string
 }
 
 function download(filename: string, content: string, mimeType: string) {
@@ -24,12 +25,12 @@ function download(filename: string, content: string, mimeType: string) {
 }
 
 function toCSV(rows: ExportRow[]): string {
-  const headers = ['household', 'firstName', 'lastName', 'isChild', 'city', 'country', 'tier', 'group']
+  const headers = ['household', 'firstName', 'lastName', 'isChild', 'city', 'country', 'tier', 'group', 'rsvpStatus']
   const escape = (v: string) => (/[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v)
   const lines = [headers.join(',')]
   for (const r of rows) {
     lines.push(
-      [r.household, r.firstName, r.lastName, String(r.isChild), r.city, r.country, r.tier, r.group]
+      [r.household, r.firstName, r.lastName, String(r.isChild), r.city, r.country, r.tier, r.group, r.rsvpStatus]
         .map(escape)
         .join(','),
     )
